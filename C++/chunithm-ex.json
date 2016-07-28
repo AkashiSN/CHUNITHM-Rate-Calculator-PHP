@@ -1,0 +1,121 @@
+[
+    {
+        "Images": "img/a62f975edc860e34.jpg", 
+        "MusicID": 52, 
+        "ex": 1, 
+        "楽曲名": "Cyberozar", 
+        "譜面定数": 11.10
+    }, 
+    {
+        "Images": "img/2ccf97477eaf45ad.jpg", 
+        "MusicID": 61, 
+        "ex": 1, 
+        "楽曲名": "GOLDEN RULE", 
+        "譜面定数": 11.00
+    }, 
+    {
+        "Images": "img/2df15f390356067f.jpg", 
+        "MusicID": 63, 
+        "ex": 1, 
+        "楽曲名": "Gate of Fate", 
+        "譜面定数": 11.70
+    }, 
+    {
+        "Images": "img/c2c4ece2034eb620.jpg", 
+        "MusicID": 69, 
+        "ex": 1, 
+        "楽曲名": "The wheel to the right", 
+        "譜面定数": 11.90
+    }, 
+    {
+        "Images": "img/93abb77776c70b47.jpg", 
+        "MusicID": 76, 
+        "ex": 1, 
+        "楽曲名": "luna blu", 
+        "譜面定数": 11.80
+    }, 
+    {
+        "Images": "img/19d57f9a7652308a.jpg", 
+        "MusicID": 90, 
+        "ex": 1, 
+        "楽曲名": "L'épisode", 
+        "譜面定数": 11.60
+    }, 
+    {
+        "Images": "img/3210d321c2700a57.jpg", 
+        "MusicID": 103, 
+        "ex": 1, 
+        "楽曲名": "エンドマークに希望と涙を添えて", 
+        "譜面定数": 11.70
+    }, 
+    {
+        "Images": "img/8219519cc94d5524.jpg", 
+        "MusicID": 106, 
+        "ex": 1, 
+        "楽曲名": "宛城、炎上！！", 
+        "譜面定数": 12.20
+    }, 
+    {
+        "Images": "img/08a24ed249ed2eec.jpg", 
+        "MusicID": 134, 
+        "ex": 1, 
+        "楽曲名": "HAELEQUIN (Original Remaster)", 
+        "譜面定数": 11.80
+    }, 
+    {
+        "Images": "img/2e6c11edba79d997.jpg", 
+        "MusicID": 141, 
+        "ex": 1, 
+        "楽曲名": "閃鋼のブリューナク", 
+        "譜面定数": 11.50
+    }, 
+    {
+        "Images": "img/f63fab30a7b6f160.jpg", 
+        "MusicID": 152, 
+        "ex": 1, 
+        "楽曲名": "Gustav Battle", 
+        "譜面定数": 11.70
+    }, 
+    {
+        "Images": "img/a732d43fd2a11e8f.jpg", 
+        "MusicID": 180, 
+        "ex": 1, 
+        "楽曲名": "怒槌", 
+        "譜面定数": 12.40
+    }, 
+    {
+        "Images": "img/ed40032f25177518.jpg", 
+        "MusicID": 196, 
+        "ex": 1, 
+        "楽曲名": "FREEDOM DiVE", 
+        "譜面定数": 12.00
+    }, 
+    {
+        "Images": "img/ae6d3a8806e09613.jpg", 
+        "MusicID": 197, 
+        "ex": 1, 
+        "楽曲名": "Jack-the-Ripper◆", 
+        "譜面定数": 11.20
+    }, 
+    {
+        "Images": "img/45112e2818cf80a2.jpg", 
+        "MusicID": 202, 
+        "ex": 1, 
+        "楽曲名": "GEMINI -C-", 
+        "譜面定数": 11.20
+    }, 
+    {
+        "Images": "img/993b5cddb9d9badf.jpg", 
+        "MusicID": 226, 
+        "ex": 1, 
+        "楽曲名": "Garakuta Doll Play", 
+        "譜面定数": 12.30
+    }, 
+    {
+        "Images": "img/a2069fdb9d860d36.jpg", 
+        "MusicID": 232, 
+        "ex": 1, 
+        "楽曲名": "Elemental Creation", 
+        "譜面定数": 11.30
+    }
+]
