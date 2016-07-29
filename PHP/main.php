@@ -176,7 +176,7 @@
     $score = $userPlaylogList["userPlaylogList"][$i]["score"];
     //マスターとエキスパートで30曲かどうか
     if($j == 30){
-    //  break;
+      break;
     }
     //エキスパートの場合
     if($userPlaylogList["userPlaylogList"][$i]["levelName"] == "expert"){

@@ -17,21 +17,19 @@
 //-----------------------------------------------------
 
 require("common.php");
+set_error_handler('errorHandler');
 session_start();
 
 /*エラー判定(直接アクセス)*/
-if(!isset($_POST['userid'])){
-  header("HTTP/1.1 301 Moved Permanently");
-  header("Location: https://akashisn.info?article=4");
-  exit();
-}
 if(isset($_POST['userid'])){
-  $userid = userid_get($_POST['userid']);
-}
-else{
-  header("HTTP/1.1 301 Moved Permanently");
-  header("Location: error.html");
-  exit();
+  if(userid_get($_POST['userid'])){
+    $userid = userid_get($_POST['userid']);
+  }
+  else{
+    header("HTTP/1.1 301 Moved Permanently");
+    header("Location: https://akashisn.info?article=4");
+    exit();
+  }
 }
 ?>
 <!DOCTYPE html>

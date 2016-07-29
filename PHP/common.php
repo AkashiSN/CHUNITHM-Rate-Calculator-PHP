@@ -16,7 +16,7 @@
   {
     if($errno === E_NOTICE) {
       header("HTTP/1.1 301 Moved Permanently");
-      header("Location: https://akashisn.info/chunithm/error.html");
+      header("Location: https://akashisn.info/test/error.html");
       exit();
     }
   }
@@ -31,7 +31,12 @@
       }
     }
     $c = explode("=",$a[$b]);
-    return $c[1];
+    if(isset($c[1])){
+      return $c[1];
+    }
+    else{
+      return null;
+    }
   }
 
   function Truncation($num,$n){
