@@ -55,7 +55,11 @@ if(isset($_POST['userid'])){
   <script src="https://platform.twitter.com/widgets.js"></script>
   <script src="lib/chunithm.js" ></script>
   <script type="text/javascript">
+    
     var Userid = <?php echo $userid;?>;
+    if(Userid == null){
+      location.replace( "error.html" );
+    }
     // DOMを全て読み込んだあとに実行される
     $(function() {
       JsonPost(Userid);

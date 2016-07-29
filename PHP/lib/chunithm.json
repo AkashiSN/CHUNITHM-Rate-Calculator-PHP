@@ -1110,7 +1110,8 @@
         "MusicName": "Contrapasso -inferno-",
         "Images": "img/a251c24a3cc4dbf7.jpg",
         "BaseRate": {
-            "mas": 13.9
+            "mas": 13.9,
+            "ex": 12.2
         }
     },
     "202": {
