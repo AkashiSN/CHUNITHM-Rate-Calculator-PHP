@@ -27,6 +27,7 @@
     $userid = $_POST["userid"];
   }
   else{
+    //エラー判定
     exit();
   }
   $Img_to_MusicID = array();
