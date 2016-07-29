@@ -84,7 +84,6 @@
         140, 
         141, 
         142,
-        143, 
         144, 
         145, 
         146, 
@@ -836,14 +835,6 @@
         "Images": "img/a8d181c5442df7d2.jpg",
         "BaseRate": {
             "mas": 12.6
-        }
-    },
-    "143": {
-        "MusicID": 143,
-        "MusicName": "うんこ",
-        "Images": "img/579ee83aa6a9ceac.jpg",
-        "BaseRate": {
-            "mas": 10.0
         }
     },
     "144": {
