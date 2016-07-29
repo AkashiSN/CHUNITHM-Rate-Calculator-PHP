@@ -21,9 +21,9 @@ session_start();
 
 /*エラー判定(直接アクセス)*/
 if(!isset($_POST['userid']) && !isset($_SESSION['userid'])){
-  //header("HTTP/1.1 301 Moved Permanently");
-  //header("Location: https://akashisn.info?article=4");
-  //exit();
+  header("HTTP/1.1 301 Moved Permanently");
+  header("Location: https://akashisn.info?article=4");
+  exit();
 }
 
 if(isset($_SESSION['userid'])){
