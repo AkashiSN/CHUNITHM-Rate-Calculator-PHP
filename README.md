@@ -87,7 +87,7 @@ CHUNITHM Rate Calculator
 | ├ chunithm-mas.json
 | ├ chunithm.cpp
 | ├ common.h
-| └ model.json|
+| └ model.json
 ├ img
 ├ └ 1.jpg
 ├ PHP
