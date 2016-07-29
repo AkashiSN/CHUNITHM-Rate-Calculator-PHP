@@ -180,31 +180,37 @@
     }
     //エキスパートの場合
     if($userPlaylogList["userPlaylogList"][$i]["levelName"] == "expert"){
-      $musicid = $Img_to_MusicID[$img];
-      //データベースにあるもの
-      if(isset($data[(string)$musicid]["BaseRate"]["ex"])){
-        //計算
-        $base_rate = $data[(string)$musicid]["BaseRate"]["ex"];
-        $rate = score_to_rate($score,$base_rate);
-        $Count_to_Rate[$i] = $rate;
-        //SSSはカウントされない
-        if($userPlaylogList["userPlaylogList"][$i]["rank"] != 10){
-          $j++;
+      //musicIDがあるもの
+      if(isset($Img_to_MusicID[$img])){
+        $musicid = $Img_to_MusicID[$img];
+        //データベースにあるもの
+        if(isset($data[(string)$musicid]["BaseRate"]["ex"])){
+          //計算
+          $base_rate = $data[(string)$musicid]["BaseRate"]["ex"];
+          $rate = score_to_rate($score,$base_rate);
+          $Count_to_Rate[$i] = $rate;
+          //SSSはカウントされない
+          if($userPlaylogList["userPlaylogList"][$i]["rank"] != 10){
+            $j++;
+          }
         }
       }
     }
     //マスターの場合
     else if($userPlaylogList["userPlaylogList"][$i]["levelName"] == "master"){
-      $musicid = $Img_to_MusicID[$img];
-      //データベースにあるもの
-      if(isset($data[(string)$musicid]["BaseRate"]["mas"])){
-        //計算
-        $base_rate = $data[(string)$musicid]["BaseRate"]["mas"];
-        $rate = score_to_rate($score,$base_rate);
-        $Count_to_Rate[$i] = $rate;
-        //SSSはカウントされない
-        if($userPlaylogList["userPlaylogList"][$i]["rank"] != 10){
-          $j++;
+      //musicIDがあるもの
+      if(isset($Img_to_MusicID[$img])){
+        $musicid = $Img_to_MusicID[$img];
+        //データベースにあるもの
+        if(isset($data[(string)$musicid]["BaseRate"]["mas"])){
+          //計算
+          $base_rate = $data[(string)$musicid]["BaseRate"]["mas"];
+          $rate = score_to_rate($score,$base_rate);
+          $Count_to_Rate[$i] = $rate;
+          //SSSはカウントされない
+          if($userPlaylogList["userPlaylogList"][$i]["rank"] != 10){
+            $j++;
+          }
         }
       }
     }
@@ -215,7 +221,7 @@
   }
 
   //レート値でカウンターをソート
-  //arsort($Count_to_Rate);
+  arsort($Count_to_Rate);
 
   //カウンタ変数
   $i = 0;
@@ -249,7 +255,7 @@
       $Temp = "";
     }
     //マスターの場合
-    else if($userPlaylogList["userPlaylogList"][$i]["levelName"] == "master"){
+    else if($userPlaylogList["userPlaylogList"][$count]["levelName"] == "master"){
       //計算
       $musicid = $Img_to_MusicID[$img];
       $base_rate = $data[(string)$musicid]["BaseRate"]["mas"];
