@@ -23,7 +23,12 @@
 // 宣言部
 //-----------------------------------------------------
 
-  $userid = $_POST["userid"];
+  if(isset($_POST["userid"])){
+    $userid = $_POST["userid"];
+  }
+  else{
+    exit();
+  }
   $Img_to_MusicID = array();
   $RecentlyMusicDetail = array();
   $MusicDetail = array();
