@@ -93,11 +93,11 @@ function JsonPost(Userid) {
 //ユーザーデータの表示
 function UserRateDisp(){
 	var UserRate = UserData["User"];
-	document.getElementById('best-max').textContent = "BEST枠平均: " + UserRate["BestRate"] + "/最大レート: " + UserRate["MaxRate"]; 
-	document.getElementById('recent-disp').textContent = "RECENT枠平均: " + UserRate["RecentRate-1"] + "/表示レート: " + UserRate["DispRate"];
+	document.getElementById('best-max').textContent = "BEST枠平均: " + UserRate["BestRate"].toFixed(2) + "/最大レート: " + UserRate["MaxRate"].toFixed(2); 
+	document.getElementById('recent-disp').textContent = "RECENT枠平均: " + UserRate["RecentRate-1"].toFixed(2) + "/表示レート: " + UserRate["DispRate"].toFixed(2);
 	//tweetボタン
 	twttr.ready(function() {
-	  var rate = "BEST枠平均: " + UserRate["BestRate"] + " 最大レート: " + UserRate["MaxRate"] + "\n" + "RECENT枠平均: " + UserRate["RecentRate-1"] + " 表示レート: " + UserRate["DispRate"] + "\n";
+	  var rate = "BEST枠平均: " + UserRate["BestRate"].toFixed(2) + " 最大レート: " + UserRate["MaxRate"].toFixed(2) + "\n" + "RECENT枠平均: " + UserRate["RecentRate-1"].toFixed(2) + " 表示レート: " + UserRate["DispRate"].toFixed(2) + "\n";
 	  twttr.widgets.createShareButton(
 	    'https://akashisn.info/?article=4',
 	    location.href,

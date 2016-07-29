@@ -16,7 +16,7 @@
   {
     if($errno === E_NOTICE) {
       header("HTTP/1.1 301 Moved Permanently");
-      header("Location: https://akashisn.info/test/error.html");
+      header("Location: https://akashisn.info/chunithm/error.html");
       exit();
     }
   }
