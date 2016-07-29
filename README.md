@@ -27,7 +27,7 @@ javascript:(function(){
 詳しくは https://akashisn.info/?article=4
 
 ### APIの仕様
-***
+
 https://akashisn.info/chunithm/main.php に
 
 ```
@@ -77,5 +77,34 @@ userid=3045028797196077
 ![UserID](img/1.jpg)
 
 https://chunithm-net.com/mobile/Home.html のクッキーにあります
+
+## ファイル構成
+
+```
+CHUNITHM Rate Calculator
+├ C++
+| ├ chunithm-ex.json
+| ├ chunithm-mas.json
+| ├ chunithm.cpp
+| ├ common.h
+| └ model.json|
+├ img
+├ └ 1.jpg
+├ PHP
+| ├ lib
+| | ├ Bookmarklet.js
+| | ├ chunithm.css
+| | ├ chunithm.js
+| | ├ chunithm.json
+| | ├ gif-load.gif
+| | └ JsonConverter.php
+| ├ chunithm.php
+| ├ common.php
+| ├ error.html
+| ├ main.php
+| └ usage.php
+├ LICENSE.txt
+└ REDME.md
+```
 
 This software is released under the MIT License, see LICENSE.txt.
