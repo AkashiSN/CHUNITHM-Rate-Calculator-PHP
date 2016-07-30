@@ -31,6 +31,11 @@ if(isset($_POST['userid'])){
     exit();
   }
 }
+else{
+  header("HTTP/1.1 301 Moved Permanently");
+  header("Location: https://akashisn.info?article=4");
+  exit();
+}
 ?>
 <!DOCTYPE html>
 <html xmlns="http://www.w3.org/1999/xhtml" xml:lang="ja" lang="ja" dir="ltr">
@@ -54,11 +59,8 @@ if(isset($_POST['userid'])){
   <script src="https://platform.twitter.com/widgets.js"></script>
   <script src="lib/chunithm.js" ></script>
   <script type="text/javascript">
-    
+
     var Userid = <?php echo $userid;?>;
-    if(Userid == null){
-      location.replace( "error.html" );
-    }
     // DOMを全て読み込んだあとに実行される
     $(function() {
       JsonPost(Userid);
@@ -70,7 +72,7 @@ if(isset($_POST['userid'])){
       $('#recent').click(function(){
         RecentRateDisp();
       });
-    });    
+    });
   </script>
 
 </head>
@@ -88,10 +90,10 @@ if(isset($_POST['userid'])){
     <p id="recent-disp">RECENT枠平均: /表示レート: </p>
   </h2>
   <p><a style="font-size:18pt;" href="https://akashisn.info/?article=4" target=_brank>使い方</a><div id="tweet"></div></p><!--tweetボタン-->
-  
+
   <input class="best" type="button" value="Best枠" id="best"/>
   <input class="best" type="button" value="Recent枠" id="recent"/>
-  <div id="wrap">    
+  <div id="wrap">
     <div id="inner">
       <div class="frame01 w460">
         <div class="frame01_inside w450">
