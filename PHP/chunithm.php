@@ -27,13 +27,13 @@ if(isset($_POST['userid'])){
   }
   else{
     header("HTTP/1.1 301 Moved Permanently");
-    header("Location: https://akashisn.info?article=4");
+    header("Location: https://akashisn.info/?page_id=52");
     exit();
   }
 }
 else{
   header("HTTP/1.1 301 Moved Permanently");
-  header("Location: https://akashisn.info?article=4");
+  header("Location: https://akashisn.info/?page_id=52");
   exit();
 }
 ?>
@@ -89,7 +89,7 @@ else{
     <p id="best-max">BEST枠平均: /最大レート: </p>
     <p id="recent-disp">RECENT枠平均: /表示レート: </p>
   </h2>
-  <p><a style="font-size:18pt;" href="https://akashisn.info/?article=4" target=_brank>使い方</a><div id="tweet"></div></p><!--tweetボタン-->
+  <p><a style="font-size:18pt;" href="https://akashisn.info/?page_id=52" target=_brank>使い方</a><div id="tweet"></div></p><!--tweetボタン-->
 
   <input class="best" type="button" value="Best枠" id="best"/>
   <input class="best" type="button" value="Recent枠" id="recent"/>

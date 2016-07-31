@@ -99,7 +99,7 @@ function UserRateDisp(){
   twttr.ready(function() {
     var rate = "BEST枠平均: " + UserRate["BestRate"].toFixed(2) + " 最大レート: " + UserRate["MaxRate"].toFixed(2) + "\n" + "RECENT枠平均: " + UserRate["RecentRate-1"].toFixed(2) + " 表示レート: " + UserRate["DispRate"].toFixed(2) + "\n";
     twttr.widgets.createShareButton(
-      'https://akashisn.info/?article=4',
+      'https://akashisn.info/?page_id=52',
       location.href,
       document.getElementById('tweet'),
       {
