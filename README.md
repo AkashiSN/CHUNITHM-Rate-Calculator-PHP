@@ -24,7 +24,7 @@ javascript:(function(){
 - このコードをブックマークレットに登録
 - チュウニズムネットにログインした状態でブックマークレットを実行する
 
-詳しくは https://akashisn.info/?article=4
+詳しくは https://akashisn.inpage_id=52
 
 ### APIの仕様
 
