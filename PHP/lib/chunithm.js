@@ -44,14 +44,14 @@ ga('send', 'pageview');
   }
 }(document, 'script', 'twitter-wjs');
 
-
 //--------------------------------------------------------------------
 // グローバル変数
 //--------------------------------------------------------------------
 
   var UserData;
   var Best = "";
-  var Recent ="";
+  var Recent = "";
+  var Hash = "";
 
 //--------------------------------------------------------------------
 // レート値取得
@@ -68,6 +68,41 @@ function JsonPost(Userid) {
     dataType: 'json', // 「json」を指定するとresponseがJSONとしてパースされたオブジェクトになる
     data: { // 送信データを指定(getの場合は自動的にurlの後ろにクエリとして付加される)
       userid: Userid
+    },
+    // ・ステータスコードは正常で、dataTypeで定義したようにパース出来たとき
+    success: function(data) {
+      $('#result').val('成功');
+      console.log(data);
+      UserData = data;
+      Hash = UserData["User"]["Hash"];
+      console.log(Hash);
+      var url = document.URL;
+      location.href = url + '?user=' + Hash;
+    },
+    // ・サーバからステータスコード400以上が返ってきたとき
+    // ・ステータスコードは正常だが、dataTypeで定義したようにパース出来なかったとき
+    // ・通信に失敗したとき
+    error: function() {
+      location.replace( "error.html" );
+    },
+    // 成功・失敗に関わらず通信が終了した際の処理
+    complete: function() {
+      $("#overlay").fadeOut();
+    }
+  });  
+}
+
+//apiにアクセス
+function UserHash(hash) {
+  //ロード画面
+  $("#overlay").fadeIn();
+  // Ajax通信を開始する
+  $.ajax({
+    url: 'main.php',
+    type: 'post', // getかpostを指定(デフォルトは前者)
+    dataType: 'json', // 「json」を指定するとresponseがJSONとしてパースされたオブジェクトになる
+    data: { // 送信データを指定(getの場合は自動的にurlの後ろにクエリとして付加される)
+      hash: hash
     },
     // ・ステータスコードは正常で、dataTypeで定義したようにパース出来たとき
     success: function(data) {
@@ -93,37 +128,58 @@ function JsonPost(Userid) {
 //ユーザーデータの表示
 function UserRateDisp(){
   var UserRate = UserData["User"];
-  document.getElementById('best-max').textContent = "BEST枠平均: " + UserRate["BestRate"].toFixed(2) + "/最大レート: " + UserRate["MaxRate"].toFixed(2); 
-  document.getElementById('recent-disp').textContent = "RECENT枠平均: " + UserRate["RecentRate-1"].toFixed(2) + "/表示レート: " + UserRate["DispRate"].toFixed(2);
+  var UserInfo = UserData["Userinfo"];
+  var frame = ["normal", "copper", "silver", "gold", "platina"];
+  var elements = `<div class="w420 box_player clearfix">
+              <div id="UserCharacter" class="player_chara" style='background-image:url("https://chunithm-net.com/mobile/common/images/charaframe_`+ frame[parseInt(parseInt(UserInfo["characterLevel"])/5)] +`.png");margin-top: 10px;'>
+                <img id="characterFileName" src="https://chunithm-net.com/mobile/` + UserInfo["characterFileName"] + `">
+              </div>
+              <div class="box07 player_data">
+                <div id="UserHonor" class="player_honor" style='background-image:url("https://chunithm-net.com/mobile/common/images/honor_bg_` + frame[parseInt(UserInfo["trophyType"])] + `.png")'>
+                  <div class="player_honer_text_view">
+                    <div id="HonerText" class="player_honer_text">` + UserInfo["trophyName"] + `</div>
+                  </div>
+                </div>
+                <div id="UserReborn" class="player_reborn_0"></div>
+                <div class="player_name">
+                  <div class="player_lv"><span class="font_small mr_5">Lv.</span><span id="UserLv">` + UserInfo["level"] + `</span></div><span id="UserName">` + UserInfo["userName"] + `</span>
+                </div>
+                <div class="player_rating" id="player_rating">BEST枠 : <span id="UserRating">` + UserRate["BestRate"].toFixed(2) + `</span> / <span>MAX</span> <span id="UserRating">` + UserRate["MaxRate"].toFixed(2) + `</span><br><div style="margin-top:5px;">RCENT枠 :<span id="UserRating">` + UserRate["RecentRate-1"].toFixed(2) + `</span> / <span>表示レート</span><span id="UserRating">` + UserRate["DispRate"].toFixed(2) + `</span></div></div>
+              </div>
+              <div id="tweet" style="margin-top: 10px;"></div>
+              <div style="margin-top: 0px" class="more w400" onclick="window.open('https://akashisn.info/?page_id=52', '_blank');"><a href="JavaScript:void(0);">使い方</a></div>
+            </div>`;  
+  var div = document.getElementById("userInfo_result");
+  div.innerHTML = elements;
+
   //tweetボタン
   twttr.ready(function() {
     var rate = "BEST枠平均: " + UserRate["BestRate"].toFixed(2) + " 最大レート: " + UserRate["MaxRate"].toFixed(2) + "\n" + "RECENT枠平均: " + UserRate["RecentRate-1"].toFixed(2) + " 表示レート: " + UserRate["DispRate"].toFixed(2) + "\n";
     twttr.widgets.createShareButton(
-      'https://akashisn.info/?page_id=52',
+      document.URL,
       location.href,
       document.getElementById('tweet'),
       {
         lang: 'ja',
-        size: 'large',
+        size: 'normal',
         text:  rate,
         hashtags : 'CHUNITHMRateCalculator'
       }
     )
   });
 }
-
 //best枠の表示
 function BestRateDisp(){
   if(Best == ""){
     var element = "";
-    Best = '\
-  <div class="frame01 w460">\
-    <div class="frame01_inside w450">\
-      <h2 style="margin-top:10px;" id="page_title">BEST枠</h2>\
-      <hr class="line_dot_black w420">\
-      <div class="box01 w420">\
-        <div class="mt_10">\
-          <div id="userPlaylog_result">';
+    Best = `
+  <div class="frame01 w460">
+    <div class="frame01_inside w450">
+      <h2 style="margin-top:10px;" id="page_title">BEST枠</h2>
+      <hr class="line_dot_black w420">
+      <div class="box01 w420">
+        <div class="mt_10">
+          <div id="userPlaylog_result">`;
         //Best枠の数だけ繰り返す
         for(var i = 0; i < UserData["Best"].length; i++){
           var MusicDeteil = UserData["Best"][i];
@@ -136,50 +192,50 @@ function BestRateDisp(){
           var level = MusicDeteil["level"];
           
           if(i == 30){
-              element += '\
-          </div>\
-        </div>\
-      </div>\
-    </div>\
-  </div>\
-  <div class="frame01 w460">\
-    <div class="frame01_inside w450">\
-      <h2 style="margin-top:10px;" id="page_title">BEST枠外</h2>\
-      <hr class="line_dot_black w420">\
-      <div class="box01 w420">\
-        <div class="mt_10">\
-          <div id="userPlaylog_result">';
+              element += `
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="frame01 w460">
+    <div class="frame01_inside w450">
+      <h2 style="margin-top:10px;" id="page_title">BEST枠外</h2>
+      <hr class="line_dot_black w420">
+      <div class="box01 w420">
+        <div class="mt_10">
+          <div id="userPlaylog_result">`;
             }
-          element += '\
-            <div class="frame02 w400">\
-              <div class="play_jacket_side">\
-                <div class="play_jacket_area">\
-                  <div id="Jacket" class="play_jacket_img">\
-                    <img src="https://chunithm-net.com/mobile/'+MusicImg+'"">\
-                  </div>\
-                </div>\
-              </div>\
-              <div class="play_data_side01">\
-                <div class="box02 play_track_block">\
-                  <div id="TrackLevel" class="play_track_result">\
-                    <img src="https://chunithm-net.com/mobile/common/images/icon_'+level+'.png">\
-                  </div>\
-                </div>\
-                <div class="box02 play_musicdata_block">\
-                  <div id="MusicTitle" class="play_musicdata_title">'+MusicName+'</div>\
-                  <div class="play_musicdata_score clearfix">\
-                    <div class="play_musicdata_score_text">譜面定数:<span id="Score">'+BaseRate+'</span></div><br>\
-                    <div class="play_musicdata_score_text">RATING:<span id="Score">'+BestRate+'</span></div><br>\
-                    <div class="play_musicdata_score_text">Score：<span id="Score">'+Score+'</span></div>\
-                    <img src="https://chunithm-net.com/mobile/common/images/icon_'+Rank+'.png">\
-                  </div>\
-                </div>\
-              </div>\
-            </div>';            
+          element += `
+            <div class="frame02 w400">
+              <div class="play_jacket_side">
+                <div class="play_jacket_area">
+                  <div id="Jacket" class="play_jacket_img">
+                    <img src="https://chunithm-net.com/mobile/`+MusicImg+`"">
+                  </div>
+                </div>
+              </div>
+              <div class="play_data_side01">
+                <div class="box02 play_track_block">
+                  <div id="TrackLevel" class="play_track_result">
+                    <img src="https://chunithm-net.com/mobile/common/images/icon_`+level+`.png">
+                  </div>
+                </div>
+                <div class="box02 play_musicdata_block">
+                  <div id="MusicTitle" class="play_musicdata_title">`+MusicName+`</div>
+                  <div class="play_musicdata_score clearfix">
+                    <div class="play_musicdata_score_text">譜面定数:<span id="Score">`+BaseRate+`</span></div><br>
+                    <div class="play_musicdata_score_text">RATING:<span id="Score">`+BestRate+`</span></div><br>
+                    <div class="play_musicdata_score_text">Score：<span id="Score">`+Score+`</span></div>
+                    <img src="https://chunithm-net.com/mobile/common/images/icon_`+Rank+`.png">
+                  </div>
+                </div>
+              </div>
+            </div>`;            
         }
         Best += element;
       }      
-      var div = document.getElementById( "inner" );
+      var div = document.getElementById( "rate" );
       div.innerHTML = Best;
 }
 
@@ -187,14 +243,14 @@ function BestRateDisp(){
 function RecentRateDisp(){
   if(Recent == ""){
     var element = "";
-    Recent = '\
-  <div class="frame01 w460">\
-    <div class="frame01_inside w450">\
-      <h2 style="margin-top:10px;" id="page_title">RECENT枠</h2>\
-      <hr class="line_dot_black w420">\
-      <div class="box01 w420">\
-        <div class="mt_10">\
-          <div id="userPlaylog_result">';
+    Recent = `
+  <div class="frame01 w460">
+    <div class="frame01_inside w450">
+      <h2 style="margin-top:10px;" id="page_title">RECENT枠</h2>
+      <hr class="line_dot_black w420">
+      <div class="box01 w420">
+        <div class="mt_10">
+          <div id="userPlaylog_result">`;
         //Best枠の数だけ繰り返す
         for(var i = 0; i < UserData["Recent"].length; i++){
           var MusicDeteil = UserData["Recent"][i];
@@ -206,49 +262,49 @@ function RecentRateDisp(){
           var BestRate = MusicDeteil["BestRate"];
           var level = MusicDeteil["level"];
           if(i == 10){
-              element += '\
-          </div>\
-        </div>\
-      </div>\
-    </div>\
-  </div>\
-  <div class="frame01 w460">\
-    <div class="frame01_inside w450">\
-      <h2 style="margin-top:10px;" id="page_title">RECENT枠外</h2>\
-      <hr class="line_dot_black w420">\
-      <div class="box01 w420">\
-        <div class="mt_10">\
-          <div id="userPlaylog_result">';
+              element += `
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="frame01 w460">
+    <div class="frame01_inside w450">
+      <h2 style="margin-top:10px;" id="page_title">RECENT枠外</h2>
+      <hr class="line_dot_black w420">
+      <div class="box01 w420">
+        <div class="mt_10">
+          <div id="userPlaylog_result">`;
             }
-            element += '\
-              <div class="frame02 w400">\
-                <div class="play_jacket_side">\
-                  <div class="play_jacket_area">\
-                    <div id="Jacket" class="play_jacket_img">\
-                      <img src="https://chunithm-net.com/mobile/'+MusicImg+'"">\
-                    </div>\
-                  </div>\
-                </div>\
-                <div class="play_data_side01">\
-                  <div class="box02 play_track_block">\
-                    <div id="TrackLevel" class="play_track_result">\
-                      <img src="https://chunithm-net.com/mobile/common/images/icon_'+level+'.png">\
-                    </div>\
-                  </div>\
-                  <div class="box02 play_musicdata_block">\
-                    <div id="MusicTitle" class="play_musicdata_title">'+MusicName+'</div>\
-                    <div class="play_musicdata_score clearfix">\
-                      <div class="play_musicdata_score_text">譜面定数:<span id="Score">'+BaseRate+'</span></div><br>\
-                      <div class="play_musicdata_score_text">RATING:<span id="Score">'+BestRate+'</span></div><br>\
-                      <div class="play_musicdata_score_text">Score：<span id="Score">'+Score+'</span></div>\
-                      <img src="https://chunithm-net.com/mobile/common/images/icon_'+Rank+'.png">\
-                    </div>\
-                  </div>\
-                </div>\
-              </div>';            
+            element += `
+              <div class="frame02 w400">
+                <div class="play_jacket_side">
+                  <div class="play_jacket_area">
+                    <div id="Jacket" class="play_jacket_img">
+                      <img src="https://chunithm-net.com/mobile/`+MusicImg+`"">
+                    </div>
+                  </div>
+                </div>
+                <div class="play_data_side01">
+                  <div class="box02 play_track_block">
+                    <div id="TrackLevel" class="play_track_result">
+                      <img src="https://chunithm-net.com/mobile/common/images/icon_`+level+`.png">
+                    </div>
+                  </div>
+                  <div class="box02 play_musicdata_block">
+                    <div id="MusicTitle" class="play_musicdata_title">`+MusicName+`</div>
+                    <div class="play_musicdata_score clearfix">
+                      <div class="play_musicdata_score_text">譜面定数:<span id="Score">`+BaseRate+`</span></div><br>
+                      <div class="play_musicdata_score_text">RATING:<span id="Score">`+BestRate+`</span></div><br>
+                      <div class="play_musicdata_score_text">Score：<span id="Score">`+Score+`</span></div>
+                      <img src="https://chunithm-net.com/mobile/common/images/icon_`+Rank+`.png">
+                    </div>
+                  </div>
+                </div>
+              </div>`;            
         }
         Recent += element;
       }      
-      var div = document.getElementById( "inner" );
+      var div = document.getElementById( "rate" );
       div.innerHTML = Recent;
 }

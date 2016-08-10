@@ -17,18 +17,21 @@
 //-----------------------------------------------------
 
 require("common.php");
-set_error_handler('errorHandler');
 session_start();
 
 /*エラー判定(直接アクセス)*/
-if(isset($_POST['userid'])){
+if(isset($_GET['user'])){
+
+}
+else if(isset($_POST['userid'])){
   if(userid_get($_POST['userid'])){
     $userid = userid_get($_POST['userid']);
+    $_SESSION['userid'] = $userid;
   }
   else{
     header("HTTP/1.1 301 Moved Permanently");
     header("Location: https://akashisn.info/?page_id=52");
-    exit();
+  exit();
   }
 }
 else{
@@ -59,19 +62,31 @@ else{
   <script src="https://platform.twitter.com/widgets.js"></script>
   <script src="lib/chunithm.js" ></script>
   <script type="text/javascript">
-
-    var Userid = <?php echo $userid;?>;
     // DOMを全て読み込んだあとに実行される
     $(function() {
-      JsonPost(Userid);
-      // 「#best」をクリックしたとき
-      $('#best').click(function(){
-        BestRateDisp();
-      });
-      // 「#recent」をクリックしたとき
-      $('#recent').click(function(){
-        RecentRateDisp();
-      });
+      var req = location.search.replace(/^\?(.*)$/, '$1');
+      if(req == ""){ 
+        <?php 
+          if(isset($_SESSION['userid'])){
+        ?>
+            var Userid = <?php echo $_SESSION['userid'];?>;
+            JsonPost(Userid);            
+        <?php    
+          }        
+        ?>          
+      }else{
+        var data = req.split("=");
+        var hash = data[1];
+        UserHash(hash);
+        // 「#best」をクリックしたとき
+        $('#best').click(function(){
+          BestRateDisp();
+        });
+        // 「#recent」をクリックしたとき
+        $('#recent').click(function(){
+          RecentRateDisp();
+        });
+      }
     });
   </script>
 
@@ -85,16 +100,42 @@ else{
     </div>
   </div>
   <div id="sub_title">CHUNITHM Rate Calculator</div>
-  <h2 id="rate">
-    <p id="best-max">BEST枠平均: /最大レート: </p>
-    <p id="recent-disp">RECENT枠平均: /表示レート: </p>
-  </h2>
-  <p><a style="font-size:18pt;" href="https://akashisn.info/?page_id=52" target=_brank>使い方</a><div id="tweet"></div></p><!--tweetボタン-->
+  <div id="wrap">
+    <div style="margin-top:10px;margin-bottom:0px;padding-bottom:0px;" id="inner" >
+      <div class="frame01 w460">
+        <div style="padding-bottom:0px;" class="frame01_inside w450">
+          <h2 style="margin-top:10px;" id="page_title">ユーザー</h2>
+          <hr class="line_dot_black w420">
+          <div id="userInfo_result">
+            <div class="w420 box_player clearfix">
+              <div id="UserCharacter" class="player_chara" style="">
+                <img id="characterFileName">
+              </div>
+              <div class="box07 player_data">
+                <div id="UserHonor" class="player_honor" style="">
+                  <div class="player_honer_text_view">
+                    <div id="HonerText" class="player_honer_text"></div>
+                  </div>
+                </div>
+                <div id="UserReborn" class="player_reborn_0"></div>
+                <div class="player_name">
+                  <div class="player_lv"><span class="font_small mr_5">Lv.</span><span id="UserLv"></span></div><span id="UserName"></span>
+                </div>
+                <div class="player_rating" id="player_rating"></div>
+              </div>
+              <div id="tweet" style="margin-top: 10px;"></div>
+              <div style="margin-top: 0px" class="more w400" onclick="window.open('https://akashisn.info/?page_id=52', '_blank');"><a href="JavaScript:void(0);">使い方</a></div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
 
   <input class="best" type="button" value="Best枠" id="best"/>
   <input class="best" type="button" value="Recent枠" id="recent"/>
   <div id="wrap">
-    <div id="inner">
+    <div style="margin-bottom:0px;padding-bottom:0px;" id="rate" id="inner">
       <div class="frame01 w460">
         <div class="frame01_inside w450">
           <h2 style="margin-top:10px;" id="page_title">BEST枠</h2>

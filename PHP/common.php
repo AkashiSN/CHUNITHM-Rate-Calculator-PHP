@@ -11,7 +11,11 @@
   | Author: Akashi_SN <info@akashisn.info>            |
   +---------------------------------------------------+
 */
-  // エラーハンドラ
+
+//-----------------------------------------------------
+//  エラーハンドラ
+//-----------------------------------------------------
+
   function errorHandler($errno, $errstr, $errfile, $errline)
   {
     if($errno === E_NOTICE) {
@@ -20,6 +24,19 @@
       exit();
     }
   }
+
+//-----------------------------------------------------
+//  切り捨て
+//-----------------------------------------------------
+
+  function Truncation($num,$n){
+    $z = pow( 10 , $n );
+    return ( floor(  $num* $z ) / $z );
+  }
+
+//-----------------------------------------------------
+//  UserID取得
+//-----------------------------------------------------
 
   function userid_get($u){
     $a = explode(";",$u);
@@ -39,10 +56,9 @@
     }
   }
 
-  function Truncation($num,$n){
-    $z = pow( 10 , $n );
-    return ( floor(  $num* $z ) / $z );
-  }
+//-----------------------------------------------------
+//  楽曲の詳細データ取得
+//-----------------------------------------------------
 
   function score_get($userid,$musicId){
     $url = 'https://chunithm-net.com/ChuniNet/GetUserMusicDetailApi';
@@ -63,6 +79,10 @@
     return json_decode( $score , true );
   }
 
+//-----------------------------------------------------
+//  最近のプレイ履歴の取得
+//-----------------------------------------------------
+
   function Recent_score_get($userid){
     $url = 'https://chunithm-net.com/ChuniNet/GetUserPlaylogApi';
     $data = array(
@@ -80,6 +100,10 @@
     $score = file_get_contents( $url, false, $context );
     return json_decode( $score , true );
   }
+
+//-----------------------------------------------------
+//  ユーザーデータの詳細取得
+//-----------------------------------------------------
 
   function Rate_get($userid){
     $url = 'https://chunithm-net.com/ChuniNet/GetUserInfoApi';
@@ -100,6 +124,83 @@
     $rate = file_get_contents( $url, false, $context );
     return json_decode( $rate , true );
   }
+
+//-----------------------------------------------------
+//  フレンドコード取得
+//-----------------------------------------------------
+
+  function friendCode_get($userid){
+    $url = 'https://chunithm-net.com/ChuniNet/GetUserFriendlistApi';
+    $data = array(
+      'userId' => $userid,
+      'state' => 4,
+    );
+    $options = array(
+    'http' => array(
+      'method'  => 'POST',
+      'content' => json_encode( $data ),
+      'header'=>  "Content-Type: application/json\r\n" .
+                  "Accept: application/json\r\n"
+      )
+    );
+    $context  = stream_context_create( $options );
+    $rate = file_get_contents( $url, false, $context );
+    return json_decode( $rate , true );
+  }
+
+//-----------------------------------------------------
+//  データーベースに登録
+//-----------------------------------------------------
+
+  function UserData_set($FriendCode,$UserName,$Json){
+    try {
+      $count = 0;
+      $hash =  hash_hmac('sha256', $FriendCode, false);
+      $pdo = new PDO(DNS,array(PDO::ATTR_EMULATE_PREPARES => false));
+      $sql = 'SELECT * from User';
+        foreach ($pdo ->query($sql) as $row) {
+          if($hash == $row['Hash']){
+              $count++;
+          }
+        }
+        if($count == 0){
+          $sql = "INSERT INTO User (Hash, FriendCode, UserName, Json) VALUES (:Hash, :FriendCode, :UserName, :Json)";
+        $stmt = $pdo -> prepare($sql);
+        $stmt->bindParam(':Hash', $hash, PDO::PARAM_STR);
+        $stmt->bindParam(':FriendCode', $FriendCode, PDO::PARAM_STR);
+        $stmt->bindParam(':UserName', $UserName, PDO::PARAM_STR);
+        $stmt->bindParam(':Json', $Json, PDO::PARAM_STR);
+        $stmt->execute();
+      }else{
+        $sql = "UPDATE User SET UserName = :UserName, Json = :Json WHERE Hash = :Hash";
+        $stmt = $pdo->prepare($sql);
+        $stmt->bindParam(':UserName', $UserName, PDO::PARAM_STR);
+        $stmt->bindParam(':Json', $Json, PDO::PARAM_STR);
+        $stmt->bindParam(':Hash', $Hash, PDO::PARAM_STR);
+        $stmt->execute($params);
+      }
+    } catch (PDOException $e) {
+      exit('データベース接続失敗。'.$e->getMessage());
+    }
+  }
+
+//-----------------------------------------------------
+//  データーベースから参照
+//-----------------------------------------------------
+
+  function UserData_show($Hash){
+    $pdo = new PDO(DNS,array(PDO::ATTR_EMULATE_PREPARES => false));
+    $sql = 'SELECT * from User';
+    foreach ($pdo ->query($sql) as $row) {
+      if($Hash == $row['Hash']){
+        return $row['Json'];
+      }
+    }
+  }
+
+//-----------------------------------------------------
+//  スコアからランク
+//-----------------------------------------------------
 
   function Score_to_rank($score){
     if($score >= 1007500){
@@ -136,6 +237,11 @@
       return null;
     }
   }
+
+//-----------------------------------------------------
+//  スコアからレート
+//-----------------------------------------------------
+
   function score_to_rate($score,$base_rate){
     if($score >= 1007500){
       return (double)($base_rate+2);

@@ -23,6 +23,14 @@
 // 宣言部
 //-----------------------------------------------------
 
+  if(isset($_POST["hash"])){
+    $hash = $_POST["hash"];
+    $json = UserData_show($hash);    
+    //出力
+    header("Content-Type: text/javascript; charset=utf-8");
+    echo $json;
+    exit();
+  }
   if(isset($_POST["userid"])){
     $userid = $_POST["userid"];
   }
@@ -296,14 +304,14 @@
     echo null;
     exit();
   }
-  $dispRate = $dispRate['userInfo']['playerRating'];
+  $DispRate = $dispRate['userInfo']['playerRating'];
 
   //計算
-  $UserDisplayRate = (double)(substr($dispRate, 0,2).'.'.substr($dispRate, 2,4));
-  $UserBestRate = Truncation($UserBestRate/30,2);
-  $UserMaxRate = Truncation(($MaxRate*10 + $UserBestRate*30)/40,2);
-  $UserRecentRate = Truncation($UserRecentRate/10,2);
-  $UserRecentRate1 = Truncation(($UserDisplayRate*40 - $UserBestRate*30)/10,2);
+  $UserDisplayRate = (double)(substr($DispRate, 0,2).'.'.substr($DispRate, 2,4));
+  $UserBestRate = round($UserBestRate/30,2);
+  $UserMaxRate = round(($MaxRate*10 + $UserBestRate*30)/40,2);
+  $UserRecentRate = round($UserRecentRate/10,2);
+  $UserRecentRate1 = round(($UserDisplayRate*40 - $UserBestRate*30)/10,2);
 
   //連想配列に代入
   $MusicDetail["User"]["DispRate"] = $UserDisplayRate;
@@ -311,18 +319,28 @@
   $MusicDetail["User"]["RecentRate"] = $UserRecentRate;
   $MusicDetail["User"]["RecentRate-1"] = $UserRecentRate1;
   $MusicDetail["User"]["BestRate"] = $UserBestRate;
-
+  $MusicDetail["Userinfo"] = $dispRate["userInfo"];
+  
 //-----------------------------------------------------
-// JSON出力
+// JSON変換
 //-----------------------------------------------------
 
+  //フレンドコード取得
+  $friend = friendCode_get($userid);
+  if($friend == null){
+    echo null;
+    exit();
+  }
+  $friend = $friend["friendCode"];
+  $hash =  hash_hmac('sha256', $friend, false);
+  $MusicDetail["User"]["Hash"] = $hash;
+
+  $json = json_encode( $MusicDetail , JSON_UNESCAPED_UNICODE|JSON_UNESCAPED_SLASHES );
+  
+  //データーベースに登録
+  UserData_set($friend,$dispRate["userInfo"]["userName"],$json);
+
+  //出力
   header("Content-Type: text/javascript; charset=utf-8");
-  $json = json_encode( $MusicDetail , JSON_PRETTY_PRINT|JSON_UNESCAPED_UNICODE|JSON_UNESCAPED_SLASHES );
   echo $json;
-
-  /*ファイルに出力する場合
-  $file = fopen('result.json', 'w');
-  fwrite($file,$json);
-  fclose($file);
-  */
 ?>
