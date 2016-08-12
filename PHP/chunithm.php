@@ -53,7 +53,12 @@ else{
   <meta http-equiv="Cache-Control" CONTENT="no-cache">
   <meta http-equiv="Expires" CONTENT="-1">
   <meta name="robots" content="INDEX, FOLLOW" />
-
+  <meta property="og:title" content="CHUNITHM Rate Calculator" />
+  <meta property="og:type" content="tools" />
+  <meta property="og:description" content="チュウニズムのレートを計算するものです。" />
+  <meta property="og:url" content="https://akashisn.info/?page_id=52" />
+  <meta property="og:image" content="/common/images/chunithm/img.jpg" />
+  <meta property="og:site_name" content="Akashi_SNの日記" />
   <title>CHUNITHM Rate Calculator</title>
   <link rel="stylesheet" href="https://chunithm-net.com/mobile/common/css/common.css" />
   <link rel="stylesheet" href="https://chunithm-net.com/mobile/common/css/contents.css" />

@@ -140,7 +140,14 @@ function UserRateDisp(){
                     <div id="HonerText" class="player_honer_text">` + UserInfo["trophyName"] + `</div>
                   </div>
                 </div>
-                <div id="UserReborn" class="player_reborn_0"></div>
+                `;
+                if(UserInfo["reincarnationNum"] > 0){
+                  elements += `<div id="UserReborn" class="player_reborn">`;
+                  elements += UserInfo["reincarnationNum"];
+                }else{
+                  elements += `<div id="UserReborn" class="player_reborn_0">`;                  
+                }
+                elements += `</div>
                 <div class="player_name">
                   <div class="player_lv"><span class="font_small mr_5">Lv.</span><span id="UserLv">` + UserInfo["level"] + `</span></div><span id="UserName">` + UserInfo["userName"] + `</span>
                 </div>

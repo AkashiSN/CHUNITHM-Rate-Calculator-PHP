@@ -156,15 +156,16 @@
     try {
       $count = 0;
       $hash =  hash_hmac('sha256', $FriendCode, false);
-      $pdo = new PDO(DNS,array(PDO::ATTR_EMULATE_PREPARES => false));
+      $pdo = new PDO('mysql:host=localhost;dbname=CHUNITHMRateCalculator;charset=utf8','root','?@wAPrAp6ezAgu6',array(PDO::ATTR_EMULATE_PREPARES => false));
       $sql = 'SELECT * from User';
         foreach ($pdo ->query($sql) as $row) {
           if($hash == $row['Hash']){
               $count++;
+              break;
           }
         }
         if($count == 0){
-          $sql = "INSERT INTO User (Hash, FriendCode, UserName, Json) VALUES (:Hash, :FriendCode, :UserName, :Json)";
+        $sql = "INSERT INTO User (Hash, FriendCode, UserName, Json) VALUES (:Hash, :FriendCode, :UserName, :Json)";
         $stmt = $pdo -> prepare($sql);
         $stmt->bindParam(':Hash', $hash, PDO::PARAM_STR);
         $stmt->bindParam(':FriendCode', $FriendCode, PDO::PARAM_STR);
@@ -172,12 +173,18 @@
         $stmt->bindParam(':Json', $Json, PDO::PARAM_STR);
         $stmt->execute();
       }else{
-        $sql = "UPDATE User SET UserName = :UserName, Json = :Json WHERE Hash = :Hash";
+        $sql = "DELETE FROM User WHERE Hash=:Hash;";
         $stmt = $pdo->prepare($sql);
+        $stmt->bindParam(':Hash', $hash, PDO::PARAM_STR);
+        $stmt->execute();
+
+        $sql = "INSERT INTO User (Hash, FriendCode, UserName, Json) VALUES (:Hash, :FriendCode, :UserName, :Json)";
+        $stmt = $pdo -> prepare($sql);
+        $stmt->bindParam(':Hash', $hash, PDO::PARAM_STR);
+        $stmt->bindParam(':FriendCode', $FriendCode, PDO::PARAM_STR);
         $stmt->bindParam(':UserName', $UserName, PDO::PARAM_STR);
         $stmt->bindParam(':Json', $Json, PDO::PARAM_STR);
-        $stmt->bindParam(':Hash', $Hash, PDO::PARAM_STR);
-        $stmt->execute($params);
+        $stmt->execute();
       }
     } catch (PDOException $e) {
       exit('データベース接続失敗。'.$e->getMessage());
@@ -189,7 +196,7 @@
 //-----------------------------------------------------
 
   function UserData_show($Hash){
-    $pdo = new PDO(DNS,array(PDO::ATTR_EMULATE_PREPARES => false));
+    $pdo = new PDO('mysql:host=localhost;dbname=CHUNITHMRateCalculator;charset=utf8','root','?@wAPrAp6ezAgu6',array(PDO::ATTR_EMULATE_PREPARES => false));
     $sql = 'SELECT * from User';
     foreach ($pdo ->query($sql) as $row) {
       if($Hash == $row['Hash']){
@@ -232,6 +239,9 @@
     }
     else if($score >= 500000){
       return "c";
+    }
+    else if($score >= 0){
+      return "d";
     }
     else{
       return null;
