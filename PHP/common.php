@@ -156,7 +156,7 @@
     try {
       $count = 0;
       $hash =  hash_hmac('sha256', $FriendCode, false);
-      $pdo = new PDO('mysql:host=localhost;dbname=CHUNITHMRateCalculator;charset=utf8','root','?@wAPrAp6ezAgu6',array(PDO::ATTR_EMULATE_PREPARES => false));
+      $pdo = new PDO(DNS,array(PDO::ATTR_EMULATE_PREPARES => false));
       $sql = 'SELECT * from User';
         foreach ($pdo ->query($sql) as $row) {
           if($hash == $row['Hash']){
@@ -196,7 +196,7 @@
 //-----------------------------------------------------
 
   function UserData_show($Hash){
-    $pdo = new PDO('mysql:host=localhost;dbname=CHUNITHMRateCalculator;charset=utf8','root','?@wAPrAp6ezAgu6',array(PDO::ATTR_EMULATE_PREPARES => false));
+    $pdo = new PDO(DNS,array(PDO::ATTR_EMULATE_PREPARES => false));
     $sql = 'SELECT * from User';
     foreach ($pdo ->query($sql) as $row) {
       if($Hash == $row['Hash']){
@@ -285,6 +285,49 @@
     }
     else if($score >= 500000){
       return (double)($base_rate-13.7+($score-500000)*2.35/50000);
+    }
+    else{
+      return null;
+    }
+  }
+
+//-----------------------------------------------------
+//  レートからスコア
+//-----------------------------------------------------
+
+  function rate_to_score($rate,$base_rate){
+    if($rate-$base_rate >= 2){
+      return 0;
+    }
+    else if($rate-$base_rate >= 1.5){
+      return floor(-50000/10*($base_rate+1.5-$rate)+1005000);
+    }
+    else if($rate-$base_rate >= 1){
+      return floor(-50000/5*($base_rate+1-$rate)+1000000);
+    }
+    else if($rate-$base_rate >= 0){
+      return floor(-50000/2*($base_rate-$rate)+975000);
+    }
+    else if($rate-$base_rate >= -1.5){
+      return floor(-50000/3*($base_rate-1.5-$rate)+950000);
+    }
+    else if($rate-$base_rate >= -3){
+      return floor(-50000/3*($base_rate-3-$rate)+925000);
+    }
+    else if($rate-$base_rate >= -5){
+      return floor(-50000/4*($base_rate-5-$rate)+900000);
+    }
+    else if($rate-$base_rate >= -7.5){
+      return floor(-50000/1.25*($base_rate-7.5-$rate)+800000);
+    }
+    else if($rate-$base_rate >= -8.5){
+      return floor(-50000/0.5*($base_rate-8.5-$rate)+700000);
+    }
+    else if($rate-$base_rate >= -9){
+      return floor(-50000/0.25*($base_rate-9-$rate)+600000);
+    }
+    else if($rate-$base_rate >= -13.7){
+      return floor(-50000/2.35*($base_rate-13.7-$rate)+500000);
     }
     else{
       return null;

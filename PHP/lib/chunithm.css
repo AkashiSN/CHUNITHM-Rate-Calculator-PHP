@@ -34,13 +34,11 @@ html {
     font-size: 20px;
     text-align: center;
   }
-
-  #rate {
-    position: relative;
-    margin-top: 30px;
-    width: 100%;
-    font-size: 15px;
-    text-align: center;
+}
+@media screen and (max-width: 480px){
+  #rank img {
+    height: 14px;
+    margin: 0px 0px 0px 0;
   }
 }
 /*ボタン*/

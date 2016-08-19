@@ -130,32 +130,37 @@ function UserRateDisp(){
   var UserRate = UserData["User"];
   var UserInfo = UserData["Userinfo"];
   var frame = ["normal", "copper", "silver", "gold", "platina"];
-  var elements = `<div class="w420 box_player clearfix">
-              <div id="UserCharacter" class="player_chara" style='background-image:url("https://chunithm-net.com/mobile/common/images/charaframe_`+ frame[parseInt(parseInt(UserInfo["characterLevel"])/5)] +`.png");margin-top: 10px;'>
-                <img id="characterFileName" src="https://chunithm-net.com/mobile/` + UserInfo["characterFileName"] + `">
-              </div>
-              <div class="box07 player_data">
-                <div id="UserHonor" class="player_honor" style='background-image:url("https://chunithm-net.com/mobile/common/images/honor_bg_` + frame[parseInt(UserInfo["trophyType"])] + `.png")'>
-                  <div class="player_honer_text_view">
-                    <div id="HonerText" class="player_honer_text">` + UserInfo["trophyName"] + `</div>
-                  </div>
-                </div>
-                `;
-                if(UserInfo["reincarnationNum"] > 0){
-                  elements += `<div id="UserReborn" class="player_reborn">`;
-                  elements += UserInfo["reincarnationNum"];
-                }else{
-                  elements += `<div id="UserReborn" class="player_reborn_0">`;                  
-                }
-                elements += `</div>
-                <div class="player_name">
-                  <div class="player_lv"><span class="font_small mr_5">Lv.</span><span id="UserLv">` + UserInfo["level"] + `</span></div><span id="UserName">` + UserInfo["userName"] + `</span>
-                </div>
-                <div class="player_rating" id="player_rating">BEST枠 : <span id="UserRating">` + UserRate["BestRate"].toFixed(2) + `</span> / <span>MAX</span> <span id="UserRating">` + UserRate["MaxRate"].toFixed(2) + `</span><br><div style="margin-top:5px;">RCENT枠 :<span id="UserRating">` + UserRate["RecentRate-1"].toFixed(2) + `</span> / <span>表示レート</span><span id="UserRating">` + UserRate["DispRate"].toFixed(2) + `</span></div></div>
-              </div>
-              <div id="tweet" style="margin-top: 10px;"></div>
-              <div style="margin-top: 0px" class="more w400" onclick="window.open('https://akashisn.info/?page_id=52', '_blank');"><a href="JavaScript:void(0);">使い方</a></div>
-            </div>`;  
+  var elements = `
+  <div class="w420 box_player clearfix">
+    <div id="UserCharacter" class="player_chara" style='background-image:url("https://chunithm-net.com/mobile/common/images/charaframe_`+ frame[parseInt(parseInt(UserInfo["characterLevel"])/5)] +`.png");margin-top: 10px;'>
+      <img id="characterFileName" src="https://chunithm-net.com/mobile/` + UserInfo["characterFileName"] + `">
+    </div>
+    <div class="box07 player_data">
+      <div id="UserHonor" class="player_honor" style='background-image:url("https://chunithm-net.com/mobile/common/images/honor_bg_` + frame[parseInt(UserInfo["trophyType"])] + `.png")'>
+        <div class="player_honer_text_view">
+          <div id="HonerText" class="player_honer_text">` + UserInfo["trophyName"] + `</div>
+        </div>
+      </div>`;
+  if(UserInfo["reincarnationNum"] > 0){
+    elements += `
+      <div id="UserReborn" class="player_reborn">`;
+    elements += UserInfo["reincarnationNum"];
+  }else{
+    elements += `
+      <div id="UserReborn" class="player_reborn_0">`;                  
+  }
+  elements += `
+      </div>
+      <div class="player_name">
+        <div class="player_lv">
+          <span class="font_small mr_5">Lv.</span><span id="UserLv">` + UserInfo["level"] + `</span></div><span id="UserName">` + UserInfo["userName"] + `</span>
+        </div>
+        <div class="player_rating" id="player_rating">BEST枠 : <span id="UserRating">` + UserRate["BestRate"].toFixed(2) + `</span> / <span>MAX</span> <span id="UserRating">` + UserRate["MaxRate"].toFixed(2) + `</span><br><div style="margin-top:5px;">RCENT枠 :<span id="UserRating">` + UserRate["RecentRate-1"].toFixed(2) + `</span> / <span>表示レート</span><span id="UserRating">` + UserRate["DispRate"].toFixed(2) + `</span></div>
+      </div>
+    </div>
+    <div id="tweet" style="margin-top: 10px;"></div>
+    <div style="margin-top: 0px" class="more w400" onclick="window.open('https://akashisn.info/?page_id=52', '_blank');"><a href="JavaScript:void(0);">使い方</a></div>
+  </div>`;  
   var div = document.getElementById("userInfo_result");
   div.innerHTML = elements;
 
@@ -197,6 +202,7 @@ function BestRateDisp(){
           var Rank = MusicDeteil["Rank"];
           var BestRate = MusicDeteil["BestRate"];
           var level = MusicDeteil["level"];
+          var BestScore = MusicDeteil["ScoreBest"];
           
           if(i == 30){
               element += `
@@ -234,8 +240,12 @@ function BestRateDisp(){
                     <div class="play_musicdata_score_text">譜面定数:<span id="Score">`+BaseRate+`</span></div><br>
                     <div class="play_musicdata_score_text">RATING:<span id="Score">`+BestRate+`</span></div><br>
                     <div class="play_musicdata_score_text">Score：<span id="Score">`+Score+`</span></div>
-                    <img src="https://chunithm-net.com/mobile/common/images/icon_`+Rank+`.png">
-                  </div>
+                    <div id="rank"><img src="https://chunithm-net.com/mobile/common/images/icon_`+Rank+`.png"></div>
+                    `;
+                    if(i > 29 && BestScore != 0){
+                      element += `<div class="play_musicdata_score_text">Best枠入りまで : <span id="Score">`+ (BestScore-Score) +`(`+BestScore+`)</span></div>`;
+                    }
+                  element += `</div>
                 </div>
               </div>
             </div>`;            

@@ -113,6 +113,7 @@
 
   //初期化
   $rate = 0;
+  $BestRateMin = 0;
 
   //jsonに書き出し
   foreach ($BestRate_to_Musicid as $musicid => $rate){
@@ -128,17 +129,35 @@
       $Temp["Rank"] = Score_to_rank($Score_to_Musicid[$musicid]);
       $Temp["BestRate"] = Truncation($rate,2);
 
-      $MusicDetail["Best"][] = $Temp;
       //上位30曲
       if($i < 30){
         $UserBestRate += Truncation($rate,2);
+        $Temp["ScoreBest"] = 0;
         //上位1曲
         if($i == 0){
           $MaxRate = Truncation($rate,2);
         }
+        if($i == 29){
+          $BestRateMin = $rate;
+        }
       }
-      $Temp = "";
-      $i++;
+      else{
+      	if(Score_to_rank($Score_to_Musicid[$musicid]) == "sss"){
+	        $Temp["ScoreBest"] = 0;
+	      }
+	      else{
+	      	$BestScore = rate_to_score($BestRateMin,$Temp["BaseRate"]);    
+	        if($BestScore <= 1007500){
+	        	$Temp["ScoreBest"] = $BestScore;
+	        }
+	        else{
+	        	$Temp["ScoreBest"] = 0;
+	        }
+	    	}
+	    }
+	    $MusicDetail["Best"][] = $Temp;
+	    $Temp = "";
+	    $i++;
     }
     //マスターの場合
     else{
@@ -152,18 +171,36 @@
       $Temp["Rank"] = Score_to_rank($Score_to_Musicid[$musicid]);
       $Temp["BestRate"] = Truncation($rate,2);
 
-      $MusicDetail["Best"][] = $Temp;
       //上位30曲
       if($i < 30){
         $UserBestRate += Truncation($rate,2);
+        $Temp["ScoreBest"] = 0;
         //上位1曲
         if($i == 0){
           $MaxRate = Truncation($rate,2);
         }
+        if($i == 29){
+          $BestRateMin = $rate;
+        }
       }
-      $Temp = "";
-      $i++;
-    }
+      else{
+      	if(Score_to_rank($Score_to_Musicid[$musicid]) == "sss"){
+	        $Temp["ScoreBest"] = 0;
+	      }
+	      else{
+	      	$BestScore = rate_to_score($BestRateMin,$Temp["BaseRate"]);    
+	        if($BestScore <= 1007500){
+	        	$Temp["ScoreBest"] = $BestScore;
+	        }
+	        else{
+	        	$Temp["ScoreBest"] = 0;
+	        }
+	    	}
+	    }
+	    $MusicDetail["Best"][] = $Temp;
+	    $Temp = "";
+	    $i++;
+	  }
   }
 
 //-----------------------------------------------------
