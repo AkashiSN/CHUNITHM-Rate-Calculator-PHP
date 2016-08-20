@@ -11,39 +11,6 @@
   +---------------------------------------------------+
 */
 
-
-//--------------------------------------------------------------------
-// 共通
-//--------------------------------------------------------------------
-
-(function(i, s, o, g, r, a, m) {
-  i['GoogleAnalyticsObject'] = r;
-  i[r] = i[r] || function() {
-    (i[r].q = i[r].q || []).push(arguments)
-  }, i[r].l = 1 * new Date();
-  a = s.createElement(o),
-    m = s.getElementsByTagName(o)[0];
-  a.async = 1;
-  a.src = g;
-  m.parentNode.insertBefore(a, m)
-})(window, document, 'script', '//www.google-analytics.com/analytics.js', 'ga');
-
-ga('create', 'UA-74926268-1', 'auto');
-ga('send', 'pageview');
-
-! function(d, s, id) {
-  var js, fjs = d.getElementsByTagName(s)[0],
-    p = /^http:/.test(d.location) ? 'http' : 'https';
-
-  if (!d.getElementById(id)) {
-    js = d.createElement(s);
-    js.id = id;
-    js.async = true;
-    js.src = p + '://platform.twitter.com/widgets.js';
-    fjs.parentNode.insertBefore(js, fjs);
-  }
-}(document, 'script', 'twitter-wjs');
-
 //--------------------------------------------------------------------
 // グローバル変数
 //--------------------------------------------------------------------
@@ -51,81 +18,96 @@ ga('send', 'pageview');
   var UserData;
   var Best = "";
   var Recent = "";
-  var Hash = "";
 
 //--------------------------------------------------------------------
-// レート値取得
+// UserIdをPOSTしてデーターベースに登録
 //--------------------------------------------------------------------
 
-//apiにアクセス
 function JsonPost(Userid) {
   //ロード画面
   $("#overlay").fadeIn();
   // Ajax通信を開始する
   $.ajax({
     url: 'main.php',
-    type: 'post', // getかpostを指定(デフォルトは前者)
-    dataType: 'json', // 「json」を指定するとresponseがJSONとしてパースされたオブジェクトになる
-    data: { // 送信データを指定(getの場合は自動的にurlの後ろにクエリとして付加される)
+    type: 'post',
+    dataType: 'json',
+    data: {
       userid: Userid
     },
-    // ・ステータスコードは正常で、dataTypeで定義したようにパース出来たとき
-    success: function(data) {
-      $('#result').val('成功');
-      console.log(data);
-      UserData = data;
-      Hash = UserData["User"]["Hash"];
-      console.log(Hash);
-      var url = document.URL;
-      location.href = url + '?user=' + Hash;
+    statusCode: {
+      200: function(data){
+        location.href = document.URL + '?user=' + data["User"]["Hash"];
+      },
+      204: function(){
+        //UserIdの期限が切れた
+        document.cookie = 'errorCode=100000';
+        location.replace( "error.html" );
+      },
+      400: function(){
+        //リクエストが不正
+        document.cookie = 'errorCode=100001';
+        location.replace( "error.html" );
+      },
+      403: function(){
+        //データーベースに登録されていない
+        document.cookie = 'errorCode=100002';
+        location.replace( "error.html" );
+      }
     },
-    // ・サーバからステータスコード400以上が返ってきたとき
-    // ・ステータスコードは正常だが、dataTypeで定義したようにパース出来なかったとき
-    // ・通信に失敗したとき
-    error: function() {
-      location.replace( "error.html" );
-    },
-    // 成功・失敗に関わらず通信が終了した際の処理
     complete: function() {
       $("#overlay").fadeOut();
     }
   });  
 }
 
-//apiにアクセス
+//--------------------------------------------------------------------
+// HashをPOSTしてデーターベースを参照
+//--------------------------------------------------------------------
+
 function UserHash(hash) {
   //ロード画面
   $("#overlay").fadeIn();
   // Ajax通信を開始する
   $.ajax({
     url: 'main.php',
-    type: 'post', // getかpostを指定(デフォルトは前者)
-    dataType: 'json', // 「json」を指定するとresponseがJSONとしてパースされたオブジェクトになる
-    data: { // 送信データを指定(getの場合は自動的にurlの後ろにクエリとして付加される)
+    type: 'post',
+    dataType: 'json',
+    data: {
       hash: hash
     },
-    // ・ステータスコードは正常で、dataTypeで定義したようにパース出来たとき
-    success: function(data) {
-      $('#result').val('成功');
-      console.log(data);
-      UserData = data;
-      UserRateDisp();
-      BestRateDisp();
+    statusCode: {
+      200: function(data){
+        console.log(data);
+        UserData = data;
+        UserRateDisp();
+        BestRateDisp();
+      },
+      204: function(){
+        //UserIdの期限が切れた
+        document.cookie = 'errorCode=100000';
+        location.replace( "error.html" );
+      },
+      400: function(){
+        //リクエストが不正
+        document.cookie = 'errorCode=100001';
+        location.replace( "error.html" );
+      },
+      403: function(){
+        //データーベースに登録されていない
+        document.cookie = 'errorCode=100002';
+        location.replace( "error.html" );
+      }
     },
-    // ・サーバからステータスコード400以上が返ってきたとき
-    // ・ステータスコードは正常だが、dataTypeで定義したようにパース出来なかったとき
-    // ・通信に失敗したとき
-    error: function() {
-      location.replace( "error.html" );
-    },
-    // 成功・失敗に関わらず通信が終了した際の処理
     complete: function() {
       $("#overlay").fadeOut();
     }
   });  
 }
 
-//ユーザーデータの表示
+//--------------------------------------------------------------------
+// ユーザーデータの表示
+//--------------------------------------------------------------------
+
 function UserRateDisp(){
   var UserRate = UserData["User"];
   var UserInfo = UserData["Userinfo"];
@@ -180,7 +162,11 @@ function UserRateDisp(){
     )
   });
 }
-//best枠の表示
+
+//--------------------------------------------------------------------
+// Best枠の表示
+//--------------------------------------------------------------------
+
 function BestRateDisp(){
   if(Best == ""){
     var element = "";
@@ -256,7 +242,10 @@ function BestRateDisp(){
       div.innerHTML = Best;
 }
 
-//Recent枠の表示
+//--------------------------------------------------------------------
+// Recent枠の表示
+//--------------------------------------------------------------------
+
 function RecentRateDisp(){
   if(Recent == ""){
     var element = "";
@@ -324,4 +313,88 @@ function RecentRateDisp(){
       }      
       var div = document.getElementById( "rate" );
       div.innerHTML = Recent;
+}
+
+
+//--------------------------------------------------------------------
+// 共通
+//--------------------------------------------------------------------
+(function (i, s, o, g, r, a, m) {
+  i['GoogleAnalyticsObject'] = r;
+  i[r] = i[r] || function () {
+    (i[r].q = i[r].q || [])
+    .push(arguments)
+  }, i[r].l = 1 * new Date();
+  a = s.createElement(o)
+    , m = s.getElementsByTagName(o)[0];
+  a.async = 1;
+  a.src = g;
+  m.parentNode.insertBefore(a, m)
+})(window, document, 'script', '//www.google-analytics.com/analytics.js', 'ga');
+
+ga('create', 'UA-74926268-1', 'auto');
+ga('send', 'pageview');
+
+! function (d, s, id) {
+  var js, fjs = d.getElementsByTagName(s)[0]
+    , p = /^http:/.test(d.location) ? 'http' : 'https';
+
+  if (!d.getElementById(id)) {
+    js = d.createElement(s);
+    js.id = id;
+    js.async = true;
+    js.src = p + '://platform.twitter.com/widgets.js';
+    fjs.parentNode.insertBefore(js, fjs);
+  }
+}(document, 'script', 'twitter-wjs');
+
+//--------------------------------------------------------------------
+// Cookieを取得(連想配列で全件返す)
+//--------------------------------------------------------------------
+
+function getCookie() {
+  var resultList = new Array();
+  var cookies = document.cookie;
+
+  if (cookies != "") {
+    var col = cookies.split(";");
+    for (var i = 0; i < col.length; i++) {
+      var value = col[i].split("=");
+      resultList[value[0].trim()] = decodeURIComponent(value[1]);
+    }
+  }
+  return resultList;
+}
+
+//--------------------------------------------------------------------
+// エラー処理
+//--------------------------------------------------------------------
+
+function error() {
+  var cookie = getCookie();
+  var errorCode = cookie["errorCode"];
+  if (errorCode == null || errorCode == "") {
+    errorCode = 0;
+  }
+  var output = "";
+  // エラーコード
+  output += "<p class=\"font_small\">Error Code: " + errorCode + "<hr></p>";
+  output += "<p class=\"font_small\">";
+  switch (parseInt(errorCode)) {
+  case 100000:
+    output += "UserIdの期限が切れています。もう一度ログインしてから実行してください。"
+    break;
+  case 100001:
+    output += "リクエストが不正です。"
+    break;
+  case 100002:
+    output += "データーベースに登録されていないので、実行しなおしてください。"
+    break;
+  default:
+    　output += "invalid ErrorCode.";
+    break;
+  }
+  output += "</p>";
+  var div = document.getElementById("errorText_result");
+  div.innerHTML = output;
 }

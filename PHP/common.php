@@ -12,18 +12,12 @@
   +---------------------------------------------------+
 */
 
+
 //-----------------------------------------------------
-//  エラーハンドラ
+// ヘッダー
 //-----------------------------------------------------
 
-  function errorHandler($errno, $errstr, $errfile, $errline)
-  {
-    if($errno === E_NOTICE) {
-      header("HTTP/1.1 301 Moved Permanently");
-      header("Location: https://akashisn.info/chunithm/error.html");
-      exit();
-    }
-  }
+  require("define.php");
 
 //-----------------------------------------------------
 //  切り捨て
@@ -156,7 +150,7 @@
     try {
       $count = 0;
       $hash =  hash_hmac('sha256', $FriendCode, false);
-      $pdo = new PDO(DNS,array(PDO::ATTR_EMULATE_PREPARES => false));
+      $pdo = new PDO(DNS,USER,PASS,array(PDO::ATTR_EMULATE_PREPARES => false));
       $sql = 'SELECT * from User';
         foreach ($pdo ->query($sql) as $row) {
           if($hash == $row['Hash']){
@@ -196,13 +190,14 @@
 //-----------------------------------------------------
 
   function UserData_show($Hash){
-    $pdo = new PDO(DNS,array(PDO::ATTR_EMULATE_PREPARES => false));
+    $pdo = new PDO(DNS,USER,PASS,array(PDO::ATTR_EMULATE_PREPARES => false));
     $sql = 'SELECT * from User';
     foreach ($pdo ->query($sql) as $row) {
       if($Hash == $row['Hash']){
         return $row['Json'];
       }
     }
+    return null;
   }
 
 //-----------------------------------------------------

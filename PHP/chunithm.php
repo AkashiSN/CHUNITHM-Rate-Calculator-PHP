@@ -19,25 +19,30 @@
 require("common.php");
 session_start();
 
-/*エラー判定(直接アクセス)*/
-if(isset($_GET['user'])){
-
-}
-else if(isset($_POST['userid'])){
-  if(userid_get($_POST['userid'])){
-    $userid = userid_get($_POST['userid']);
-    $_SESSION['userid'] = $userid;
+//userが指定されていない
+if(!isset($_GET['user'])){
+  //cookieがPOSTされている
+  if(isset($_POST['userid'])){
+    //UserIdが見つかった
+    if(userid_get($_POST['userid'])){
+      $userid = userid_get($_POST['userid']);
+      $_SESSION['userid'] = $userid;
+    }
+    //UserIdが見つからない
+    else{
+      setcookie("errorCode",100001);
+      header("HTTP/1.1 301 Moved Permanently");
+      header("Location: error.html");
+      exit();
+    }
   }
+  //cookieがPOSTされていない
   else{
+    setcookie("errorCode",100001);
     header("HTTP/1.1 301 Moved Permanently");
-    header("Location: https://akashisn.info/?page_id=52");
-  exit();
+    header("Location: error.html");
+    exit();
   }
-}
-else{
-  header("HTTP/1.1 301 Moved Permanently");
-  header("Location: https://akashisn.info/?page_id=52");
-  exit();
 }
 ?>
 <!DOCTYPE html>

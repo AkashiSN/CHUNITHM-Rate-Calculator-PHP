@@ -20,12 +20,18 @@
   require("common.php");
 
 //-----------------------------------------------------
-// 宣言部
+// 受信部
 //-----------------------------------------------------
 
   if(isset($_POST["hash"])){
     $hash = $_POST["hash"];
-    $json = UserData_show($hash);    
+    $json = UserData_show($hash);
+
+    if($json == null){      
+      http_response_code(403);
+      exit();
+    }
+    
     //出力
     header("Content-Type: text/javascript; charset=utf-8");
     echo $json;
@@ -35,9 +41,15 @@
     $userid = $_POST["userid"];
   }
   else{
-    //エラー判定
+    //パラメータが不適切
+    http_response_code(400);
     exit();
   }
+
+//-----------------------------------------------------
+// 宣言部
+//-----------------------------------------------------
+
   $Img_to_MusicID = array();
   $RecentlyMusicDetail = array();
   $MusicDetail = array();
@@ -74,7 +86,7 @@
     $ScoreDetail = score_get($userid,$MusicIDArray[$i]);
     //エラー判定
     if($ScoreDetail == null){
-      echo null;
+      http_response_code(204);
       exit();
     }
     //やったことあるか
@@ -210,7 +222,7 @@
   //最近の楽曲の取得
   $userPlaylogList = Recent_score_get($userid);
   if($userPlaylogList == null){
-    echo null;
+    http_response_code(204);
     exit();
   }
 
@@ -338,7 +350,7 @@
   // 表示レート取得
   $dispRate = Rate_get($userid);
   if($dispRate == null){
-    echo null;
+    http_response_code(204);
     exit();
   }
   $DispRate = $dispRate['userInfo']['playerRating'];
@@ -364,8 +376,8 @@
 
   //フレンドコード取得
   $friend = friendCode_get($userid);
-  if($friend == null){
-    echo null;
+  if($friend == null){    
+    http_response_code(204);
     exit();
   }
   $friend = $friend["friendCode"];
@@ -378,6 +390,8 @@
   UserData_set($friend,$dispRate["userInfo"]["userName"],$json);
 
   //出力
+  $Hash["User"]["Hash"] = $hash;
+  $json = json_encode( $Hash , JSON_UNESCAPED_UNICODE|JSON_UNESCAPED_SLASHES );  
   header("Content-Type: text/javascript; charset=utf-8");
   echo $json;
 ?>

@@ -16,12 +16,17 @@
   <link rel="stylesheet" href="https://chunithm-net.com/mobile/common/css/common.css" />
   <link rel="stylesheet" href="https://chunithm-net.com/mobile/common/css/contents.css" />
   <script src="/common/js/jquery-1.12.4.min.js" ></script>
-
+  <script src="lib/chunithm.js"></script>
+  <script type="text/javascript">
+    $(function() {
+      error();
+    });
+  </script>
 </head>
 
 <body>
 
-  <div id="wrap">
+  <div id="wrap" style="margin-top: 15px;">
     <div id="inner" style="margin-bottom: 0px;padding-bottom: 0px;">
       <div class="frame01 w460">
         <div class="frame01_inside w450">
@@ -31,7 +36,7 @@
           <div class="box01 w420 p_10">
             <div class="block text_l">
               <div id="errorText_result">
-                <p class="font_small">ログインされているか確認してください</p>
+                <p class="font_small"></p>
               </div>
             </div>
           </div>
