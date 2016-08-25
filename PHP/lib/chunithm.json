@@ -428,7 +428,7 @@
         "Images": "img/c2c4ece2034eb620.jpg",
         "BaseRate": {
             "ex": 11.9,
-            "mas": 13.4
+            "mas": 13.3
         }
     },
     "70": {
@@ -452,7 +452,7 @@
         "MusicName": "Genesis",
         "Images": "img/ec3a366b4724f8f6.jpg",
         "BaseRate": {
-            "mas": 13
+            "mas": 13.5
         }
     },
     "73": {
@@ -793,7 +793,7 @@
         "MusicName": "Vallista",
         "Images": "img/e7ee14d9fe63d072.jpg",
         "BaseRate": {
-            "mas": 13.1
+            "mas": 13.5
         }
     },
     "136": {
@@ -939,7 +939,7 @@
         "MusicName": "ジングルベル",
         "Images": "img/d5a47266b4fe0bfe.jpg",
         "BaseRate": {
-            "mas": 13.4
+            "mas": 13.3
         }
     },
     "160": {
