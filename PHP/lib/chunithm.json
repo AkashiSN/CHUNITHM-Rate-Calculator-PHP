@@ -256,7 +256,7 @@
         "MusicName": "Blue Noise",
         "Images": "img/fddc37caee47286d.jpg",
         "BaseRate": {
-            "mas": 12.7
+            "mas": 13.0
         }
     },
     "35": {
@@ -712,7 +712,7 @@
         "MusicName": "四次元跳躍機関",
         "Images": "img/a84a31e562efd7a0.jpg",
         "BaseRate": {
-            "mas": 12.3
+            "mas": 12.7
         }
     },
     "121": {
@@ -768,7 +768,7 @@
         "MusicName": "チルドレンレコード",
         "Images": "img/38d3c5a5a45c6d07.jpg",
         "BaseRate": {
-            "mas": 12.8
+            "mas": 12.6
         }
     },
     "132": {
@@ -842,7 +842,7 @@
         "MusicName": "Aragami",
         "Images": "img/8b04b9ad2d49850c.jpg",
         "BaseRate": {
-            "mas": 13.2
+            "mas": 13.3
         }
     },
     "145": {
@@ -899,7 +899,7 @@
         "Images": "img/f63fab30a7b6f160.jpg",
         "BaseRate": {
             "ex": 11.7,
-            "mas": 12.9
+            "mas": 13.0
         }
     },
     "154": {
@@ -1094,7 +1094,7 @@
         "MusicName": "ハート・ビート",
         "Images": "img/d76afb63de1417f8.jpg",
         "BaseRate": {
-            "mas": 12.3
+            "mas": 12.1
         }
     },
     "200": {
@@ -1370,7 +1370,7 @@
         "MusicName": "なるとなぎのパーフェクトロックンロール教室",
         "Images": "img/d445e4878a818d8b.jpg",
         "BaseRate": {
-            "mas": 12.3
+            "mas": 12.7
         }
     },
     "247": {
@@ -1379,6 +1379,22 @@
         "Images": "img/58847f9694837c0b.jpg",
         "BaseRate": {
             "mas": 11.9
+        }
+    },
+    "248": {
+        "MusicID": 248,
+        "MusicName": "Schrecklicher Aufstand",
+        "Images": "img/a2fdef9e4b278a51.jpg",
+        "BaseRate": {
+            "mas": 13.9
+        }
+    },
+    "250": {
+        "MusicID": 250,
+        "MusicName": "Philosopher",
+        "Images": "img/989f4458fb34aa9d.jpg",
+        "BaseRate": {
+            "mas": 13.5
         }
     },
     "251": {
@@ -1403,6 +1419,38 @@
         "Images": "img/429d34fef5fddb02.jpg",
         "BaseRate": {
             "mas": 11.1
+        }
+    },
+    "298": {
+        "MusicID": 298,
+        "MusicName": "PRIVATE SERVICE",
+        "Images": "img/7c649691aa0c4b3d.jpg",
+        "BaseRate": {
+            "mas": 12.6
+        }
+    },
+    "318": {
+        "MusicID": 318,
+        "MusicName": "DataErr0r",
+        "Images": "img/f803d578eb4047eb.jpg",
+        "BaseRate": {
+            "mas": 13.1
+        }
+    },
+    "305": {
+        "MusicID": 305,
+        "MusicName": "幻想のサテライト",
+        "Images": "img/266bd38219201fa1.jpg",
+        "BaseRate": {
+            "mas": 13.3
+        }
+    },
+    "317": {
+        "MusicID": 317,
+        "MusicName": "Air",
+        "Images": "img/db15d5b7aefaa672.jpg",
+        "BaseRate": {
+            "mas": 13.4
         }
     }
 }
