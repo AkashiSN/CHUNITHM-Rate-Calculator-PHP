@@ -334,7 +334,7 @@
         "MusicName": "My First Phone",
         "Images": "img/161f13a787a00032.jpg",
         "BaseRate": {
-            "mas": 12.6
+            "mas": 12.7
         }
     },
     "52": {
@@ -393,7 +393,7 @@
         "Images": "img/2df15f390356067f.jpg",
         "BaseRate": {
             "ex": 11.7,
-            "mas": 13
+            "mas": 13.1
         }
     },
     "64": {
@@ -491,7 +491,7 @@
         "Images": "img/93abb77776c70b47.jpg",
         "BaseRate": {
             "ex": 11.8,
-            "mas": 13.2
+            "mas": 13.4
         }
     },
     "79": {
@@ -548,7 +548,7 @@
         "MusicName": "最終鬼畜妹・一部声",
         "Images": "img/17315fb464f265bd.jpg",
         "BaseRate": {
-            "mas": 13
+            "mas": 13.0
         }
     },
     "93": {
