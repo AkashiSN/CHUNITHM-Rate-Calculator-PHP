@@ -141,7 +141,7 @@ function UserRateDisp(){
       </div>
     </div>
     <div id="tweet" style="margin-top: 10px;"></div>
-    <div style="margin-top: 0px" class="more w400" onclick="window.open('https://akashisn.info/?page_id=52', '_blank');"><a href="JavaScript:void(0);">使い方</a></div>
+    <div style="margin-top: 0px" class="more w400" onclick="window.open('https://akashisn.info/?page_id=52#Air', '_blank');"><a href="JavaScript:void(0);">Air対応について</a></div>
   </div>`;  
   var div = document.getElementById("userInfo_result");
   div.innerHTML = elements;
