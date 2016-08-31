@@ -24,6 +24,7 @@
         51,
         52,
         53,
+        55,
         56,
         60,
         61,
@@ -31,6 +32,7 @@
         63,
         64,
         65,
+        66,
         67,
         68,
         69,
@@ -41,6 +43,7 @@
         74,
         75,
         76,
+        77,
         79,
         82,
         83,
@@ -71,6 +74,7 @@
         120,
         121,
         122,
+        124,
         126,
         128,
         129,
@@ -145,6 +149,7 @@
         232,
         233,
         235,
+        238,
         240,
         243,
         244,
@@ -156,10 +161,16 @@
         251,
         252,
         255,
+        261,
+        292,
         298,
         305,
+        306,
+        308,
+        309,
         317,
-        318
+        318,
+        330
     ],
     "3": {
         "MusicID": 3,
@@ -182,7 +193,7 @@
         "MusicName": "Reach for the Stars",
         "Images": "img/90589be457544570.jpg",
         "BaseRate": {
-            "mas": 12.5
+            "mas": 12.3
         }
     },
     "9": {
@@ -343,7 +354,7 @@
         "Images": "img/a62f975edc860e34.jpg",
         "BaseRate": {
             "ex": 11.1,
-            "mas": 13.4
+            "mas": 13.2
         }
     },
     "53": {
@@ -352,6 +363,14 @@
         "Images": "img/73ad66e81061bba3.jpg",
         "BaseRate": {
             "mas": 12.3
+        }
+    },
+    "55": {
+        "MusicID": 55,
+        "MusicName": "夏祭り",
+        "Images": "img/506f053a80e1b28e.jpg",
+        "BaseRate": {
+            "mas": 11.2
         }
     },
     "56": {
@@ -376,7 +395,7 @@
         "Images": "img/2ccf97477eaf45ad.jpg",
         "BaseRate": {
             "ex": 11,
-            "mas": 13.6
+            "mas": 13.5
         }
     },
     "62": {
@@ -410,6 +429,14 @@
         "Images": "img/713d52aa40ed7fc4.jpg",
         "BaseRate": {
             "mas": 11.1
+        }
+    },
+    "66": {
+        "MusicID": 66,
+        "MusicName": "明るい未来",
+        "Images": "img/c22702914849a11a.jpg",
+        "BaseRate": {
+            "mas": 12.3
         }
     },
     "67": {
@@ -466,7 +493,7 @@
         "MusicName": "MUSIC PЯAYER",
         "Images": "img/0c2791f737ce1ff2.jpg",
         "BaseRate": {
-            "mas": 12.5
+            "mas": 12.6
         }
     },
     "74": {
@@ -492,6 +519,14 @@
         "BaseRate": {
             "ex": 11.8,
             "mas": 13.4
+        }
+    },
+    "77": {
+        "MusicID": 77,
+        "MusicName": "ケモノガル",
+        "Images": "img/01fc7f761272bfb4.jpg",
+        "BaseRate": {
+            "mas": 12.8
         }
     },
     "79": {
@@ -548,7 +583,7 @@
         "MusicName": "最終鬼畜妹・一部声",
         "Images": "img/17315fb464f265bd.jpg",
         "BaseRate": {
-            "mas": 13.0
+            "mas": 12.8
         }
     },
     "93": {
@@ -604,7 +639,7 @@
         "MusicName": "Tango Rouge",
         "Images": "img/81e347d3b96b2ae1.jpg",
         "BaseRate": {
-            "mas": 12.8
+            "mas": 12.9
         }
     },
     "103": {
@@ -621,7 +656,7 @@
         "MusicName": "とーきょー全域★アキハバラ？",
         "Images": "img/ff945c9cb9e43e83.jpg",
         "BaseRate": {
-            "mas": 12.7
+            "mas": 12.5
         }
     },
     "106": {
@@ -737,6 +772,14 @@
             "mas": 12.5
         }
     },
+    "124": {
+        "MusicID": 124,
+        "MusicName": "夏影",
+        "Images": "img/74ce2f0a4b4f6fe2.jpg",
+        "BaseRate": {
+            "mas": 12.5
+        }
+    },
     "126": {
         "MusicID": 126,
         "MusicName": "Heart To Heart",
@@ -832,7 +875,7 @@
         "Images": "img/2e6c11edba79d997.jpg",
         "BaseRate": {
             "ex": 11.5,
-            "mas": 13.1
+            "mas": 13.3
         }
     },
     "142": {
@@ -896,7 +939,7 @@
         "MusicName": "Alma",
         "Images": "img/7237488215dbd1d3.jpg",
         "BaseRate": {
-            "mas": 12.4
+            "mas": 12.5
         }
     },
     "152": {
@@ -1082,7 +1125,7 @@
         "MusicName": "FREEDOM DiVE",
         "Images": "img/ed40032f25177518.jpg",
         "BaseRate": {
-            "ex": 12,
+            "ex": 11.9,
             "mas": 13.7
         }
     },
@@ -1206,7 +1249,7 @@
         "MusicName": "いろは唄",
         "Images": "img/1ee29f73ee8f53d0.jpg",
         "BaseRate": {
-            "mas": 11.8
+            "mas": 12.1
         }
     },
     "213": {
@@ -1320,7 +1363,7 @@
         "Images": "img/a2069fdb9d860d36.jpg",
         "BaseRate": {
             "ex": 11.3,
-            "mas": 13.3
+            "mas": 13.4
         }
     },
     "233": {
@@ -1339,12 +1382,20 @@
             "mas": 12.5
         }
     },
+    "238": {
+        "MusicID": 238,
+        "MusicName": "フレンズ",
+        "Images": "img/4c769ae611f83d21.jpg",
+        "BaseRate": {
+            "mas": 11.9
+        }
+    },
     "240": {
         "MusicID": 240,
         "MusicName": "夜咄ディセイブ",
         "Images": "img/47397105bad447fb.jpg",
         "BaseRate": {
-            "mas": 12.7
+            "mas": 12.6
         }
     },
     "243": {
@@ -1427,6 +1478,22 @@
             "mas": 11.1
         }
     },
+    "261": {
+        "MusicID": 261,
+        "MusicName": "ロボットプラネットユートピア",
+        "Images": "img/6e917606db3c5a0e.jpg",
+        "BaseRate": {
+            "mas": 12.3
+        }
+    },
+    "292": {
+        "MusicID": 292,
+        "MusicName": "月に叢雲華に風",
+        "Images": "img/b12c25f87b1d036e.jpg",
+        "BaseRate": {
+            "mas": 12
+        }
+    },
     "298": {
         "MusicID": 298,
         "MusicName": "PRIVATE SERVICE",
@@ -1451,12 +1518,44 @@
             "mas": 13.3
         }
     },
+    "306": {
+        "MusicID": 306,
+        "MusicName": "凛として咲く花の如く",
+        "Images": "img/106d9eec68ed84b3.jpg",
+        "BaseRate": {
+            "mas": 12.2
+        }
+    },
+    "308": {
+        "MusicID": 308,
+        "MusicName": "fake!fake!",
+        "Images": "img/f8d3f2e57ae2ff24.jpg",
+        "BaseRate": {
+            "mas": 11.9
+        }
+    },
+    "309": {
+        "MusicID": 309,
+        "MusicName": "Rising Hope",
+        "Images": "img/cee51d69c428f8f5.jpg",
+        "BaseRate": {
+            "mas": 12.5
+        }
+    },
     "317": {
         "MusicID": 317,
         "MusicName": "Air",
         "Images": "img/db15d5b7aefaa672.jpg",
         "BaseRate": {
             "mas": 13.4
+        }
+    },
+    "330": {
+        "MusicID": 330,
+        "MusicName": "ドキドキDREAM!!!",
+        "Images": "img/b3ea0fe012eb7ea2.jpg",
+        "BaseRate": {
+            "mas": 12.1
         }
     }
 }
