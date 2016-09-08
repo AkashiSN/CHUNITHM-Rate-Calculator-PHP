@@ -15,6 +15,7 @@
         33,
         35,
         36,
+        37,
         38,
         41,
         42,
@@ -58,6 +59,7 @@
         98,
         99,
         101,
+        102,
         103,
         104,
         106,
@@ -160,10 +162,15 @@
         250,
         251,
         252,
+        254,
         255,
         261,
+        263,
+        267,
+        276,
         292,
         298,
+        299,
         305,
         306,
         308,
@@ -265,7 +272,7 @@
         "MusicName": "タイガーランペイジ",
         "Images": "img/fdc3bb451f6403d2.jpg",
         "BaseRate": {
-            "mas": 12.4
+            "mas": 12.5
         }
     },
     "33": {
@@ -290,6 +297,14 @@
         "Images": "img/e273c9d64170b575.jpg",
         "BaseRate": {
             "mas": 11
+        }
+    },
+    "37": {
+        "MusicID": 37,
+        "MusicName": "鳥の詩",
+        "Images": "img/335dbb14cedb70bf.jpg",
+        "BaseRate": {
+            "mas": 11.3
         }
     },
     "38": {
@@ -329,7 +344,7 @@
         "MusicName": "六兆年と一夜物語",
         "Images": "img/5cb17a59f4b8c133.jpg",
         "BaseRate": {
-            "mas": 11.7
+            "mas": 12
         }
     },
     "48": {
@@ -542,7 +557,7 @@
         "MusicName": "Memories of Sun and Moon",
         "Images": "img/27ef71f8a76f1e8a.jpg",
         "BaseRate": {
-            "mas": 12.3
+            "mas": 12.5
         }
     },
     "83": {
@@ -599,7 +614,7 @@
         "MusicName": "セツナトリップ",
         "Images": "img/164258c65c714d50.jpg",
         "BaseRate": {
-            "mas": 12.2
+            "mas": 12.3
         }
     },
     "95": {
@@ -640,6 +655,14 @@
         "Images": "img/81e347d3b96b2ae1.jpg",
         "BaseRate": {
             "mas": 12.9
+        }
+    },
+    "102": {
+        "MusicID": 102,
+        "MusicName": "Tuning Rangers",
+        "Images": "img/7fc6ae1b488b88de.jpg",
+        "BaseRate": {
+            "mas": 12.5
         }
     },
     "103": {
@@ -1411,7 +1434,7 @@
         "MusicName": "回レ！雪月花",
         "Images": "img/e0a700914896ea4a.jpg",
         "BaseRate": {
-            "mas": 12
+            "mas": 12.3
         }
     },
     "245": {
@@ -1443,6 +1466,7 @@
         "MusicName": "Schrecklicher Aufstand",
         "Images": "img/a2fdef9e4b278a51.jpg",
         "BaseRate": {
+        	"ex":12.3,
             "mas": 13.9
         }
     },
@@ -1470,6 +1494,14 @@
             "mas": 12.3
         }
     },
+    "254": {
+        "MusicID": 254,
+        "MusicName": "その群青が愛しかったようだった",
+        "Images": "img/2e617d713547fe84.jpg",
+        "BaseRate": {
+            "mas": 11.7
+        }
+    },
     "255": {
         "MusicID": 255,
         "MusicName": "激情！ミルキィ大作戦",
@@ -1484,6 +1516,30 @@
         "Images": "img/6e917606db3c5a0e.jpg",
         "BaseRate": {
             "mas": 12.3
+        }
+    },
+    "263": {
+        "MusicID": 263,
+        "MusicName": "Hand in Hand",
+        "Images": "img/015358a0c0580022.jpg",
+        "BaseRate": {
+            "mas": 11.7
+        }
+    },
+    "267": {
+        "MusicID": 267,
+        "MusicName": "心象蜃気楼",
+        "Images": "img/a0d03551eb3930e9.jpg",
+        "BaseRate": {
+            "mas": 11.5
+        }
+    },
+    "276": {
+        "MusicID": 276,
+        "MusicName": "後夜祭",
+        "Images": "img/82105b37d18450b6.jpg",
+        "BaseRate": {
+            "mas": 12.4
         }
     },
     "292": {
@@ -1502,6 +1558,14 @@
             "mas": 12.6
         }
     },
+    "299": {
+        "MusicID": 299,
+        "MusicName": "secret base ～君がくれたもの～ (10 years after Ver.)",
+        "Images": "img/9bd44690db5375ac.jpg",
+        "BaseRate": {
+            "mas": 11.4
+        }
+    },
     "318": {
         "MusicID": 318,
         "MusicName": "DataErr0r",
@@ -1515,6 +1579,7 @@
         "MusicName": "幻想のサテライト",
         "Images": "img/266bd38219201fa1.jpg",
         "BaseRate": {
+            "ex":11,
             "mas": 13.3
         }
     },
