@@ -77,6 +77,7 @@
   //宣言
   $BestRate_to_Musicid = array();
   $Score_to_Musicid = array();
+  $Musics = 0;
 
   //登録されてる楽曲の数だけ繰り返す
   for($i = 0; $i < sizeof($MusicIDArray); $i++){
@@ -104,6 +105,7 @@
           $rate = score_to_rate($score,$base_rate);
           $BestRate_to_Musicid[-$MusicIDArray[$i]] = $rate;
           $Score_to_Musicid[-$MusicIDArray[$i]] = $score;
+          $Musics++;
         }
       }
       //マスターの場合
@@ -113,8 +115,15 @@
         $rate = score_to_rate($score,$base_rate);
         $BestRate_to_Musicid[$MusicIDArray[$i]] = $rate;
         $Score_to_Musicid[$MusicIDArray[$i]] = $score;
+          $Musics++;
       }
     }
+  }
+
+  //30種類以下だった場合
+  if($Musics < 30){
+  	http_response_code(204);
+    exit();
   }
 
   //レート値でMusicIDを降順にソート
@@ -357,10 +366,10 @@
 
   //計算
   $UserDisplayRate = (double)(substr($DispRate, 0,2).'.'.substr($DispRate, 2,4));
-  $UserBestRate = round($UserBestRate/30,2);
-  $UserMaxRate = round(($MaxRate*10 + $UserBestRate*30)/40,2);
-  $UserRecentRate = round($UserRecentRate/10,2);
-  $UserRecentRate1 = round(($UserDisplayRate*40 - $UserBestRate*30)/10,2);
+  $UserBestRate = Truncation($UserBestRate/30,2);
+  $UserMaxRate = Truncation(($MaxRate*10 + $UserBestRate*30)/40,2);
+  $UserRecentRate = Truncation($UserRecentRate/10,2);
+  $UserRecentRate1 = Truncation(($UserDisplayRate*40 - $UserBestRate*30)/10,2);
 
   //連想配列に代入
   $MusicDetail["User"]["DispRate"] = $UserDisplayRate;

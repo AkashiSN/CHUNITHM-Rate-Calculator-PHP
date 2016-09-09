@@ -52,6 +52,11 @@ function JsonPost(Userid) {
         //データーベースに登録されていない
         document.cookie = 'errorCode=100002';
         location.replace( "error.html" );
+      },
+      500:function(){
+        //エラー
+        document.cookie = 'errorCode=100003';
+        location.replace( "error.html" );
       }
     },
     complete: function() {
@@ -96,6 +101,11 @@ function UserHash(hash) {
         //データーベースに登録されていない
         document.cookie = 'errorCode=100002';
         location.replace( "error.html" );
+      },
+      500:function(){
+        //エラー
+        document.cookie = 'errorCode=100003';
+        location.replace( "error.html" );
       }
     },
     complete: function() {
@@ -137,7 +147,7 @@ function UserRateDisp(){
         <div class="player_lv">
           <span class="font_small mr_5">Lv.</span><span id="UserLv">` + UserInfo["level"] + `</span></div><span id="UserName">` + UserInfo["userName"] + `</span>
         </div>
-        <div class="player_rating" id="player_rating">BEST枠 : <span id="UserRating">` + UserRate["BestRate"].toFixed(2) + `</span> / <span>MAX</span> <span id="UserRating">` + UserRate["MaxRate"].toFixed(2) + `</span><br><div style="margin-top:5px;">RCENT枠 :<span id="UserRating">` + UserRate["RecentRate-1"].toFixed(2) + `</span> / <span>表示レート</span><span id="UserRating">` + UserRate["DispRate"].toFixed(2) + `</span></div>
+        <div class="player_rating" id="player_rating">BEST枠 : <span id="UserRating">` + UserRate["BestRate"].toFixed(2) + `</span> / <span>MAX</span> <span id="UserRating">` + UserRate["MaxRate"].toFixed(2) + `</span><br><div style="margin-top:5px;">RECENT枠 :<span id="UserRating">` + UserRate["RecentRate-1"].toFixed(2) + `</span> / <span>表示レート</span><span id="UserRating">` + UserRate["DispRate"].toFixed(2) + `</span></div>
       </div>
     </div>
     <div id="tweet" style="margin-top: 10px;"></div>
@@ -385,10 +395,13 @@ function error() {
     output += "UserIdの期限が切れています。もう一度ログインしてから実行してください。"
     break;
   case 100001:
-    output += "リクエストが不正です。"
+    output += "リクエストが不正もしは、曲数が足りていません。"
     break;
   case 100002:
     output += "データーベースに登録されていないので、実行しなおしてください。"
+    break;
+  case 100003:  
+    output += 'エラーが発生しました。よろしければ<a href="https://twitter.com/Akashi_SN" target="_blank">@Akashi_SN</a>までお知らせください。'
     break;
   default:
     　output += "invalid ErrorCode.";

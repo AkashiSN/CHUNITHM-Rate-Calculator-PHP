@@ -3,6 +3,7 @@
         3,
         5,
         6,
+        7,
         9,
         10,
         14,
@@ -201,6 +202,15 @@
         "Images": "img/90589be457544570.jpg",
         "BaseRate": {
             "mas": 12.3
+        }
+    },
+    "7": {
+        "MusicID": 7,
+        "MusicName": "初音ミクの消失",
+        "Images": "img/b602913a68fca621.jpg",
+        "BaseRate": {
+        	"ex":12,
+            "mas": 13.6
         }
     },
     "9": {
@@ -1280,7 +1290,7 @@
         "MusicName": "星屑ユートピア",
         "Images": "img/c6d494f528391d1c.jpg",
         "BaseRate": {
-            "mas": 12.1
+            "mas": 11.9
         }
     },
     "214": {
@@ -1475,6 +1485,7 @@
         "MusicName": "Philosopher",
         "Images": "img/989f4458fb34aa9d.jpg",
         "BaseRate": {
+        	"ex":11.8,
             "mas": 13.5
         }
     },

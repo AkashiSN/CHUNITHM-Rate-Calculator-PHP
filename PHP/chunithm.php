@@ -67,10 +67,10 @@ if(!isset($_GET['user'])){
   <title>CHUNITHM Rate Calculator</title>
   <link rel="stylesheet" href="https://chunithm-net.com/mobile/common/css/common.css" />
   <link rel="stylesheet" href="https://chunithm-net.com/mobile/common/css/contents.css" />
-  <link rel="stylesheet" href="lib/chunithm.css?var=3.0.5" />
+  <link rel="stylesheet" href="lib/chunithm.css?var=3.0.6" />
   <script src="/common/js/jquery-1.12.4.min.js" ></script>
   <script src="https://platform.twitter.com/widgets.js"></script>
-  <script src="lib/chunithm.js?var=3.0.5" ></script>
+  <script src="lib/chunithm.js?var=3.0.6" ></script>
   <script type="text/javascript">
     // DOMを全て読み込んだあとに実行される
     $(function() {
