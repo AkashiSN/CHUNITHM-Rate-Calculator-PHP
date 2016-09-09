@@ -42,7 +42,7 @@ html {
   }
 }
 /*ボタン*/
-.best {
+.buttons {
   font-size:16px;
   font-family:Arial;
   font-weight:bold;
@@ -64,13 +64,13 @@ html {
   -moz-box-shadow:inset 1px 1px 0px 0px #ffffff;
   box-shadow:inset 1px 1px 0px 0px #ffffff;
   margin-bottom: 10px;
-}.best:hover {
+}.buttons:hover {
   background:-moz-linear-gradient( center top, #dfdfdf 23%, #fffaff 82% );
   background:-ms-linear-gradient( top, #dfdfdf 23%, #fffaff 82% );
   filter:progid:DXImageTransform.Microsoft.gradient(startColorstr='#dfdfdf', endColorstr='#fffaff');
   background:-webkit-gradient( linear, left top, left bottom, color-stop(23%, #dfdfdf), color-stop(82%, #fffaff) );
   background-color:#dfdfdf;
-}.best:active {
+}.buttons:active {
   position:relative;
   top:1px;
 }

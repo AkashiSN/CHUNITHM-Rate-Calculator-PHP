@@ -18,6 +18,8 @@
   var UserData;
   var Best = "";
   var Recent = "";
+  var sort_Score = "";
+  var sort_Diff = "";
 
 //--------------------------------------------------------------------
 // UserIdをPOSTしてデーターベースに登録
@@ -178,6 +180,7 @@ function UserRateDisp(){
 //--------------------------------------------------------------------
 
 function BestRateDisp(){
+	jQuery("#sort").fadeIn();
   if(Best == ""){
     var element = "";
     Best = `
@@ -188,20 +191,20 @@ function BestRateDisp(){
       <div class="box01 w420">
         <div class="mt_10">
           <div id="userPlaylog_result">`;
-        //Best枠の数だけ繰り返す
-        for(var i = 0; i < UserData["Best"].length; i++){
-          var MusicDeteil = UserData["Best"][i];
-          var MusicName = MusicDeteil["MusicName"];
-          var MusicImg = MusicDeteil["Images"];
-          var BaseRate = MusicDeteil["BaseRate"];
-          var Score = MusicDeteil["Score"];
-          var Rank = MusicDeteil["Rank"];
-          var BestRate = MusicDeteil["BestRate"];
-          var level = MusicDeteil["level"];
-          var BestScore = MusicDeteil["ScoreBest"];
-          
-          if(i == 30){
-              element += `
+      //Best枠の数だけ繰り返す
+    for(var i = 0; i < UserData["Best"].length; i++){
+      var MusicDeteil = UserData["Best"][i];
+      var MusicName = MusicDeteil["MusicName"];
+      var MusicImg = MusicDeteil["Images"];
+      var BaseRate = MusicDeteil["BaseRate"];
+      var Score = MusicDeteil["Score"];
+      var Rank = MusicDeteil["Rank"];
+      var BestRate = MusicDeteil["BestRate"];
+      var level = MusicDeteil["level"];
+      var BestScore = MusicDeteil["ScoreBest"];
+      
+      if(i == 30){
+          element += `
           </div>
         </div>
       </div>
@@ -214,8 +217,8 @@ function BestRateDisp(){
       <div class="box01 w420">
         <div class="mt_10">
           <div id="userPlaylog_result">`;
-            }
-          element += `
+      }
+      element += `
             <div class="frame02 w400">
               <div class="play_jacket_side">
                 <div class="play_jacket_area">
@@ -236,27 +239,194 @@ function BestRateDisp(){
                     <div class="play_musicdata_score_text">譜面定数:<span id="Score">`+BaseRate+`</span></div><br>
                     <div class="play_musicdata_score_text">RATING:<span id="Score">`+BestRate+`</span></div><br>
                     <div class="play_musicdata_score_text">Score：<span id="Score">`+Score+`</span></div>
-                    <div id="rank"><img src="https://chunithm-net.com/mobile/common/images/icon_`+Rank+`.png"></div>
-                    `;
-                    if(i > 29 && BestScore != 0){
-                      element += `<div class="play_musicdata_score_text">Best枠入りまで : <span id="Score">`+ (BestScore-Score) +`(`+BestScore+`)</span></div>`;
-                    }
-                  element += `</div>
+                    <div id="rank"><img src="https://chunithm-net.com/mobile/common/images/icon_`+Rank+`.png"></div>`;
+      if(i > 29 && BestScore != 0){
+        element += `
+        				    <div class="play_musicdata_score_text">Best枠入りまで : <span id="Score">`+ (BestScore-Score) +`(`+BestScore+`)</span></div>`;
+      }
+      element += `
+          				</div>
                 </div>
               </div>
             </div>`;            
-        }
-        Best += element;
-      }      
-      var div = document.getElementById( "rate" );
-      div.innerHTML = Best;
+    }
+    Best += element;
+  }      
+  var div = document.getElementById( "rate" );
+  div.innerHTML = Best;
 }
 
+//スコア順にソート
+function Sort_Score(){
+	var Score_array = UserData["Best"];
+	Score_array.sort(function(a,b){
+    if(a.Score>b.Score) return -1;
+    if(a.Score < b.Score) return 1;
+    return 0;
+	});
+	if(sort_Score == ""){
+    var element = "";
+    var rank = Score_array[0]["Rank"];
+    sort_Score = `
+  <div class="frame01 w460">
+    <div class="frame01_inside w450">
+      <h2 style="margin-top:10px;" id="page_title">`+rank.toUpperCase()+`</h2>
+      <hr class="line_dot_black w420">
+      <div class="box01 w420">
+        <div class="mt_10">
+          <div id="userPlaylog_result">`;
+    //Best枠の数だけ繰り返す
+    for(var i = 0; i < Score_array.length; i++){
+     	var MusicDeteil = Score_array[i];
+      var MusicName = MusicDeteil["MusicName"];
+      var MusicImg = MusicDeteil["Images"];
+      var BaseRate = MusicDeteil["BaseRate"];
+      var Score = MusicDeteil["Score"];
+      var Rank = MusicDeteil["Rank"];
+      var BestRate = MusicDeteil["BestRate"];
+      var level = MusicDeteil["level"];      
+      if(rank != Rank){
+      	rank = Rank;
+      	element += `
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="frame01 w460">
+    <div class="frame01_inside w450">
+      <h2 style="margin-top:10px;" id="page_title">`+rank.toUpperCase()+`</h2>
+      <hr class="line_dot_black w420">
+      <div class="box01 w420">
+        <div class="mt_10">
+          <div id="userPlaylog_result">`;
+      }
+      element += `
+              <div class="frame02 w400">
+                <div class="play_jacket_side">
+                  <div class="play_jacket_area">
+                    <div id="Jacket" class="play_jacket_img">
+                      <img src="https://chunithm-net.com/mobile/`+MusicImg+`"">
+                    </div>	
+                  </div>
+                </div>
+                <div class="play_data_side01">
+                  <div class="box02 play_track_block">
+                    <div id="TrackLevel" class="play_track_result">
+                      <img src="https://chunithm-net.com/mobile/common/images/icon_`+level+`.png">
+                    </div>
+                  </div>
+                  <div class="box02 play_musicdata_block">
+                    <div id="MusicTitle" class="play_musicdata_title">`+MusicName+`</div>
+                    <div class="play_musicdata_score clearfix">
+                      <div class="play_musicdata_score_text">譜面定数:<span id="Score">`+BaseRate+`</span></div><br>
+                      <div class="play_musicdata_score_text">RATING:<span id="Score">`+BestRate+`</span></div><br>
+                      <div class="play_musicdata_score_text">Score：<span id="Score">`+Score+`</span></div>
+                      <img src="https://chunithm-net.com/mobile/common/images/icon_`+Rank+`.png">
+                    </div>
+                  </div>
+                </div>
+              </div>`;            
+    }	
+    sort_Score += element;
+  }      
+  var div = document.getElementById( "rate" );
+  div.innerHTML = sort_Score;
+}
+
+//難易度を返す
+function difficult(n){
+  if(n >= 13.7) return "13+";
+  if(n >= 13) return "13";
+  if(n >= 12.7) return "12+";
+  if(n >= 12) return "12";
+  if(n >= 11.7) return "11+";
+  if(n >= 11) return "11";
+}
+
+//難易度順にソート
+function Sort_Diff(){
+  var Diff_array = UserData["Best"];
+  Diff_array.sort(function(a,b){
+    if(a.BaseRate>b.BaseRate) return -1;
+    if(a.BaseRate < b.BaseRate) return 1;
+    return 0;
+  });
+  if(sort_Diff == ""){
+    var element = "";
+    var Diff = difficult(Diff_array[0]["BaseRate"]);
+    sort_Diff = `
+  <div class="frame01 w460">
+    <div class="frame01_inside w450">
+      <h2 style="margin-top:10px;" id="page_title">`+Diff+`</h2>
+      <hr class="line_dot_black w420">
+      <div class="box01 w420">
+        <div class="mt_10">
+          <div id="userPlaylog_result">`;
+    //Best枠の数だけ繰り返す
+    for(var i = 0; i < Diff_array.length; i++){
+      var MusicDeteil = Diff_array[i];
+      var MusicName = MusicDeteil["MusicName"];
+      var MusicImg = MusicDeteil["Images"];
+      var BaseRate = MusicDeteil["BaseRate"];
+      var Score = MusicDeteil["Score"];
+      var Rank = MusicDeteil["Rank"];
+      var BestRate = MusicDeteil["BestRate"];
+      var level = MusicDeteil["level"];      
+      if(Diff != difficult(BaseRate)){
+        Diff = difficult(BaseRate);
+        element += `
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="frame01 w460">
+    <div class="frame01_inside w450">
+      <h2 style="margin-top:10px;" id="page_title">`+Diff+`</h2>
+      <hr class="line_dot_black w420">
+      <div class="box01 w420">
+        <div class="mt_10">
+          <div id="userPlaylog_result">`;
+      }
+      element += `
+              <div class="frame02 w400">
+                <div class="play_jacket_side">
+                  <div class="play_jacket_area">
+                    <div id="Jacket" class="play_jacket_img">
+                      <img src="https://chunithm-net.com/mobile/`+MusicImg+`"">
+                    </div>  
+                  </div>
+                </div>
+                <div class="play_data_side01">
+                  <div class="box02 play_track_block">
+                    <div id="TrackLevel" class="play_track_result">
+                      <img src="https://chunithm-net.com/mobile/common/images/icon_`+level+`.png">
+                    </div>
+                  </div>
+                  <div class="box02 play_musicdata_block">
+                    <div id="MusicTitle" class="play_musicdata_title">`+MusicName+`</div>
+                    <div class="play_musicdata_score clearfix">
+                      <div class="play_musicdata_score_text">譜面定数:<span id="Score">`+BaseRate+`</span></div><br>
+                      <div class="play_musicdata_score_text">RATING:<span id="Score">`+BestRate+`</span></div><br>
+                      <div class="play_musicdata_score_text">Score：<span id="Score">`+Score+`</span></div>
+                      <img src="https://chunithm-net.com/mobile/common/images/icon_`+Rank+`.png">
+                    </div>
+                  </div>
+                </div>
+              </div>`;            
+    } 
+    sort_Diff += element;
+  }      
+  var div = document.getElementById( "rate" );
+  div.innerHTML = sort_Diff;
+}
 //--------------------------------------------------------------------
 // Recent枠の表示
 //--------------------------------------------------------------------
 
 function RecentRateDisp(){
+	jQuery("#sort").fadeOut();
   if(Recent == ""){
     var element = "";
     Recent = `

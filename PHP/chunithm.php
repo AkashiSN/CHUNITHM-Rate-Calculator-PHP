@@ -67,10 +67,10 @@ if(!isset($_GET['user'])){
   <title>CHUNITHM Rate Calculator</title>
   <link rel="stylesheet" href="https://chunithm-net.com/mobile/common/css/common.css" />
   <link rel="stylesheet" href="https://chunithm-net.com/mobile/common/css/contents.css" />
-  <link rel="stylesheet" href="lib/chunithm.css?var=3.0.6" />
+  <link rel="stylesheet" href="lib/chunithm.css?var=3.1.0" />
   <script src="/common/js/jquery-1.12.4.min.js" ></script>
   <script src="https://platform.twitter.com/widgets.js"></script>
-  <script src="lib/chunithm.js?var=3.0.6" ></script>
+  <script src="lib/chunithm.js?var=3.1.0" ></script>
   <script type="text/javascript">
     // DOMを全て読み込んだあとに実行される
     $(function() {
@@ -88,11 +88,23 @@ if(!isset($_GET['user'])){
         var data = req.split("=");
         var hash = data[1];
         UserHash(hash);
-        // 「#best」をクリックしたとき
+        // 「best」をクリックしたとき
         $('#best').click(function(){
           BestRateDisp();
         });
-        // 「#recent」をクリックしたとき
+        // 「rate」をクリックしたとき
+        $('#Rate').click(function(){
+          BestRateDisp();
+        });
+        // 「score」をクリックしたとき
+        $('#score').click(function(){
+          Sort_Score();
+        });
+        // 「diff」をクリックしたとき
+        $('#diff').click(function(){
+          Sort_Diff();
+        });        
+        // 「recent」をクリックしたとき
         $('#recent').click(function(){
           RecentRateDisp();
         });
@@ -141,9 +153,16 @@ if(!isset($_GET['user'])){
       </div>
     </div>
   </div>
-
-  <input class="best" type="button" value="Best枠" id="best"/>
-  <input class="best" type="button" value="Recent枠" id="recent"/>
+  <div id="button">
+    <input class="buttons" type="button" value="Best枠" id="best"/>
+    <input class="buttons" type="button" value="Recent枠" id="recent"/>
+    <div id="sort" style="display:none">
+      <hr class="line_dot_black w420"/>
+      <input class="buttons" type="button" value="レート順" id="Rate"/>
+      <input class="buttons" type="button" value="スコア順" id="score"/>
+      <input class="buttons" type="button" value="難易度順" id="diff"/>
+    </div>
+  </div>
   <div id="wrap">
     <div style="margin-bottom:0px;padding-bottom:0px;" id="rate" id="inner">
       <div class="frame01 w460">
