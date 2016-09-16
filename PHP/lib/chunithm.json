@@ -168,7 +168,13 @@
         261,
         263,
         267,
+        273,
         276,
+        278,
+        279,
+        286,
+        287,
+        288,
         292,
         298,
         299,
@@ -176,6 +182,7 @@
         306,
         308,
         309,
+        316,
         317,
         318,
         330
@@ -1093,7 +1100,7 @@
         "MusicName": "XL TECHNO",
         "Images": "img/25abef88cb12af3e.jpg",
         "BaseRate": {
-            "mas": 12.1
+            "mas": 12.3
         }
     },
     "173": {
@@ -1545,12 +1552,60 @@
             "mas": 11.5
         }
     },
+    "273": {
+        "MusicID": 273,
+        "MusicName": "ビバハピ",
+        "Images": "img/604157e2c49d91d7.jpg",
+        "BaseRate": {
+            "mas": 11.8
+        }
+    },
     "276": {
         "MusicID": 276,
         "MusicName": "後夜祭",
         "Images": "img/82105b37d18450b6.jpg",
         "BaseRate": {
             "mas": 12.4
+        }
+    },
+    "278": {
+        "MusicID": 278,
+        "MusicName": "からくりピエロ",
+        "Images": "img/5f1d7a520a2735d4.jpg",
+        "BaseRate": {
+            "mas": 11.4
+        }
+    },
+    "279": {
+        "MusicID": 279,
+        "MusicName": "深海少女",
+        "Images": "img/84ecaebe6bce2a58.jpg",
+        "BaseRate": {
+            "mas": 11.7
+        }
+    },
+    "286": {
+        "MusicID": 286,
+        "MusicName": "Tell Your World",
+        "Images": "img/afcce0c85c1f8610.jpg",
+        "BaseRate": {
+            "mas": 11.5
+        }
+    },
+    "287": {
+        "MusicID": 287,
+        "MusicName": "ロミオとシンデレラ",
+        "Images": "img/5febf5df2b5094f3.jpg",
+        "BaseRate": {
+            "mas": 11.9
+        }
+    },
+    "288": {
+        "MusicID": 288,
+        "MusicName": "First Twinkle",
+        "Images": "img/f29f10a963df60cf.jpg",
+        "BaseRate": {
+            "mas": 11.6
         }
     },
     "292": {
@@ -1616,6 +1671,14 @@
         "Images": "img/cee51d69c428f8f5.jpg",
         "BaseRate": {
             "mas": 12.5
+        }
+    },
+    "316": {
+        "MusicID": 316,
+        "MusicName": "みくみくにしてあげる♪【してやんよ】",
+        "Images": "img/88f9536c08cb4e3f.jpg",
+        "BaseRate": {
+            "mas": 11.5
         }
     },
     "317": {

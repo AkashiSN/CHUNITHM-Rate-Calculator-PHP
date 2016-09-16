@@ -67,10 +67,12 @@ if(!isset($_GET['user'])){
   <title>CHUNITHM Rate Calculator</title>
   <link rel="stylesheet" href="https://chunithm-net.com/mobile/common/css/common.css" />
   <link rel="stylesheet" href="https://chunithm-net.com/mobile/common/css/contents.css" />
-  <link rel="stylesheet" href="lib/chunithm.css?var=3.1.0" />
+  <link rel="stylesheet" href="lib/chunithm.css?var=3.5.0" />  
   <script src="/common/js/jquery-1.12.4.min.js" ></script>
+  <script src="https://code.highcharts.com/highcharts.js"></script>
+	<script src="https://code.highcharts.com/modules/exporting.js"></script>
   <script src="https://platform.twitter.com/widgets.js"></script>
-  <script src="lib/chunithm.js?var=3.1.0" ></script>
+  <script src="lib/chunithm.js?var=3.5.0" ></script>
   <script type="text/javascript">
     // DOMを全て読み込んだあとに実行される
     $(function() {
@@ -87,14 +89,33 @@ if(!isset($_GET['user'])){
       }else{
         var data = req.split("=");
         var hash = data[1];
+        var i = 0;
         UserHash(hash);
         // 「best」をクリックしたとき
         $('#best').click(function(){
+          $("#container").fadeOut();
+          $("#disp").fadeIn();
           BestRateDisp();
+          i = 0;
         });
         // 「rate」をクリックしたとき
         $('#Rate').click(function(){
           BestRateDisp();
+        });
+        // 「graph」をクリックしたとき
+        $('#graph').click(function(){
+        	if(i == 0){
+            $("#container").fadeIn();
+            $("#disp").fadeOut();
+        		$("#sort").fadeOut();
+        		i = 1;
+        	}
+        	else{        		
+        		$("#container").fadeOut();
+            $("#disp").fadeIn();
+            $("#sort").fadeIn();
+        		i = 0;
+        	}
         });
         // 「score」をクリックしたとき
         $('#score').click(function(){
@@ -105,8 +126,11 @@ if(!isset($_GET['user'])){
           Sort_Diff();
         });        
         // 「recent」をクリックしたとき
-        $('#recent').click(function(){
+        $('#recent').click(function(){          
+          $("#container").fadeOut();
+          $("#disp").fadeIn();
           RecentRateDisp();
+          i = 0;
         });
       }
     });
@@ -156,6 +180,7 @@ if(!isset($_GET['user'])){
   <div id="button">
     <input class="buttons" type="button" value="Best枠" id="best"/>
     <input class="buttons" type="button" value="Recent枠" id="recent"/>
+    <input class="buttons" type="button" value="グラフ" id="graph"/>
     <div id="sort" style="display:none">
       <hr class="line_dot_black w420"/>
       <input class="buttons" type="button" value="レート順" id="Rate"/>
@@ -163,27 +188,30 @@ if(!isset($_GET['user'])){
       <input class="buttons" type="button" value="難易度順" id="diff"/>
     </div>
   </div>
+  <div id="container" style="display:none;margin-bottom:10px;"></div>
   <div id="wrap">
-    <div style="margin-bottom:0px;padding-bottom:0px;" id="rate" id="inner">
-      <div class="frame01 w460">
-        <div class="frame01_inside w450">
-          <h2 style="margin-top:10px;" id="page_title">BEST枠</h2>
-          <hr class="line_dot_black w420">
-          <div id="userPlaylog_result">
-            <div class="box01 w420">
-              <div class="mt_10">
+    <div id="disp">
+      <div style="margin-bottom:0px;padding-bottom:0px;" id="rate" id="inner">
+        <div class="frame01 w460">
+          <div class="frame01_inside w450">
+            <h2 style="margin-top:10px;" id="page_title">BEST枠</h2>
+            <hr class="line_dot_black w420">
+            <div id="userPlaylog_result">
+              <div class="box01 w420">
+                <div class="mt_10">
+                </div>
               </div>
             </div>
           </div>
         </div>
-      </div>
-      <div class="frame01 w460">
-        <div class="frame01_inside w450">
-          <h2 style="margin-top:10px;" id="page_title">BEST枠外</h2>
-          <hr class="line_dot_black w420">
-          <div id="userPlaylog_result">
-            <div class="box01 w420">
-              <div class="mt_10">
+        <div class="frame01 w460">
+          <div class="frame01_inside w450">
+            <h2 style="margin-top:10px;" id="page_title">BEST枠外</h2>
+            <hr class="line_dot_black w420">
+            <div id="userPlaylog_result">
+              <div class="box01 w420">
+                <div class="mt_10">
+                </div>
               </div>
             </div>
           </div>

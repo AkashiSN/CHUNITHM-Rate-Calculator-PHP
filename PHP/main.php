@@ -375,10 +375,10 @@
   $MusicDetail["User"]["DispRate"] = $UserDisplayRate;
   $MusicDetail["User"]["MaxRate"] = $UserMaxRate;
   $MusicDetail["User"]["RecentRate"] = $UserRecentRate;
-  $MusicDetail["User"]["RecentRate-1"] = $UserRecentRate1;
+  $MusicDetail["User"]["RecentRate-1"] = $UserRecentRate1; //逆算したもの
   $MusicDetail["User"]["BestRate"] = $UserBestRate;
   $MusicDetail["Userinfo"] = $dispRate["userInfo"];
-  
+
 //-----------------------------------------------------
 // JSON変換
 //-----------------------------------------------------
@@ -393,8 +393,31 @@
   $hash =  hash_hmac('sha256', $friend, false);
   $MusicDetail["User"]["Hash"] = $hash;
 
+
+  //推移の記録
+  $tmp = json_decode(UserData_show($hash),true);
+  if(isset($tmp["Date"])){
+    $date = $tmp["Date"];
+  	if($date["date"][sizeof($date["date"])-1] != $dispRate['userInfo']["playCount"]){
+	    $date["RecentRate"][sizeof($date["RecentRate"])] = $UserRecentRate1;
+	    $date["DispRate"][sizeof($date["DispRate"])] = $UserDisplayRate;
+	    $date["MaxRate"][sizeof($date["MaxRate"])] = $UserMaxRate;
+	    $date["BestRate"][sizeof($date["BestRate"])] = $UserBestRate;
+	    $date["date"][sizeof($date["date"])] = $dispRate['userInfo']["playCount"];
+	    $MusicDetail["Date"] = $date;
+	}else{
+		$MusicDetail["Date"] = $date;
+	}
+  }else{
+    $MusicDetail["Date"]["RecentRate"][] = $UserRecentRate1;
+    $MusicDetail["Date"]["DispRate"][] = $UserDisplayRate;
+    $MusicDetail["Date"]["MaxRate"][] = $UserMaxRate;
+    $MusicDetail["Date"]["BestRate"][] = $UserBestRate;
+    $MusicDetail["Date"]["date"][] = $dispRate['userInfo']["playCount"];
+  }
+
   $json = json_encode( $MusicDetail , JSON_UNESCAPED_UNICODE|JSON_UNESCAPED_SLASHES );
-  
+
   //データーベースに登録
   UserData_set($friend,$dispRate["userInfo"]["userName"],$json);
 

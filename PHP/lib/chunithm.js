@@ -10,7 +10,6 @@
   | Author: Akashi_SN <info@akashisn.info>            |
   +---------------------------------------------------+
 */
-
 //--------------------------------------------------------------------
 // グローバル変数
 //--------------------------------------------------------------------
@@ -88,6 +87,10 @@ function UserHash(hash) {
         UserData = data;
         UserRateDisp();
         BestRateDisp();
+        graph();
+        var date1 = new Date();
+        date1.setTime(0);
+        document.cookie = "errorCode=;expires="+date1.toGMTString();
       },
       204: function(){
         //UserIdの期限が切れた
@@ -499,6 +502,7 @@ function RecentRateDisp(){
 //--------------------------------------------------------------------
 // 共通
 //--------------------------------------------------------------------
+
 (function (i, s, o, g, r, a, m) {
   i['GoogleAnalyticsObject'] = r;
   i[r] = i[r] || function () {
@@ -580,4 +584,55 @@ function error() {
   output += "</p>";
   var div = document.getElementById("errorText_result");
   div.innerHTML = output;
+}
+
+//--------------------------------------------------------------------
+// グラフ描画
+//--------------------------------------------------------------------
+
+function graph() {
+  $('#container')
+    .highcharts({
+      title: {
+        text: 'レート推移'
+        , x: -20 //center
+      }
+      , xAxis: {
+        title: {
+          text: 'クレジット'
+        },
+        categories: UserData["Date"]["date"]
+      }
+      , yAxis: {
+        title: {
+          text: 'レート'
+        }
+        , plotLines: [{
+          value: 0
+          , width: 1
+          , color: '#808080'
+            }]
+            ,
+            tickInterval: 0.1
+      }
+      , legend: {
+        layout: 'vertical'
+        , align: 'right'
+        , verticalAlign: 'middle'
+        , borderWidth: 0
+      }
+      , series: [{
+        name: '最大レート'
+        , data: UserData["Date"]["MaxRate"]
+        }, {
+        name: '表示レート'
+        , data: UserData["Date"]["DispRate"]
+        }, {
+        name: 'BEST枠'
+        , data: UserData["Date"]["BestRate"]
+        }, {
+        name: 'RECENT枠'
+        , data: UserData["Date"]["RecentRate"]
+        }]
+    });
 }
