@@ -405,9 +405,14 @@
 	    $date["BestRate"][sizeof($date["BestRate"])] = $UserBestRate;
 	    $date["date"][sizeof($date["date"])] = $dispRate['userInfo']["playCount"];
 	    $MusicDetail["Date"] = $date;
-	}else{
-		$MusicDetail["Date"] = $date;
-	}
+  	}else{
+      $date["RecentRate"][sizeof($date["RecentRate"])-1] = $UserRecentRate1;
+      $date["DispRate"][sizeof($date["DispRate"])-1] = $UserDisplayRate;
+      $date["MaxRate"][sizeof($date["MaxRate"])-1] = $UserMaxRate;
+      $date["BestRate"][sizeof($date["BestRate"])-1] = $UserBestRate;
+      $date["date"][sizeof($date["date"])-1] = $dispRate['userInfo']["playCount"];
+  		$MusicDetail["Date"] = $date;
+  	}
   }else{
     $MusicDetail["Date"]["RecentRate"][] = $UserRecentRate1;
     $MusicDetail["Date"]["DispRate"][] = $UserDisplayRate;

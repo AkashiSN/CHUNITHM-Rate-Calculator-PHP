@@ -87,6 +87,7 @@
         134,
         135,
         136,
+        137,
         138,
         140,
         141,
@@ -185,7 +186,11 @@
         316,
         317,
         318,
-        330
+        319,
+        320,
+        321,
+        330,
+        336
     ],
     "3": {
         "MusicID": 3,
@@ -297,7 +302,7 @@
         "MusicName": "Blue Noise",
         "Images": "img/fddc37caee47286d.jpg",
         "BaseRate": {
-            "mas": 13.0
+            "mas": 13
         }
     },
     "35": {
@@ -893,6 +898,14 @@
             "mas": 12.5
         }
     },
+    "137": {
+        "MusicID": 137,
+        "MusicName": "Angel dust",
+        "Images": "img/13a5a9ca35a9b71b.jpg",
+        "BaseRate": {
+            "mas": 13.6
+        }
+    },
     "138": {
         "MusicID": 138,
         "MusicName": "conflict",
@@ -988,7 +1001,7 @@
         "Images": "img/f63fab30a7b6f160.jpg",
         "BaseRate": {
             "ex": 11.7,
-            "mas": 13.0
+            "mas": 13
         }
     },
     "154": {
@@ -1632,14 +1645,6 @@
             "mas": 11.4
         }
     },
-    "318": {
-        "MusicID": 318,
-        "MusicName": "DataErr0r",
-        "Images": "img/f803d578eb4047eb.jpg",
-        "BaseRate": {
-            "mas": 13.1
-        }
-    },
     "305": {
         "MusicID": 305,
         "MusicName": "幻想のサテライト",
@@ -1689,12 +1694,52 @@
             "mas": 13.4
         }
     },
+    "318": {
+        "MusicID": 318,
+        "MusicName": "DataErr0r",
+        "Images": "img/f803d578eb4047eb.jpg",
+        "BaseRate": {
+            "mas": 13.1
+        }
+    },
+    "319": {
+        "MusicID": 319,
+        "MusicName": "Say A Vengeance",
+        "Images": "img/e9eeb98572b140bc.jpg",
+        "BaseRate": {
+            "mas": 12.6
+        }
+    },
+    "320": {
+        "MusicID": 320,
+        "MusicName": "010",
+        "Images": "img/6b33d4fa539d5adb.jpg",
+        "BaseRate": {
+            "mas": 12.6
+        }
+    },
+    "321": {
+        "MusicID": 321,
+        "MusicName": "ERIS -Legend of Gaidelia-",
+        "Images": "img/40cc7a6a264f88c1.jpg",
+        "BaseRate": {
+            "mas": 12.5
+        }
+    },
     "330": {
         "MusicID": 330,
         "MusicName": "ドキドキDREAM!!!",
         "Images": "img/b3ea0fe012eb7ea2.jpg",
         "BaseRate": {
             "mas": 12.1
+        }
+    },
+    "336": {
+        "MusicID": 336,
+        "MusicName": "シジョウノコエ VOCALO ver.",
+        "Images": "img/e40fceaa1bb587b7.jpg",
+        "BaseRate": {
+            "mas": 12
         }
     }
 }
