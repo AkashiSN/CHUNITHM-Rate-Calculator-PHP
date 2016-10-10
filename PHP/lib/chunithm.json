@@ -120,6 +120,9 @@
         179,
         180,
         185,
+        187,
+        189,
+        190,
         196,
         197,
         199,
@@ -178,6 +181,7 @@
         292,
         298,
         299,
+        300,
         305,
         306,
         308,
@@ -185,6 +189,7 @@
         316,
         317,
         318,
+        322,
         330
     ],
     "3": {
@@ -1160,6 +1165,30 @@
             "mas": 11.2
         }
     },
+    "187": {
+        "MusicID": 187,
+        "MusicName": "患部で止まってすぐ溶ける～狂気の優曇華院",
+        "Images": "img/e6642a96885723c1.jpg",
+        "BaseRate": {
+            "mas": 13.2
+        }
+    },
+    "189": {
+        "MusicID": 189,
+        "MusicName": "ひれ伏せ愚民どもっ！",
+        "Images": "img/9310d07b7e02e73a.jpg",
+        "BaseRate": {
+            "mas": 12.7
+        }
+    },
+    "190": {
+        "MusicID": 190,
+        "MusicName": "エテルニタス・ルドロジー",
+        "Images": "img/bbaa464731ab96a4.jpg",
+        "BaseRate": {
+            "mas": 12.6
+        }
+    },
     "196": {
         "MusicID": 196,
         "MusicName": "FREEDOM DiVE",
@@ -1632,6 +1661,14 @@
             "mas": 11.4
         }
     },
+    "300": {
+        "MusicID": 300,
+        "MusicName": "No Routine",
+        "Images": "img/012eb1ed09577836.jpg",
+        "BaseRate": {
+            "mas": 12.2
+        }
+    },
     "318": {
         "MusicID": 318,
         "MusicName": "DataErr0r",
@@ -1687,6 +1724,14 @@
         "Images": "img/db15d5b7aefaa672.jpg",
         "BaseRate": {
             "mas": 13.4
+        }
+    },
+    "322": {
+        "MusicID": 322,
+        "MusicName": "Imperishable Night 2006 (2016 Refine)",
+        "Images": "img/8b145fe4cf0c01bb.jpg",
+        "BaseRate": {
+            "mas": 13.6
         }
     },
     "330": {

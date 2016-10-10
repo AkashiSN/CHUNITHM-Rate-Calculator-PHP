@@ -566,10 +566,10 @@ function error() {
   output += "<p class=\"font_small\">";
   switch (parseInt(errorCode)) {
   case 100000:
-    output += "UserIdの期限が切れています。もう一度ログインしてから実行してください。"
+    output += "UserIdの期限が切れています。もう一度ログインしてから実行してください。もしくは、レベル１１以上の楽曲の曲数が足りていません。"
     break;
   case 100001:
-    output += "リクエストが不正もしは、曲数が足りていません。"
+    output += "リクエストが不正です。"
     break;
   case 100002:
     output += "データーベースに登録されていないので、実行しなおしてください。"
