@@ -87,6 +87,7 @@
         134,
         135,
         136,
+        137,
         138,
         140,
         141,
@@ -152,6 +153,7 @@
         226,
         227,
         228,
+        231,
         232,
         233,
         235,
@@ -189,8 +191,12 @@
         316,
         317,
         318,
+        319,
+        320,
+        321,
         322,
-        330
+        330,
+        336
     ],
     "3": {
         "MusicID": 3,
@@ -898,6 +904,14 @@
             "mas": 12.5
         }
     },
+    "137": {
+        "MusicID": 137,
+        "MusicName": "Angel dust",
+        "Images": "img/13a5a9ca35a9b71b.jpg",
+        "BaseRate": {
+            "mas": 13.6
+        }
+    },
     "138": {
         "MusicID": 138,
         "MusicName": "conflict",
@@ -1426,6 +1440,14 @@
             "mas": 12
         }
     },
+    "231": {
+        "MusicID": 231,
+        "MusicName": "カラフル。",
+        "Images": "img/59cfd6c8ebfaf904.jpg",
+        "BaseRate": {
+            "mas": 11
+        }
+    },
     "232": {
         "MusicID": 232,
         "MusicName": "Elemental Creation",
@@ -1726,6 +1748,30 @@
             "mas": 13.4
         }
     },
+    "319": {
+        "MusicID": 319,
+        "MusicName": "Say A Vengeance",
+        "Images": "img/e9eeb98572b140bc.jpg",
+        "BaseRate": {
+            "mas": 12.6
+        }
+    },
+    "320": {
+        "MusicID": 320,
+        "MusicName": "010",
+        "Images": "img/6b33d4fa539d5adb.jpg",
+        "BaseRate": {
+            "mas": 12.6
+        }
+    },
+    "321": {
+        "MusicID": 321,
+        "MusicName": "ERIS -Legend of Gaidelia-",
+        "Images": "img/40cc7a6a264f88c1.jpg",
+        "BaseRate": {
+            "mas": 12.5
+        }
+    },
     "322": {
         "MusicID": 322,
         "MusicName": "Imperishable Night 2006 (2016 Refine)",
@@ -1740,6 +1786,14 @@
         "Images": "img/b3ea0fe012eb7ea2.jpg",
         "BaseRate": {
             "mas": 12.1
+        }
+    },
+    "336": {
+        "MusicID": 336,
+        "MusicName": "シジョウノコエ VOCALO ver.",
+        "Images": "img/e40fceaa1bb587b7.jpg",
+        "BaseRate": {
+            "mas": 12
         }
     }
 }

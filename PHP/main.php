@@ -27,7 +27,7 @@
     $hash = $_POST["hash"];
     $json = UserData_show($hash);
 
-    if($json == null){      
+    if($json === null){      
       http_response_code(403);
       exit();
     }
@@ -50,9 +50,8 @@
 // 宣言部
 //-----------------------------------------------------
 
-  $Img_to_MusicID = array();
-  $RecentlyMusicDetail = array();
-  $MusicDetail = array();
+  $Img_to_MusicID = [];
+  $MusicDetail = [];
   $UserBestRate = 0;
   $UserMaxRate = 0;
   $UserRecentRate = 0;
@@ -75,47 +74,44 @@
 //-----------------------------------------------------
 
   //宣言
-  $BestRate_to_Musicid = array();
-  $Score_to_Musicid = array();
+  $BestRate_to_Musicid = [];
+  $Score_to_Musicid = [];
   $Musics = 0;
 
+  $MusicBestScore_Mas = BestScore_get($userid,19903); //マスターの取得
+  $MusicBestScore_Exp = BestScore_get($userid,19902); //エキスパートの取得
+
+  //エラー判定
+  if($MusicBestScore_Mas === null || $MusicBestScore_Exp === null){
+    http_response_code(204);
+    exit();
+  }
+
   //登録されてる楽曲の数だけ繰り返す
-  for($i = 0; $i < sizeof($MusicIDArray); $i++){
+  for($i = 0; $i < sizeof($MusicIDArray); ++$i){
     //ImageからMusicIDの配列
-    $Img_to_MusicID[$data[(string)$MusicIDArray[$i]]["Images"]] = $MusicIDArray[$i];
-    //楽曲の詳細データの取得
-    $ScoreDetail = score_get($userid,$MusicIDArray[$i]);
-    //エラー判定
-    if($ScoreDetail == null){
-      http_response_code(204);
-      exit();
-    }
-    //やったことあるか
-    if($ScoreDetail["length"] == 0){
-      continue;
-    }
-    //エキスパートとマスターを順に確認
-    for($j = 0; $j < sizeof($ScoreDetail["userMusicList"]); $j++){
-      //エキスパートの場合
-      if($ScoreDetail["userMusicList"][$j]["level"] == 2){
-        //リストに乗っているか
-        if(isset($data[(string)$MusicIDArray[$i]]["BaseRate"]["ex"])){
-          $score = $ScoreDetail["userMusicList"][$j]["scoreMax"];
-          $base_rate = $data[(string)$MusicIDArray[$i]]["BaseRate"]["ex"];
-          $rate = score_to_rate($score,$base_rate);
-          $BestRate_to_Musicid[-$MusicIDArray[$i]] = $rate;
-          $Score_to_Musicid[-$MusicIDArray[$i]] = $score;
-          $Musics++;
+    $Img_to_MusicID[$data[(string)$MusicIDArray[$i]]['Images']] = $MusicIDArray[$i];
+    
+    //エキスパートを順に確認
+    for($j = 0; $j < sizeof($MusicBestScore_Exp['userMusicList']); ++$j){
+      //リストに乗っている楽曲の場合
+      if($MusicBestScore_Exp['userMusicList'][$j]['musicId'] === $MusicIDArray[$i]){
+        //リストにエキスパートがあるか
+        if(isset($data[(string)$MusicIDArray[$i]]['BaseRate']['ex'])){
+          $BestRate_to_Musicid[-$MusicIDArray[$i]] = score_to_rate($MusicBestScore_Exp['userMusicList'][$j]['scoreMax'],$data[(string)$MusicIDArray[$i]]['BaseRate']['ex']);
+          $Score_to_Musicid[-$MusicIDArray[$i]] = $MusicBestScore_Exp['userMusicList'][$j]['scoreMax'];
+          ++$Musics;
         }
       }
-      //マスターの場合
-      else if($ScoreDetail["userMusicList"][$j]["level"] == 3){
-        $score = $ScoreDetail["userMusicList"][$j]["scoreMax"];
-        $base_rate = $data[(string)$MusicIDArray[$i]]["BaseRate"]["mas"];
-        $rate = score_to_rate($score,$base_rate);
-        $BestRate_to_Musicid[$MusicIDArray[$i]] = $rate;
-        $Score_to_Musicid[$MusicIDArray[$i]] = $score;
-          $Musics++;
+    }
+
+    //マスターを順に確認
+    for($j = 0; $j < sizeof($MusicBestScore_Mas['userMusicList']); ++$j){
+      //リストに乗っている楽曲の場合
+      if($MusicBestScore_Mas['userMusicList'][$j]['musicId'] === $MusicIDArray[$i]){
+        $BestRate_to_Musicid[$MusicIDArray[$i]] = score_to_rate($MusicBestScore_Mas['userMusicList'][$j]['scoreMax'],$data[(string)$MusicIDArray[$i]]['BaseRate']['mas']);
+        $Score_to_Musicid[$MusicIDArray[$i]] = $MusicBestScore_Mas['userMusicList'][$j]['scoreMax'];
+        ++$Musics;
       }
     }
   }
@@ -155,15 +151,15 @@
         $UserBestRate += Truncation($rate,2);
         $Temp["ScoreBest"] = 0;
         //上位1曲
-        if($i == 0){
+        if($i === 0){
           $MaxRate = Truncation($rate,2);
         }
-        if($i == 29){
+        if($i === 29){
           $BestRateMin = $rate;
         }
       }
       else{
-      	if(Score_to_rank($Score_to_Musicid[$musicid]) == "sss"){
+      	if(Score_to_rank($Score_to_Musicid[$musicid]) === "sss"){
 	        $Temp["ScoreBest"] = 0;
 	      }
 	      else{
@@ -178,7 +174,7 @@
 	    }
 	    $MusicDetail["Best"][] = $Temp;
 	    $Temp = "";
-	    $i++;
+	    ++$i;
     }
     //マスターの場合
     else{
@@ -197,15 +193,15 @@
         $UserBestRate += Truncation($rate,2);
         $Temp["ScoreBest"] = 0;
         //上位1曲
-        if($i == 0){
+        if($i === 0){
           $MaxRate = Truncation($rate,2);
         }
-        if($i == 29){
+        if($i === 29){
           $BestRateMin = $rate;
         }
       }
       else{
-      	if(Score_to_rank($Score_to_Musicid[$musicid]) == "sss"){
+      	if(Score_to_rank($Score_to_Musicid[$musicid]) === "sss"){
 	        $Temp["ScoreBest"] = 0;
 	      }
 	      else{
@@ -220,7 +216,7 @@
 	    }
 	    $MusicDetail["Best"][] = $Temp;
 	    $Temp = "";
-	    $i++;
+	    ++$i;
 	  }
   }
 
@@ -230,28 +226,28 @@
 
   //最近の楽曲の取得
   $userPlaylogList = Recent_score_get($userid);
-  if($userPlaylogList == null){
+  if($userPlaylogList === null){
     http_response_code(204);
     exit();
   }
 
   //宣言
-  $Count_to_Rate = array();
+  $Count_to_Rate = [];
   $Temp = "";
 
   //カウンタ変数
   $j = 0;
   //リストの数だけ繰り返す
-  for($i = 0; $i < sizeof($userPlaylogList["userPlaylogList"]); $i++){
+  for($i = 0; $i < sizeof($userPlaylogList["userPlaylogList"]); ++$i){
     //代入
     $img = $userPlaylogList["userPlaylogList"][$i]["musicFileName"];
     $score = $userPlaylogList["userPlaylogList"][$i]["score"];
     //マスターとエキスパートで30曲かどうか
-    if($j == 30){
+    if($j === 30){
       break;
     }
     //エキスパートの場合
-    if($userPlaylogList["userPlaylogList"][$i]["levelName"] == "expert"){
+    if($userPlaylogList["userPlaylogList"][$i]["levelName"] === "expert"){
       //musicIDがあるもの
       if(isset($Img_to_MusicID[$img])){
         $musicid = $Img_to_MusicID[$img];
@@ -263,13 +259,13 @@
           $Count_to_Rate[$i] = $rate;
           //SSSはカウントされない
           if($userPlaylogList["userPlaylogList"][$i]["rank"] != 10){
-            $j++;
+            ++$j;
           }
         }
       }
     }
     //マスターの場合
-    else if($userPlaylogList["userPlaylogList"][$i]["levelName"] == "master"){
+    else if($userPlaylogList["userPlaylogList"][$i]["levelName"] === "master"){
       //musicIDがあるもの
       if(isset($Img_to_MusicID[$img])){
         $musicid = $Img_to_MusicID[$img];
@@ -281,7 +277,7 @@
           $Count_to_Rate[$i] = $rate;
           //SSSはカウントされない
           if($userPlaylogList["userPlaylogList"][$i]["rank"] != 10){
-            $j++;
+            ++$j;
           }
         }
       }
@@ -304,7 +300,7 @@
     $score = $userPlaylogList["userPlaylogList"][$count]["score"];
     $name = $userPlaylogList["userPlaylogList"][$count]["musicName"];
     //エキスパートの場合
-    if($userPlaylogList["userPlaylogList"][$count]["levelName"] == "expert"){
+    if($userPlaylogList["userPlaylogList"][$count]["levelName"] === "expert"){
       //計算
       $musicid = $Img_to_MusicID[$img];
       $base_rate = $data[(string)$musicid]["BaseRate"]["ex"];
@@ -323,11 +319,11 @@
       if($i < 10){
         $UserRecentRate += Truncation($rate,2);
       }
-      $i++;
+      ++$i;
       $Temp = "";
     }
     //マスターの場合
-    else if($userPlaylogList["userPlaylogList"][$count]["levelName"] == "master"){
+    else if($userPlaylogList["userPlaylogList"][$count]["levelName"] === "master"){
       //計算
       $musicid = $Img_to_MusicID[$img];
       $base_rate = $data[(string)$musicid]["BaseRate"]["mas"];
@@ -346,7 +342,7 @@
       if($i < 10){
         $UserRecentRate += Truncation($rate,2);
       }
-      $i++;
+      ++$i;
       $Temp = "";
     }
   }
@@ -358,7 +354,7 @@
 
   // 表示レート取得
   $dispRate = Rate_get($userid);
-  if($dispRate == null){
+  if($dispRate === null){
     http_response_code(204);
     exit();
   }
@@ -385,7 +381,7 @@
 
   //フレンドコード取得
   $friend = friendCode_get($userid);
-  if($friend == null){    
+  if($friend === null){    
     http_response_code(204);
     exit();
   }

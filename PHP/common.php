@@ -51,14 +51,15 @@
   }
 
 //-----------------------------------------------------
-//  楽曲の詳細データ取得
+//  楽曲のベストスコア取得
 //-----------------------------------------------------
 
-  function score_get($userid,$musicId){
-    $url = 'https://chunithm-net.com/ChuniNet/GetUserMusicDetailApi';
+  //level = 19902:expert,level = 19903:master
+  function BestScore_get($userid,$level){
+    $url = 'https://chunithm-net.com/ChuniNet/GetUserMusicApi';
     $data = array(
+      'level' => $level,
       'userId' => $userid,
-      'musicId' => $musicId,
     );
     $options = array(
     'http' => array(
