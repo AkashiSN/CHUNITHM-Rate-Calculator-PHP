@@ -121,6 +121,7 @@
         179,
         180,
         185,
+        186,
         187,
         189,
         190,
@@ -1177,6 +1178,14 @@
         "Images": "img/520c1fef62954ca6.jpg",
         "BaseRate": {
             "mas": 11.2
+        }
+    },
+    "186": {
+        "MusicID": 186,
+        "MusicName": "ってゐ！　～えいえんてゐVer～",
+        "Images": "img/e26ef92a66d5d07f.jpg",
+        "BaseRate": {
+            "mas": 11.9
         }
     },
     "187": {
