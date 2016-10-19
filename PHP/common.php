@@ -17,7 +17,7 @@
 // ヘッダー
 //-----------------------------------------------------
 
-  require("define.php");
+  require('define.php');
 
 //-----------------------------------------------------
 //  切り捨て
@@ -33,15 +33,15 @@
 //-----------------------------------------------------
 
   function userid_get($u){
-    $a = explode(";",$u);
-    $b = "";
+    $a = explode(';',$u);
+    $b = '';
     for($i = 0;$i< count($a);$i++){
       $pos = strpos($a[$i],'userId');
       if ($pos !== false) {
         $b = $i;
       }
     }
-    $c = explode("=",$a[$b]);
+    $c = explode('=',$a[$b]);
     if(isset($c[1])){
       return $c[1];
     }
@@ -152,15 +152,15 @@
       $count = 0;
       $hash =  hash_hmac('sha256', $FriendCode, false);
       $pdo = new PDO(DNS,USER,PASS,array(PDO::ATTR_EMULATE_PREPARES => false));
-      $sql = 'SELECT * from User';
-        foreach ($pdo ->query($sql) as $row) {
-          if($hash == $row['Hash']){
-              $count++;
-              break;
-          }
-        }
-        if($count == 0){
-        $sql = "INSERT INTO User (Hash, FriendCode, UserName, Json) VALUES (:Hash, :FriendCode, :UserName, :Json)";
+	    $sql = 'SELECT * FROM `User` WHERE `Hash` = :Hash';
+	    $stmt = $pdo -> prepare($sql);
+	    $stmt->bindParam(':Hash', $hash, PDO::PARAM_STR);
+	   	$stmt->execute();
+      foreach ($stmt as $row) {
+        $count++;
+      }
+      if($count === 0){
+        $sql = 'INSERT INTO `User`(`Hash`, `FriendCode`, `UserName`, `Json`) VALUES (:Hash, :FriendCode, :UserName, :Json)';
         $stmt = $pdo -> prepare($sql);
         $stmt->bindParam(':Hash', $hash, PDO::PARAM_STR);
         $stmt->bindParam(':FriendCode', $FriendCode, PDO::PARAM_STR);
@@ -168,12 +168,12 @@
         $stmt->bindParam(':Json', $Json, PDO::PARAM_STR);
         $stmt->execute();
       }else{
-        $sql = "DELETE FROM User WHERE Hash=:Hash;";
+        $sql = 'DELETE FROM `User` WHERE `Hash` =:Hash;';
         $stmt = $pdo->prepare($sql);
         $stmt->bindParam(':Hash', $hash, PDO::PARAM_STR);
         $stmt->execute();
 
-        $sql = "INSERT INTO User (Hash, FriendCode, UserName, Json) VALUES (:Hash, :FriendCode, :UserName, :Json)";
+        $sql = 'INSERT INTO `User`(`Hash`, `FriendCode`, `UserName`, `Json`)  VALUES (:Hash, :FriendCode, :UserName, :Json)';
         $stmt = $pdo -> prepare($sql);
         $stmt->bindParam(':Hash', $hash, PDO::PARAM_STR);
         $stmt->bindParam(':FriendCode', $FriendCode, PDO::PARAM_STR);
@@ -192,11 +192,12 @@
 
   function UserData_show($Hash){
     $pdo = new PDO(DNS,USER,PASS,array(PDO::ATTR_EMULATE_PREPARES => false));
-    $sql = 'SELECT * from User';
-    foreach ($pdo ->query($sql) as $row) {
-      if($Hash == $row['Hash']){
-        return $row['Json'];
-      }
+    $sql = 'SELECT * FROM `User` WHERE `Hash` = :Hash';
+    $stmt = $pdo -> prepare($sql);
+    $stmt->bindParam(':Hash', $Hash, PDO::PARAM_STR);
+   	$stmt->execute();
+    foreach ($stmt as $row) {
+      return $row['Json'];
     }
     return null;
   }
@@ -207,37 +208,37 @@
 
   function Score_to_rank($score){
     if($score >= 1007500){
-      return "sss";
+      return 'sss';
     }
     else if($score >= 1000000){
-      return "ss";
+      return 'ss';
     }
     else if($score >= 975000){
-      return "s";
+      return 's';
     }
     else if($score >= 950000){
-      return "aaa";
+      return 'aaa';
     }
     else if($score >= 925000){
-      return "aa";
+      return 'aa';
     }
     else if($score >= 900000){
-      return "a";
+      return 'a';
     }
     else if($score >= 800000){
-      return "bbb";
+      return 'bbb';
     }
     else if($score >= 700000){
-      return "bb";
+      return 'bb';
     }
     else if($score >= 600000){
-      return "b";
+      return 'b';
     }
     else if($score >= 500000){
-      return "c";
+      return 'c';
     }
     else if($score >= 0){
-      return "d";
+      return 'd';
     }
     else{
       return null;

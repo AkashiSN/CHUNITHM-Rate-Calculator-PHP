@@ -126,7 +126,7 @@ function UserHash(hash) {
 function UserRateDisp(){
   var UserRate = UserData["User"];
   var UserInfo = UserData["Userinfo"];
-  var frame = ["normal", "copper", "silver", "gold", "platina"];
+  var frame = ["normal", "copper", "silver", "gold", "gold", "platina"];
   var elements = `
   <div class="w420 box_player clearfix">
     <div id="UserCharacter" class="player_chara" style='background-image:url("https://chunithm-net.com/mobile/common/images/charaframe_`+ frame[parseInt(parseInt(UserInfo["characterLevel"])/5)] +`.png");margin-top: 10px;'>
