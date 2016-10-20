@@ -126,10 +126,11 @@ function UserHash(hash) {
 function UserRateDisp(){
   var UserRate = UserData["User"];
   var UserInfo = UserData["Userinfo"];
-  var frame = ["normal", "copper", "silver", "gold", "gold", "platina"];
+  var frame = ["normal", "copper", "silver", "gold", "platina"];
+  var characterFrame = ["normal", "copper", "silver", "gold", "gold", "platina"];
   var elements = `
   <div class="w420 box_player clearfix">
-    <div id="UserCharacter" class="player_chara" style='background-image:url("https://chunithm-net.com/mobile/common/images/charaframe_`+ frame[parseInt(parseInt(UserInfo["characterLevel"])/5)] +`.png");margin-top: 10px;'>
+    <div id="UserCharacter" class="player_chara" style='background-image:url("https://chunithm-net.com/mobile/common/images/charaframe_`+ characterFrame[parseInt(parseInt(UserInfo["characterLevel"])/5)] +`.png");margin-top: 10px;'>
       <img id="characterFileName" src="https://chunithm-net.com/mobile/` + UserInfo["characterFileName"] + `">
     </div>
     <div class="box07 player_data">
@@ -156,7 +157,7 @@ function UserRateDisp(){
       </div>
     </div>
     <div id="tweet" style="margin-top: 10px;"></div>
-    <div style="margin-top: 0px" class="more w400" onclick="window.open('https://akashisn.info/?page_id=52#Air', '_blank');"><a href="JavaScript:void(0);">Air対応について</a></div>
+    <div style="margin-top: 0px" class="more w400" onclick="window.open('https://akashisn.info/?page_id=52#notice', '_blank');"><a href="JavaScript:void(0);">注意</a></div>
   </div>`;  
   var div = document.getElementById("userInfo_result");
   div.innerHTML = elements;
@@ -591,6 +592,22 @@ function error() {
 //--------------------------------------------------------------------
 
 function graph() {
+	var MaxRate = [];
+	for(var i = 0; i < UserData["Date"]["MaxRate"].length; i++){
+		MaxRate[i] = [UserData["Date"]["date"][i] ,UserData["Date"]["MaxRate"][i]];
+	}
+	var DispRate = [];
+	for(var i = 0; i < UserData["Date"]["DispRate"].length;i ++){
+		DispRate[i] = [UserData["Date"]["date"][i] ,UserData["Date"]["DispRate"][i]];
+	}
+	var BestRate = [];
+	for(var i = 0; i < UserData["Date"]["BestRate"].length; i++){
+		BestRate[i] = [UserData["Date"]["date"][i] ,UserData["Date"]["BestRate"][i]];
+	}
+	var RecentRate = [];
+	for(var i = 0; i < UserData["Date"]["RecentRate"].length; i++){
+		RecentRate[i] = [UserData["Date"]["date"][i] ,UserData["Date"]["RecentRate"][i]];
+	}
   $('#container')
     .highcharts({
       title: {
@@ -601,7 +618,7 @@ function graph() {
         title: {
           text: 'クレジット'
         },
-        categories: UserData["Date"]["date"]
+          tickInterval: 10
       }
       , yAxis: {
         title: {
@@ -622,17 +639,17 @@ function graph() {
         , borderWidth: 0
       }
       , series: [{
-        name: '最大レート'
-        , data: UserData["Date"]["MaxRate"]
+        	name: '最大レート',
+         	data: MaxRate
         }, {
         name: '表示レート'
-        , data: UserData["Date"]["DispRate"]
+        , data: DispRate
         }, {
         name: 'BEST枠'
-        , data: UserData["Date"]["BestRate"]
+        , data: BestRate
         }, {
         name: 'RECENT枠'
-        , data: UserData["Date"]["RecentRate"]
+        , data: RecentRate
         }]
     });
 }

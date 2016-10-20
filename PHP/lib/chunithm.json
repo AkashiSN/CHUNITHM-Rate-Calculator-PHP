@@ -154,6 +154,8 @@
         226,
         227,
         228,
+        229,
+        230,
         231,
         232,
         233,
@@ -173,6 +175,7 @@
         255,
         259,
         261,
+        262,
         263,
         267,
         273,
@@ -1838,6 +1841,30 @@
         "Images": "img\/4d66e5d1669d79a2.jpg",
         "BaseRate": {
             "mas": 13.1
+        }
+    },
+    "262": {
+        "MusicID": 262,
+        "MusicName": "Tidal Wave",
+        "Images": "img\/676e59847912f5ca.jpg",
+        "BaseRate": {
+            "mas": 13.6
+        }
+    },
+    "230": {
+        "MusicID": 230,
+        "MusicName": "Hyperion",
+        "Images": "img\/b59d2b2ab877a77d.jpg",
+        "BaseRate": {
+            "mas": 12.4
+        }
+    },
+    "229": {
+        "MusicID": 229,
+        "MusicName": "紅華刑",
+        "Images": "img\/73f86aec8d6c7c9b.jpg",
+        "BaseRate": {
+            "mas": 13.4
         }
     }
 }

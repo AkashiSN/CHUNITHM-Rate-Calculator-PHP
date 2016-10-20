@@ -67,12 +67,12 @@ if(!isset($_GET['user'])){
   <title>CHUNITHM Rate Calculator</title>
   <link rel="stylesheet" href="https://chunithm-net.com/mobile/common/css/common.css" />
   <link rel="stylesheet" href="https://chunithm-net.com/mobile/common/css/contents.css" />
-  <link rel="stylesheet" href="lib/chunithm.css?var=3.6.0" />  
+  <link rel="stylesheet" href="lib/chunithm.css?var=3.6.1" />  
   <script src="/common/js/jquery-1.12.4.min.js" ></script>
   <script src="https://code.highcharts.com/highcharts.js"></script>
 	<script src="https://code.highcharts.com/modules/exporting.js"></script>
   <script src="https://platform.twitter.com/widgets.js"></script>
-  <script src="lib/chunithm.js?var=3.6.0" ></script>
+  <script src="lib/chunithm.js?var=3.6.1" ></script>
   <script type="text/javascript">
     // DOMを全て読み込んだあとに実行される
     $(function() {
@@ -170,7 +170,7 @@ if(!isset($_GET['user'])){
                 <div class="player_rating" id="player_rating"></div>
               </div>
               <div id="tweet" style="margin-top: 10px;"></div>
-              <div style="margin-top: 0px" class="more w400" onclick="window.open('https://akashisn.info/?page_id=52#Air', '_blank');"><a href="JavaScript:void(0);">Air対応について</a></div>
+              <div style="margin-top: 0px" class="more w400" onclick="window.open('https://akashisn.info/?page_id=52#notice', '_blank');"><a href="JavaScript:void(0);">注意</a></div>
             </div>
           </div>
         </div>
