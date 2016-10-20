@@ -144,6 +144,24 @@
   }
 
 //-----------------------------------------------------
+//  main.phpにポスト
+//-----------------------------------------------------
+
+  function api($userid){
+    $url = 'main.php';
+    $data = array(
+      'userid' => $userid,
+    );
+    $options = array(
+    'http' => array(
+      'method'  => 'POST',
+      'content' => http_build_query( $data )
+    ));
+    $context  = stream_context_create( $options );
+    $hash = file_get_contents( $url, false, $context );
+  }
+
+//-----------------------------------------------------
 //  データーベースに登録
 //-----------------------------------------------------
 
@@ -152,10 +170,10 @@
       $count = 0;
       $hash =  hash_hmac('sha256', $FriendCode, false);
       $pdo = new PDO(DNS,USER,PASS,array(PDO::ATTR_EMULATE_PREPARES => false));
-	    $sql = 'SELECT * FROM `User` WHERE `Hash` = :Hash';
-	    $stmt = $pdo -> prepare($sql);
-	    $stmt->bindParam(':Hash', $hash, PDO::PARAM_STR);
-	   	$stmt->execute();
+      $sql = 'SELECT * FROM `User` WHERE `Hash` = :Hash';
+      $stmt = $pdo -> prepare($sql);
+      $stmt->bindParam(':Hash', $hash, PDO::PARAM_STR);
+      $stmt->execute();
       foreach ($stmt as $row) {
         $count++;
       }
@@ -195,7 +213,7 @@
     $sql = 'SELECT * FROM `User` WHERE `Hash` = :Hash';
     $stmt = $pdo -> prepare($sql);
     $stmt->bindParam(':Hash', $Hash, PDO::PARAM_STR);
-   	$stmt->execute();
+    $stmt->execute();
     foreach ($stmt as $row) {
       return $row['Json'];
     }
@@ -334,43 +352,529 @@
 //--------------------------------------------------------------------
 // ユーザーデータの表示
 //--------------------------------------------------------------------
-/*
+
 function UserRateDisp($UserData){
-  var $UserRate = $UserData["User"];
-  var $UserInfo = $UserData["Userinfo"];
-  var $frame = ["normal", "copper", "silver", "gold", "platina"];
-  var $characterFrame = ["normal", "copper", "silver", "gold", "gold", "platina"];
-  var $elements = `
-  <div class="w420 box_player clearfix">
-    <div id="UserCharacter" class="player_chara" style='background-image:url("https://chunithm-net.com/mobile/common/images/charaframe_`.$characterFrame[parseInt(parseInt($UserInfo["characterLevel"])/5)].`.png");margin-top: 10px;'>
-      <img id="characterFileName" src="https://chunithm-net.com/mobile/`.$UserInfo["characterFileName"].`">
-    </div>
-    <div class="box07 player_data">
-      <div id="UserHonor" class="player_honor" style='background-image:url("https://chunithm-net.com/mobile/common/images/honor_bg_`.$frame[parseInt($UserInfo["trophyType"])]. `.png")'>
-        <div class="player_honer_text_view">
-          <div id="HonerText" class="player_honer_text">`.$UserInfo["trophyName"].`</div>
-        </div>
-      </div>`;
-  if($UserInfo["reincarnationNum"] > 0){
-    $elements += `
-      <div id="UserReborn" class="player_reborn">`;
-    $elements += $UserInfo["reincarnationNum"];
+  $UserRate = $UserData['User'];
+  $UserInfo = $UserData['Userinfo'];
+  $frame = ['normal', 'copper', 'silver', 'gold', 'platina'];
+  $characterFrame = ['normal', 'copper', 'silver', 'gold', 'gold', 'platina'];
+  $characterFrameFile = 'charaframe_'.$characterFrame[$UserInfo['characterLevel']/5].'.png';
+  $elements = '
+  <div id="wrap">
+    <div style="margin-top:10px;margin-bottom:0px;padding-bottom:0px;">
+      <div class="frame01 w460">
+        <div style="padding-bottom:0px;" class="frame01_inside w450">
+          <h2 style="margin-top:10px;" id="page_title">ユーザー</h2>
+          <hr class="line_dot_black w420">
+          <div id="userInfo_result">
+            <div class="w420 box_player clearfix">
+              <div id="UserCharacter" class="player_chara" style=\'background-image:url("https://chunithm-net.com/mobile/common/images/'.$characterFrameFile.'");margin-top: 10px;\'>
+                <img id="characterFileName" src="https://chunithm-net.com/mobile/'.$UserInfo["characterFileName"].'">
+              </div>
+              <div class="box07 player_data">
+                <div id="UserHonor" class="player_honor" style=\'background-image:url("https://chunithm-net.com/mobile/common/images/honor_bg_'.$frame[(int)$UserInfo["trophyType"]]. '.png")\'>
+                  <div class="player_honer_text_view">
+                    <div id="HonerText" class="player_honer_text">'.$UserInfo["trophyName"].'</div>
+                  </div>
+                </div>';
+  if($UserInfo['reincarnationNum'] > 0){
+    $elements .= '
+                <div id="UserReborn" class="player_reborn">';
+    $elements .= $UserInfo['reincarnationNum'];
   }else{
-    $elements += `
-      <div id="UserReborn" class="player_reborn_0">`;                  
+    $elements .= '
+                <div id="UserReborn" class="player_reborn_0">';                  
   }
-  $elements += `
-      </div>
-      <div class="player_name">
-        <div class="player_lv">
-          <span class="font_small mr_5">Lv.</span><span id="UserLv">`.$UserInfo["level"].`</span></div><span id="UserName">`.$UserInfo["userName"].`</span>
+  $elements .= '
+              </div>
+              <div class="player_name">
+                <div class="player_lv">
+                  <span class="font_small mr_5">Lv.</span><span id="UserLv">'.$UserInfo["level"].'</span></div><span id="UserName">'.$UserInfo["userName"].'</span>
+                </div>
+                <div class="player_rating" id="player_rating">BEST枠 : <span id="UserRating">'.$UserRate["BestRate"].'</span> / <span>MAX</span> <span id="UserRating">'.$UserRate["MaxRate"].'</span><br><div style="margin-top:5px;">RECENT枠 :<span id="UserRating">'.$UserRate["RecentRate-1"].'</span> / <span>表示レート</span><span id="UserRating">'.$UserRate["DispRate"].'</span></div>
+              </div>
+            </div>
+            <div id="tweet" style="margin-top: 10px;"></div>
+            <div style="margin-top: 0px" class="more w400" onclick="window.open(\'https://akashisn.info/?page_id=52#notice\', \'_blank\');"><a href="JavaScript:void(0);">注意</a></div>
+          </div>
         </div>
-        <div class="player_rating" id="player_rating">BEST枠 : <span id="UserRating">`.$UserRate["BestRate"].toFixed(2).`</span> / <span>MAX</span> <span id="UserRating">`.$UserRate["MaxRate"].toFixed(2) + `</span><br><div style="margin-top:5px;">RECENT枠 :<span id="UserRating">`.$UserRate["RecentRate-1"].toFixed(2).`</span> / <span>表示レート</span><span id="UserRating">`.UserRate["DispRate"].toFixed(2).`</span></div>
       </div>
     </div>
-    <div id="tweet" style="margin-top: 10px;"></div>
-    <div style="margin-top: 0px" class="more w400" onclick="window.open('https://akashisn.info/?page_id=52#notice', '_blank');"><a href="JavaScript:void(0);">注意</a></div>
-  </div>`;  
+  </div>
+</div>
+<script type="text/javascript">
+//tweetボタン
+  twttr.ready(function() {
+    var rate = "BEST枠平均: "+'.$UserRate["BestRate"].'+" 最大レート: "+'.$UserRate["MaxRate"].'+"\n" + "RECENT枠平均: "+'.$UserRate["RecentRate-1"].'+" 表示レート: "+'.$UserRate["DispRate"].'+"\n";
+    twttr.widgets.createShareButton(
+      document.URL,
+      location.href,
+      document.getElementById(\'tweet\'),
+      {
+        lang: \'ja\',
+        size: \'normal\',
+        text:  rate,
+        hashtags : \'CHUNITHMRateCalculator\'
+      }
+    )
+  });
+</script>';
+  return $elements;
+}
+
+//--------------------------------------------------------------------
+// Best枠の表示
+//--------------------------------------------------------------------
+
+function BestRateDisp($UserData){
+  $element = '';
+  $Best = '
+  <div id="wrap">
+    <div id="disp">
+      <div style="margin-bottom:0px;padding-bottom:0px;" id="inner">
+        <div class="frame01 w460">
+          <div class="frame01_inside w450">
+            <h2 style="margin-top:10px;" id="page_title">BEST枠</h2>
+            <hr class="line_dot_black w420">
+            <div class="box01 w420">
+              <div class="mt_10">
+                <div id="userPlaylog_result">';
+      //Best枠の数だけ繰り返す
+  for($i = 0; $i < sizeof($UserData['Best']); $i++){
+    $MusicDeteil = $UserData['Best'][$i];
+    $MusicName = $MusicDeteil['MusicName'];
+    $MusicImg = $MusicDeteil['Images'];
+    $BaseRate = $MusicDeteil['BaseRate'];
+    $Score = $MusicDeteil['Score'];
+    $Rank = $MusicDeteil['Rank'];
+    $BestRate = $MusicDeteil['BestRate'];
+    $level = $MusicDeteil['level'];
+    $BestScore = $MusicDeteil['ScoreBest'];
+      
+    if($i == 30){
+        $element .= '
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="frame01 w460">
+          <div class="frame01_inside w450">
+            <h2 style="margin-top:10px;" id="page_title">BEST枠外</h2>
+            <hr class="line_dot_black w420">
+            <div class="box01 w420">
+              <div class="mt_10">
+                <div id="userPlaylog_result">';
+    }
+    $element .= '
+                  <div class="frame02 w400">
+                    <div class="play_jacket_side">
+                      <div class="play_jacket_area">
+                        <div id="Jacket" class="play_jacket_img">
+                          <img src="https://chunithm-net.com/mobile/'.$MusicImg.'"">
+                        </div>
+                      </div>
+                    </div>
+                    <div class="play_data_side01">
+                      <div class="box02 play_track_block">
+                        <div id="TrackLevel" class="play_track_result">
+                          <img src="https://chunithm-net.com/mobile/common/images/icon_'.$level.'.png">
+                        </div>
+                      </div>
+                      <div class="box02 play_musicdata_block">
+                        <div id="MusicTitle" class="play_musicdata_title">'.$MusicName.'</div>
+                        <div class="play_musicdata_score clearfix">
+                          <div class="play_musicdata_score_text">譜面定数:<span id="Score">'.$BaseRate.'</span></div><br>
+                          <div class="play_musicdata_score_text">RATING:<span id="Score">'.$BestRate.'</span></div><br>
+                          <div class="play_musicdata_score_text">Score：<span id="Score">'.$Score.'</span></div>
+                          <div id="rank"><img src="https://chunithm-net.com/mobile/common/images/icon_'.$Rank.'.png"></div>';
+    if($i > 29 && $BestScore != 0){
+      $element .= '
+                          <div class="play_musicdata_score_text">Best枠入りまで : <span id="Score">'.($BestScore-$Score).'('.$BestScore.')</span></div>';
+    }
+    $element .= '
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                ';            
+  }
+  $element .='</div>
+              </div>
+            </div>
+            </div>
+            </div>';
+  $Best .= $element;
+  return $Best;
+}
+
+//スコア順にソート
+function Sort_Score($UserData){
+  $Score_array = $UserData['Best'];
+  array_multisort(array_column($Score_array, 'Score'), SORT_DESC, $Score_array);  
+  $element = '';
+  $rank = $Score_array[0]['Rank'];
+  $sort_Score = '
+  <div id="wrap">
+    <div id="disp">
+      <div style="margin-bottom:0px;padding-bottom:0px;" id="inner">
+        <div class="frame01 w460">
+          <div class="frame01_inside w450">
+            <h2 style="margin-top:10px;" id="page_title">'.strtoupper($rank).'</h2>
+            <hr class="line_dot_black w420">
+            <div class="box01 w420">
+              <div class="mt_10">
+                <div id="userPlaylog_result">';
+    //Best枠の数だけ繰り返す
+  for($i = 0; $i < sizeof($Score_array); $i++){
+    $MusicDeteil = $Score_array[$i];
+    $MusicName = $MusicDeteil['MusicName'];
+    $MusicImg = $MusicDeteil['Images'];
+    $BaseRate = $MusicDeteil['BaseRate'];
+    $Score = $MusicDeteil['Score'];
+    $Rank = $MusicDeteil['Rank'];
+    $BestRate = $MusicDeteil['BestRate'];
+    $level = $MusicDeteil['level'];      
+    if($rank != $Rank){
+      $rank = $Rank;
+      $element .= '
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="frame01 w460">
+          <div class="frame01_inside w450">
+            <h2 style="margin-top:10px;" id="page_title">'.strtoupper($rank).'</h2>
+            <hr class="line_dot_black w420">
+            <div class="box01 w420">
+              <div class="mt_10">
+                <div id="userPlaylog_result">';
+    }
+    $element .= '
+                  <div class="frame02 w400">
+                    <div class="play_jacket_side">
+                      <div class="play_jacket_area">
+                        <div id="Jacket" class="play_jacket_img">
+                          <img src="https://chunithm-net.com/mobile/'.$MusicImg.'"">
+                        </div>  
+                      </div>
+                    </div>
+                    <div class="play_data_side01">
+                      <div class="box02 play_track_block">
+                        <div id="TrackLevel" class="play_track_result">
+                          <img src="https://chunithm-net.com/mobile/common/images/icon_'.$level.'.png">
+                        </div>
+                      </div>
+                      <div class="box02 play_musicdata_block">
+                        <div id="MusicTitle" class="play_musicdata_title">'.$MusicName.'</div>
+                        <div class="play_musicdata_score clearfix">
+                          <div class="play_musicdata_score_text">譜面定数:<span id="Score">'.$BaseRate.'</span></div><br>
+                          <div class="play_musicdata_score_text">RATING:<span id="Score">'.$BestRate.'</span></div><br>
+                          <div class="play_musicdata_score_text">Score：<span id="Score">'.$Score.'</span></div>
+                          <img src="https://chunithm-net.com/mobile/common/images/icon_'.$Rank.'.png">
+                        </div>
+                      </div>
+                    </div>
+                  </div>';
+  }
+  $element .='</div>
+              </div>
+            </div>
+          </div>
+        </div>';  
+  $sort_Score .= $element;
+  return $sort_Score;
+}
+
+//難易度を返す
+function difficult($n){
+  if($n >= 13.7) return '13+';
+  if($n >= 13) return '13';
+  if($n >= 12.7) return '12+';
+  if($n >= 12) return '12';
+  if($n >= 11.7) return '11+';
+  if($n >= 11) return '11';
+}
+
+//難易度順にソート
+function Sort_Diff($UserData){
+  $Diff_array = $UserData['Best'];
+  array_multisort(array_column($Diff_array, 'BaseRate'), SORT_DESC, $Diff_array);
+  $element = '';
+  $Diff = difficult($Diff_array[0]['BaseRate']);
+  $sort_Diff = '
+  <div id="wrap">
+    <div id="disp">
+      <div style="margin-bottom:0px;padding-bottom:0px;" id="inner">
+        <div class="frame01 w460">
+          <div class="frame01_inside w450">
+            <h2 style="margin-top:10px;" id="page_title">'.$Diff.'</h2>
+            <hr class="line_dot_black w420">
+            <div class="box01 w420">
+              <div class="mt_10">
+                <div id="userPlaylog_result">';
+  //Best枠の数だけ繰り返す
+  for($i = 0; $i < sizeof($Diff_array); $i++){
+    $MusicDeteil = $Diff_array[$i];
+    $MusicName = $MusicDeteil['MusicName'];
+    $MusicImg = $MusicDeteil['Images'];
+    $BaseRate = $MusicDeteil['BaseRate'];
+    $Score = $MusicDeteil['Score'];
+    $Rank = $MusicDeteil['Rank'];
+    $BestRate = $MusicDeteil['BestRate'];
+    $level = $MusicDeteil['level'];      
+    if($Diff != difficult($BaseRate)){
+      $Diff = difficult($BaseRate);
+      $element .= '
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="frame01 w460">
+          <div class="frame01_inside w450">
+            <h2 style="margin-top:10px;" id="page_title">'.$Diff.'</h2>
+            <hr class="line_dot_black w420">
+            <div class="box01 w420">
+              <div class="mt_10">
+                <div id="userPlaylog_result">';
+    }
+    $element .= '
+                  <div class="frame02 w400">
+                    <div class="play_jacket_side">
+                      <div class="play_jacket_area">
+                        <div id="Jacket" class="play_jacket_img">
+                          <img src="https://chunithm-net.com/mobile/'.$MusicImg.'">
+                        </div>  
+                      </div>
+                    </div>
+                    <div class="play_data_side01">
+                      <div class="box02 play_track_block">
+                        <div id="TrackLevel" class="play_track_result">
+                          <img src="https://chunithm-net.com/mobile/common/images/icon_'.$level.'.png">
+                        </div>
+                      </div>
+                      <div class="box02 play_musicdata_block">
+                        <div id="MusicTitle" class="play_musicdata_title">'.$MusicName.'</div>
+                        <div class="play_musicdata_score clearfix">
+                          <div class="play_musicdata_score_text">譜面定数:<span id="Score">'.$BaseRate.'</span></div><br>
+                          <div class="play_musicdata_score_text">RATING:<span id="Score">'.$BestRate.'</span></div><br>
+                          <div class="play_musicdata_score_text">Score：<span id="Score">'.$Score.'</span></div>
+                          <img src="https://chunithm-net.com/mobile/common/images/icon_'.$Rank.'.png">
+                        </div>
+                      </div>
+                    </div>
+                  </div>';
+  } 
+  $element .='</div>
+              </div>
+            </div>
+          </div>
+        </div>';  
+  $sort_Diff .= $element;
+  return $sort_Diff;
+}
+
+//--------------------------------------------------------------------
+// Recent枠の表示
+//--------------------------------------------------------------------
+
+function RecentRateDisp($UserData){
+  $element = "";
+  $Recent = '
+  <div id="wrap">
+    <div id="disp">
+      <div style="margin-bottom:0px;padding-bottom:0px;" id="inner">
+        <div class="frame01 w460">
+          <div class="frame01_inside w450">
+            <h2 style="margin-top:10px;" id="page_title">RECENT枠</h2>
+            <hr class="line_dot_black w420">
+            <div class="box01 w420">
+              <div class="mt_10">
+                <div id="userPlaylog_result">';
+  //Best枠の数だけ繰り返す
+  for($i = 0; $i < sizeof($UserData["Recent"]); $i++){
+    $MusicDeteil = $UserData["Recent"][$i];
+    $MusicName = $MusicDeteil["MusicName"];
+    $MusicImg = $MusicDeteil["Images"];
+    $BaseRate = $MusicDeteil["BaseRate"];
+    $Score = $MusicDeteil["Score"];
+    $Rank = $MusicDeteil["Rank"];
+    $BestRate = $MusicDeteil["BestRate"];
+    $level = $MusicDeteil["level"];
+    if($i == 10){
+      $element .= '
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="frame01 w460">
+    <div class="frame01_inside w450">
+      <h2 style="margin-top:10px;" id="page_title">RECENT枠外</h2>
+      <hr class="line_dot_black w420">
+      <div class="box01 w420">
+        <div class="mt_10">
+          <div id="userPlaylog_result">';
+    }
+    $element .= '
+              <div class="frame02 w400">
+                <div class="play_jacket_side">
+                  <div class="play_jacket_area">
+                    <div id="Jacket" class="play_jacket_img">
+                      <img src="https://chunithm-net.com/mobile/'.$MusicImg.'">
+                    </div>
+                  </div>
+                </div>
+                <div class="play_data_side01">
+                  <div class="box02 play_track_block">
+                    <div id="TrackLevel" class="play_track_result">
+                      <img src="https://chunithm-net.com/mobile/common/images/icon_'.$level.'.png">
+                    </div>
+                  </div>
+                  <div class="box02 play_musicdata_block">
+                    <div id="MusicTitle" class="play_musicdata_title">'.$MusicName.'</div>
+                    <div class="play_musicdata_score clearfix">
+                      <div class="play_musicdata_score_text">譜面定数:<span id="Score">'.$BaseRate.'</span></div><br>
+                      <div class="play_musicdata_score_text">RATING:<span id="Score">'.$BestRate.'</span></div><br>
+                      <div class="play_musicdata_score_text">Score：<span id="Score">'.$Score.'</span></div>
+                      <img src="https://chunithm-net.com/mobile/common/images/icon_'.$Rank.'.png">
+                    </div>
+                  </div>
+                </div>
+              </div>';            
+  }
+  $element .='</div>
+              </div>
+            </div>
+          </div>
+        </div>';  
+  $Recent .= $element;
+  return $Recent;
+}
+
+//ボタンの表示
+function button_show(){
+  echo '
+  <div id="Buttons">
+    <input class="buttons" type="button" value="Best枠" id="Best_Button"/>
+    <input class="buttons" type="button" value="Recent枠" id="Recent_Button"/>
+    <input class="buttons" type="button" value="グラフ" id="Graph_Button"/>
+    <div id="Sorts_Button">
+      <hr class="line_dot_black w420"/>
+      <input class="buttons" type="button" value="レート順" id="Sort_Rate_Button"/>
+      <input class="buttons" type="button" value="スコア順" id="Sort_Score_Button"/>
+      <input class="buttons" type="button" value="難易度順" id="Sort_Diff_Button"/>
+    </div>
+  </div>
+  <div id="Graph" style="margin-bottom:10px;width:650px"></div>';
+}
+
+//--------------------------------------------------------------------
+// グラフ描画
+//--------------------------------------------------------------------
+
+function graph($UserData) {
+  $tmp = [];
+  for($i = 0; $i < sizeof($UserData["Date"]["MaxRate"]); $i++){
+    $tmp[$i] = '['.$UserData["Date"]["date"][$i].','.$UserData["Date"]["MaxRate"][$i].']';
+  }
+  $MaxRate = '[';
+  for($i = 0; $i < sizeof($tmp); $i++){
+    if($i !== 0){
+      $MaxRate .= $tmp[$i].',';
+    }
+  }
+  $MaxRate .= ']';
+
+  $tmp = [];
+  for($i = 0; $i < sizeof($UserData["Date"]["DispRate"]); $i++){
+    $tmp[$i] = '['.$UserData["Date"]["date"][$i].','.$UserData["Date"]["DispRate"][$i].']';
+  }
+  $DispRate = '[';
+  for($i = 0; $i < sizeof($tmp); $i++){
+    if($i !== 0){
+      $DispRate .= $tmp[$i].',';
+    }
+  }
+  $DispRate .= ']';
+
+  $tmp = [];
+  for($i = 0; $i < sizeof($UserData["Date"]["BestRate"]); $i++){
+    $tmp[$i] = '['.$UserData["Date"]["date"][$i].','.$UserData["Date"]["BestRate"][$i].']';
+  }
+  $BestRate = '[';
+  for($i = 0; $i < sizeof($tmp); $i++){
+    if($i !== 0){
+      $BestRate .= $tmp[$i].',';
+    }
+  }
+  $BestRate .= ']';
+
+  $tmp = [];
+  for($i = 0; $i < sizeof($UserData["Date"]["RecentRate"]); $i++){
+    $tmp[$i] = '['.$UserData["Date"]["date"][$i].','.$UserData["Date"]["RecentRate"][$i].']';
+  }
+  $RecentRate = '[';
+  for($i = 0; $i < sizeof($tmp); $i++){
+    if($i !== 0){
+      $RecentRate .= $tmp[$i].',';
+    }
+  }
+  $RecentRate .= ']';
+
+  $graph = '
+<script type="text/javascript">
+  $(document).ready(function(){
+    $(\'#Graph\')
+    .highcharts({
+      title: {
+        text: \'レート推移\'
+        , x: -20 //center
+      }
+      , xAxis: {
+        title: {
+          text: \'クレジット\'
+        },
+          tickInterval: 10
+      }
+      , yAxis: {
+        title: {
+          text: \'レート\'
+        }
+        , plotLines: [{
+          value: 0
+          , width: 1
+          , color: \'#808080\'
+            }]
+            ,
+            tickInterval: 0.1
+      }
+      , legend: {
+        layout: \'vertical\'
+        , align: \'right\'
+        , verticalAlign: \'middle\'
+        , borderWidth: 0
+      }
+      , series: [{
+          name: \'最大レート\',
+          data: '.$MaxRate.'
+        }, {
+        name: \'表示レート\'
+        , data: '.$DispRate.'
+        }, {
+        name: \'BEST枠\'
+        , data: '.$BestRate.'
+        }, {
+        name: \'RECENT枠\'
+        , data: '.$RecentRate.'
+        }]
+    });
+  });
+</script>';
+
+    return $graph;
 }
 
 ?>

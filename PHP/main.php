@@ -17,30 +17,20 @@
 //-----------------------------------------------------
 
   require('common.php');
+  session_start();  
 
 //-----------------------------------------------------
 // 受信部
 //-----------------------------------------------------
 
-  if(isset($_POST['hash'])){
-    $json = UserData_show($_POST['hash']);
-
-    if($json === null){      
-      http_response_code(403);
-      exit();
-    }
-    
-    //出力
-    header('Content-Type: text/javascript; charset=utf-8');
-    echo $json;
-    exit();
-  }
-  if(isset($_POST['userid'])){
-    $userid = $_POST['userid'];
+  if(isset($_SESSION['userid'])){
+    $userid = $_SESSION['userid'];
   }
   else{
     //パラメータが不適切
-    http_response_code(400);
+    setcookie("errorCode",100001);
+    header("HTTP/1.1 301 Moved Permanently");
+    header("Location: error.html");
     exit();
   }
 
@@ -420,9 +410,15 @@
   //データーベースに登録
   UserData_set($friend,$dispRate['userInfo']['userName'],$json);
 
+  //セッション破棄   
+  setcookie("PHPSESSID", '', time() - 1800, '/');
+  $_SESSION = array();
+  session_destroy();
+
   //出力
-  $Hash['User']['Hash'] = $hash;
-  $json = json_encode( $Hash , JSON_UNESCAPED_UNICODE|JSON_UNESCAPED_SLASHES );  
-  header('Content-Type: text/javascript; charset=utf-8');
-  echo $json;
+  $Location = "Location: chunithm.php?user=";
+  $Location .= $hash;
+
+  header("HTTP/1.1 301 Moved Permanently");
+  header($Location);
 ?>
