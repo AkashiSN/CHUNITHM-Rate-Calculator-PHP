@@ -65,7 +65,7 @@ else{
 <head>
 
   <meta charset="UTF-8" />
-  <meta name="viewport" id="viewport" content="width=320,user-scalable=yes" />
+  <meta name="viewport" id="viewport" content="width=device-width,user-scalable=yes" />
   <meta name="format-detection" content="telephone=no">
   <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
   <meta http-equiv="Pragma" CONTENT="no-cache">
@@ -78,44 +78,10 @@ else{
   <meta property="og:url" content="https://akashisn.info/?page_id=52" />
   <meta property="og:image" content="/common/images/chunithm/img.jpg" />
   <meta property="og:site_name" content="Akashi_SNの日記" />
+  <link rel="stylesheet" href="lib/common.css" />
+  <link rel="stylesheet" href="lib/contents.css" />
+  <link rel="stylesheet" href="lib/chunithm.css?var=3.6.1" />
   <title>CHUNITHM Rate Calculator</title>
-  <link rel="stylesheet" href="https://chunithm-net.com/mobile/common/css/common.css" />
-  <link rel="stylesheet" href="https://chunithm-net.com/mobile/common/css/contents.css" />
-  <link rel="stylesheet" href="lib/chunithm.css?var=3.6.1" />  
-  <script src="/common/js/jquery-1.12.4.min.js" ></script>
-  <script src="https://code.highcharts.com/highcharts.js"></script>
-  <script src="https://code.highcharts.com/modules/exporting.js"></script>
-  <script src="https://platform.twitter.com/widgets.js"></script>
-  <script src="lib/chunithm.js?var=3.6.1" ></script>
-  <script type="text/javascript">
-    // DOMを全て読み込んだあとに実行される
-    $(document).ready(function(){
-      // 「Best_Button」をクリックしたとき
-      $('#Best_Button').click(function(){
-        location = '?user=<?php echo $_GET['user'];?>&frame=Best'
-      });
-      // 「Sort_Rate_Button」をクリックしたとき
-      $('#Sort_Rate_Button').click(function(){
-        location = '?user=<?php echo $_GET['user'];?>&frame=Best&sort=Sort_Rate'
-      });
-      // 「Sort_Score_Button」をクリックしたとき
-      $('#Sort_Score_Button').click(function(){
-        location = '?user=<?php echo $_GET['user'];?>&frame=Best&sort=Sort_Score'
-      });
-      // 「Sort_Diff_Button」をクリックしたとき
-      $('#Sort_Diff_Button').click(function(){        
-        location = '?user=<?php echo $_GET['user'];?>&frame=Best&sort=Sort_Diff'
-      });
-      // 「Recent_Button」をクリックしたとき
-      $('#Recent_Button').click(function(){   
-        location = '?user=<?php echo $_GET['user'];?>&frame=Recent'
-      });
-      // 「Graph_Button」をクリックしたとき
-      $('#Graph_Button').click(function(){
-        location = '?user=<?php echo $_GET['user'];?>&frame=Graph'
-      });
-    });
-  </script>
 </head>
 
 <body>
@@ -155,5 +121,7 @@ else{
 ?>
   <div style="font-size:15px">CHUNITHM Rate Calculator by Akashi_SN <a href="https://twitter.com/Akashi_SN" class="twitter-follow-button" data-show-count="false">Follow @Akashi_SN</a></div>
 </body>
-
+  <script type="text/javascript">
+    (function(d,e,j,h,f,c,b){d.GoogleAnalyticsObject=f;d[f]=d[f]||function(){(d[f].q=d[f].q||[]).push(arguments)},d[f].l=1*new Date();c=e.createElement(j),b=e.getElementsByTagName(j)[0];c.async=1;c.src=h;b.parentNode.insertBefore(c,b)})(window,document,"script","//www.google-analytics.com/analytics.js","ga");ga("create","UA-74926268-1","auto");ga("send","pageview");!function(f,a,g){var e,b=f.getElementsByTagName(a)[0],c=/^http:/.test(f.location)?"http":"https";if(!f.getElementById(g)){e=f.createElement(a);e.id=g;e.async=true;e.src=c+"://platform.twitter.com/widgets.js";b.parentNode.insertBefore(e,b)}}(document,"script","twitter-wjs");
+  </script>
 </html>

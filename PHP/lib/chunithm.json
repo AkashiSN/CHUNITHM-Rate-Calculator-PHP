@@ -191,6 +191,7 @@
         300,
         305,
         306,
+        307,
         308,
         309,
         316,
@@ -201,6 +202,7 @@
         321,
         322,
         330,
+        331,
         336
     ],
     "ExpertExist": {
@@ -1865,6 +1867,22 @@
         "Images": "img\/73f86aec8d6c7c9b.jpg",
         "BaseRate": {
             "mas": 13.4
+        }
+    },
+    "307": {
+        "MusicID": 307,
+        "MusicName": "Paqqin",
+        "Images": "img\/ff9f70c8c0d9f24e.jpg",
+        "BaseRate": {
+            "mas": 12.7
+        }
+    },
+    "331": {
+        "MusicID": 331,
+        "MusicName": "猛進ソリストライフ！",
+        "Images": "img\/ec37e447b91995dd.jpg",
+        "BaseRate": {
+            "mas": 12.2
         }
     }
 }

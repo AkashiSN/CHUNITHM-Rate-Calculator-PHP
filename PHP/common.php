@@ -402,6 +402,7 @@ function UserRateDisp($UserData){
     </div>
   </div>
 </div>
+<script src="https://platform.twitter.com/widgets.js" ></script>
 <script type="text/javascript">
 //tweetボタン
   twttr.ready(function() {
@@ -471,7 +472,7 @@ function BestRateDisp($UserData){
                     <div class="play_jacket_side">
                       <div class="play_jacket_area">
                         <div id="Jacket" class="play_jacket_img">
-                          <img src="https://chunithm-net.com/mobile/'.$MusicImg.'"">
+                          <img src="'.$MusicImg.'">
                         </div>
                       </div>
                     </div>
@@ -486,7 +487,7 @@ function BestRateDisp($UserData){
                         <div class="play_musicdata_score clearfix">
                           <div class="play_musicdata_score_text">譜面定数:<span id="Score">'.$BaseRate.'</span></div><br>
                           <div class="play_musicdata_score_text">RATING:<span id="Score">'.$BestRate.'</span></div><br>
-                          <div class="play_musicdata_score_text">Score：<span id="Score">'.$Score.'</span></div>
+                          <div class="play_musicdata_score_text">Score:<span id="Score">'.$Score.'</span></div>
                           <div id="rank"><img src="https://chunithm-net.com/mobile/common/images/icon_'.$Rank.'.png"></div>';
     if($i > 29 && $BestScore != 0){
       $element .= '
@@ -556,7 +557,7 @@ function Sort_Score($UserData){
                     <div class="play_jacket_side">
                       <div class="play_jacket_area">
                         <div id="Jacket" class="play_jacket_img">
-                          <img src="https://chunithm-net.com/mobile/'.$MusicImg.'"">
+                          <img src="'.$MusicImg.'">
                         </div>  
                       </div>
                     </div>
@@ -571,7 +572,7 @@ function Sort_Score($UserData){
                         <div class="play_musicdata_score clearfix">
                           <div class="play_musicdata_score_text">譜面定数:<span id="Score">'.$BaseRate.'</span></div><br>
                           <div class="play_musicdata_score_text">RATING:<span id="Score">'.$BestRate.'</span></div><br>
-                          <div class="play_musicdata_score_text">Score：<span id="Score">'.$Score.'</span></div>
+                          <div class="play_musicdata_score_text">Score:<span id="Score">'.$Score.'</span></div>
                           <img src="https://chunithm-net.com/mobile/common/images/icon_'.$Rank.'.png">
                         </div>
                       </div>
@@ -645,7 +646,7 @@ function Sort_Diff($UserData){
                     <div class="play_jacket_side">
                       <div class="play_jacket_area">
                         <div id="Jacket" class="play_jacket_img">
-                          <img src="https://chunithm-net.com/mobile/'.$MusicImg.'">
+                          <img src="'.$MusicImg.'">
                         </div>  
                       </div>
                     </div>
@@ -660,7 +661,7 @@ function Sort_Diff($UserData){
                         <div class="play_musicdata_score clearfix">
                           <div class="play_musicdata_score_text">譜面定数:<span id="Score">'.$BaseRate.'</span></div><br>
                           <div class="play_musicdata_score_text">RATING:<span id="Score">'.$BestRate.'</span></div><br>
-                          <div class="play_musicdata_score_text">Score：<span id="Score">'.$Score.'</span></div>
+                          <div class="play_musicdata_score_text">Score:<span id="Score">'.$Score.'</span></div>
                           <img src="https://chunithm-net.com/mobile/common/images/icon_'.$Rank.'.png">
                         </div>
                       </div>
@@ -723,7 +724,7 @@ function RecentRateDisp($UserData){
                 <div class="play_jacket_side">
                   <div class="play_jacket_area">
                     <div id="Jacket" class="play_jacket_img">
-                      <img src="https://chunithm-net.com/mobile/'.$MusicImg.'">
+                      <img src="'.$MusicImg.'">
                     </div>
                   </div>
                 </div>
@@ -738,7 +739,7 @@ function RecentRateDisp($UserData){
                     <div class="play_musicdata_score clearfix">
                       <div class="play_musicdata_score_text">譜面定数:<span id="Score">'.$BaseRate.'</span></div><br>
                       <div class="play_musicdata_score_text">RATING:<span id="Score">'.$BestRate.'</span></div><br>
-                      <div class="play_musicdata_score_text">Score：<span id="Score">'.$Score.'</span></div>
+                      <div class="play_musicdata_score_text">Score:<span id="Score">'.$Score.'</span></div>
                       <img src="https://chunithm-net.com/mobile/common/images/icon_'.$Rank.'.png">
                     </div>
                   </div>
@@ -758,17 +759,16 @@ function RecentRateDisp($UserData){
 function button_show(){
   echo '
   <div id="Buttons">
-    <input class="buttons" type="button" value="Best枠" id="Best_Button"/>
-    <input class="buttons" type="button" value="Recent枠" id="Recent_Button"/>
-    <input class="buttons" type="button" value="グラフ" id="Graph_Button"/>
+    <a class="buttons" href="?user='.$_GET['user'].'&frame=Best">Best枠</a>
+    <a class="buttons" href="?user='.$_GET['user'].'&frame=Recent">Recent枠</a>
+    <a class="buttons" href="?user='.$_GET['user'].'&frame=Graph">グラフ</a>
     <div id="Sorts_Button">
       <hr class="line_dot_black w420"/>
-      <input class="buttons" type="button" value="レート順" id="Sort_Rate_Button"/>
-      <input class="buttons" type="button" value="スコア順" id="Sort_Score_Button"/>
-      <input class="buttons" type="button" value="難易度順" id="Sort_Diff_Button"/>
+      <a class="buttons" href="?user='.$_GET['user'].'&frame=Best&sort=Sort_Rate">レート順</a>
+      <a class="buttons" href="?user='.$_GET['user'].'&frame=Best&sort=Sort_Score">スコア順</a>
+      <a class="buttons" href="?user='.$_GET['user'].'&frame=Best&sort=Sort_Diff">難易度順</a>
     </div>
-  </div>
-  <div id="Graph" style="margin-bottom:10px;width:650px"></div>';
+  </div>';
 }
 
 //--------------------------------------------------------------------
@@ -825,6 +825,10 @@ function graph($UserData) {
   $RecentRate .= ']';
 
   $graph = '
+<div id="Graph" style="margin-bottom:10px;width:650px"></div>
+<script src="/common/js/jquery-3.1.1.min.js" ></script>
+<script src="https://code.highcharts.com/highcharts.js"></script>
+<script src="https://code.highcharts.com/modules/exporting.js"></script>
 <script type="text/javascript">
   $(document).ready(function(){
     $(\'#Graph\')
