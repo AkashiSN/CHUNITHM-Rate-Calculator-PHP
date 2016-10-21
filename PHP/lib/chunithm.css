@@ -5,3 +5,38 @@ html{height:100%;margin:0 auto;padding:0;display:table;}
 @media screen and (max-width:480px){#rank img{height:14px;margin:0px 0px 0px 0;}
 }
 .buttons{font-size:16px;font-family:Arial;font-weight:bold;-moz-border-radius:8px;-webkit-border-radius:8px;border-radius:8px;border:1px solid #dcdcdc;padding:10px 20px;text-decoration:none;background:-moz-linear-gradient(center top, #fffaff 23%, #dfdfdf 82%);background:-ms-linear-gradient(top, #fffaff 23%, #dfdfdf 82%);filter:progid:DXImageTransform.Microsoft.gradient(startColorstr='#fffaff', endColorstr='#dfdfdf');background:-webkit-gradient(linear, left top, left bottom, color-stop(23%, #fffaff), color-stop(82%, #dfdfdf));background-color:#fffaff;color:#736e73;display:inline-block;text-shadow:1px 1px 0px #ffffff;-webkit-box-shadow:inset 1px 1px 0px 0px #ffffff;-moz-box-shadow:inset 1px 1px 0px 0px #ffffff;box-shadow:inset 1px 1px 0px 0px #ffffff;margin-bottom:10px;}.buttons:hover{background:-moz-linear-gradient(center top, #dfdfdf 23%, #fffaff 82%);background:-ms-linear-gradient(top, #dfdfdf 23%, #fffaff 82%);filter:progid:DXImageTransform.Microsoft.gradient(startColorstr='#dfdfdf', endColorstr='#fffaff');background:-webkit-gradient(linear, left top, left bottom, color-stop(23%, #dfdfdf), color-stop(82%, #fffaff));background-color:#dfdfdf;}.buttons:active{position:relative;top:1px;}
+.more {
+	font-weight: bold;
+	background: url(https://chunithm-net.com/mobile/common/images/icon_arrow_more.png) no-repeat right center;
+	text-align: right;
+	cursor: pointer;
+	z-index: 100;
+}
+.more:active {
+	background: url(https://chunithm-net.com/mobile/common/images/icon_arrow_more2.png) no-repeat right center;
+}
+@media screen and (max-width: 480px) {
+.more {
+	height: 18px;
+	line-height: 18px;
+	background-size: 16px;
+	font-size: 0.8rem;
+	margin: 0px auto;
+	padding-right: 20px;
+}
+.more:active {
+	height: 18px;
+	background-size: 16px;
+}
+}
+@media screen and (min-width: 481px) {
+.more {
+	height: 20px;
+	line-height: 20px;
+	font-size: 0.9rem;
+	margin: 0 auto;
+	padding-right: 25px;
+}
+.more:active {
+	height: 20px;
+}

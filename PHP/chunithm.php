@@ -80,7 +80,7 @@ else{
   <meta property="og:site_name" content="Akashi_SNの日記" />
   <link rel="stylesheet" href="lib/common.css" />
   <link rel="stylesheet" href="lib/contents.css" />
-  <link rel="stylesheet" href="lib/chunithm.css?var=3.6.1" />
+  <link rel="stylesheet" href="lib/chunithm.css?var=3.6.2" />
   <title>CHUNITHM Rate Calculator</title>
 </head>
 

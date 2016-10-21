@@ -394,8 +394,8 @@ function UserRateDisp($UserData){
                 <div class="player_rating" id="player_rating">BEST枠 : <span id="UserRating">'.$UserRate["BestRate"].'</span> / <span>MAX</span> <span id="UserRating">'.$UserRate["MaxRate"].'</span><br><div style="margin-top:5px;">RECENT枠 :<span id="UserRating">'.$UserRate["RecentRate-1"].'</span> / <span>表示レート</span><span id="UserRating">'.$UserRate["DispRate"].'</span></div>
               </div>
             </div>
-            <div id="tweet" style="margin-top: 10px;"></div>
-            <div style="margin-top: 0px" class="more w400" onclick="window.open(\'https://akashisn.info/?page_id=52#notice\', \'_blank\');"><a href="JavaScript:void(0);">注意</a></div>
+            <div id="tweet" class="text_b" style="margin-top: 10px;"></div>
+            <div class="more w400" ><a href="https://akashisn.info/?page_id=52#notice">注意</a></div>
           </div>
         </div>
       </div>
