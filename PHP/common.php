@@ -776,54 +776,62 @@ function button_show(){
 //--------------------------------------------------------------------
 
 function graph($UserData) {
-  $tmp = [];
-  for($i = 0; $i < sizeof($UserData["Date"]["MaxRate"]); $i++){
-    $tmp[$i] = '['.$UserData["Date"]["date"][$i].','.$UserData["Date"]["MaxRate"][$i].']';
+  
+  if(sizeof($UserData["Date"]["date"]) === 1){
+  	$MaxRate = '['.$UserData["Date"]["date"][0].','.$UserData["Date"]["MaxRate"][0].']';
+  	$MaxRate = '['.$UserData["Date"]["date"][0].','.$UserData["Date"]["DispRate"][0].']';
+  	$MaxRate = '['.$UserData["Date"]["date"][0].','.$UserData["Date"]["BestRate"][0].']';
+  	$MaxRate = '['.$UserData["Date"]["date"][0].','.$UserData["Date"]["RecentRate"][0].']';
   }
-  $MaxRate = '[';
-  for($i = 0; $i < sizeof($tmp); $i++){
-    if($i !== 0){
-      $MaxRate .= $tmp[$i].',';
-    }
-  }
-  $MaxRate .= ']';
+  else{
+		$tmp = [];
+	  for($i = 0; $i < sizeof($UserData["Date"]["MaxRate"]); $i++){
+	    $tmp[$i] = '['.$UserData["Date"]["date"][$i].','.$UserData["Date"]["MaxRate"][$i].']';
+	  }
+	  $MaxRate = '[';
+	  for($i = 0; $i < sizeof($tmp); $i++){
+	    if($i !== 0){
+	      $MaxRate .= $tmp[$i].',';
+	    }
+	  }
+	  $MaxRate .= ']';
 
-  $tmp = [];
-  for($i = 0; $i < sizeof($UserData["Date"]["DispRate"]); $i++){
-    $tmp[$i] = '['.$UserData["Date"]["date"][$i].','.$UserData["Date"]["DispRate"][$i].']';
-  }
-  $DispRate = '[';
-  for($i = 0; $i < sizeof($tmp); $i++){
-    if($i !== 0){
-      $DispRate .= $tmp[$i].',';
-    }
-  }
-  $DispRate .= ']';
+	  $tmp = [];
+	  for($i = 0; $i < sizeof($UserData["Date"]["DispRate"]); $i++){
+	    $tmp[$i] = '['.$UserData["Date"]["date"][$i].','.$UserData["Date"]["DispRate"][$i].']';
+	  }
+	  $DispRate = '[';
+	  for($i = 0; $i < sizeof($tmp); $i++){
+	    if($i !== 0){
+	      $DispRate .= $tmp[$i].',';
+	    }
+	  }
+	  $DispRate .= ']';
 
-  $tmp = [];
-  for($i = 0; $i < sizeof($UserData["Date"]["BestRate"]); $i++){
-    $tmp[$i] = '['.$UserData["Date"]["date"][$i].','.$UserData["Date"]["BestRate"][$i].']';
-  }
-  $BestRate = '[';
-  for($i = 0; $i < sizeof($tmp); $i++){
-    if($i !== 0){
-      $BestRate .= $tmp[$i].',';
-    }
-  }
-  $BestRate .= ']';
+	  $tmp = [];
+	  for($i = 0; $i < sizeof($UserData["Date"]["BestRate"]); $i++){
+	    $tmp[$i] = '['.$UserData["Date"]["date"][$i].','.$UserData["Date"]["BestRate"][$i].']';
+	  }
+	  $BestRate = '[';
+	  for($i = 0; $i < sizeof($tmp); $i++){
+	    if($i !== 0){
+	      $BestRate .= $tmp[$i].',';
+	    }
+	  }
+	  $BestRate .= ']';
 
-  $tmp = [];
-  for($i = 0; $i < sizeof($UserData["Date"]["RecentRate"]); $i++){
-    $tmp[$i] = '['.$UserData["Date"]["date"][$i].','.$UserData["Date"]["RecentRate"][$i].']';
-  }
-  $RecentRate = '[';
-  for($i = 0; $i < sizeof($tmp); $i++){
-    if($i !== 0){
-      $RecentRate .= $tmp[$i].',';
-    }
-  }
-  $RecentRate .= ']';
-
+	  $tmp = [];
+	  for($i = 0; $i < sizeof($UserData["Date"]["RecentRate"]); $i++){
+	    $tmp[$i] = '['.$UserData["Date"]["date"][$i].','.$UserData["Date"]["RecentRate"][$i].']';
+	  }
+	  $RecentRate = '[';
+	  for($i = 0; $i < sizeof($tmp); $i++){
+	    if($i !== 0){
+	      $RecentRate .= $tmp[$i].',';
+	    }
+	  }
+	  $RecentRate .= ']';
+	}
   $graph = '
 <div id="Graph" style="margin-bottom:10px;width:650px"></div>
 <script src="/common/js/jquery-3.1.1.min.js" ></script>

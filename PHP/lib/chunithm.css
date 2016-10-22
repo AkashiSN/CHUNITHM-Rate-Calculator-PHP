@@ -9,7 +9,6 @@ html{height:100%;margin:0 auto;padding:0;display:table;}
 	font-weight: bold;
 	background: url(https://chunithm-net.com/mobile/common/images/icon_arrow_more.png) no-repeat right center;
 	text-align: right;
-	cursor: pointer;
 	z-index: 100;
 }
 .more:active {
