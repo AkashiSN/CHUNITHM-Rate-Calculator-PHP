@@ -78,8 +78,8 @@ else{
   <meta property="og:url" content="https://akashisn.info/?page_id=52" />
   <meta property="og:image" content="/common/images/chunithm/img.jpg" />
   <meta property="og:site_name" content="Akashi_SNの日記" />
-  <link rel="stylesheet" href="lib/common.css" />
-  <link rel="stylesheet" href="lib/contents.css" />
+  <link rel="stylesheet" href="https://chunithm-net.com/mobile/common/css/common.css" />
+  <link rel="stylesheet" href="https://chunithm-net.com/mobile/common/css/contents.css" />
   <link rel="stylesheet" href="lib/chunithm.css?var=3.6.3" />
   <title>CHUNITHM Rate Calculator</title>
 </head>
@@ -87,23 +87,27 @@ else{
 <body>
   <div id="sub_title">CHUNITHM Rate Calculator</div>
 <?php
-    echo $UserRateDisp;
-    button_show();
+  echo $UserRateDisp;
+  button_show();
   if(isset($_GET['frame'])){
     if($_GET['frame'] === 'Best'){
       if(isset($_GET['sort'])){
         if($_GET['sort'] ===  'Sort_Score'){
+          sort_button_show();
           $Sort_Score = Sort_Score($UserData);
           echo $Sort_Score;
         }
         else if($_GET['sort'] ===  'Sort_Rate'){
+          sort_button_show();
           echo $BestRateDisp;
         }
         else if($_GET['sort'] ===  'Sort_Diff'){
+          sort_button_show();
           $Sort_Diff = Sort_Diff($UserData);
           echo $Sort_Diff;
         }
       }
+      sort_button_show();
       echo $BestRateDisp;
     }
     else if($_GET['frame'] === 'Recent'){
@@ -114,6 +118,18 @@ else{
       $Graph = Graph($UserData);
       echo $Graph;
     }
+    else if($_GET['frame'] === 'Tools'){
+      if(isset($_GET['rank']) && isset($_GET['baserate'])){
+        $tmp['rank'] = $_GET['rank'];
+        $tmp['baserate'] = $_GET['baserate'];
+        $tmp['bestrate'] = $UserData['User']["BestRate"];
+        $Tools = Tools($tmp);
+        echo $Tools;
+      }else{
+	      $Tools = Tools($tmp);
+	      echo $Tools;
+	    }
+    }
   }
   else{
     echo $BestRateDisp;
@@ -122,6 +138,6 @@ else{
   <div style="font-size:15px">CHUNITHM Rate Calculator by Akashi_SN <a href="https://twitter.com/Akashi_SN" class="twitter-follow-button" data-show-count="false">Follow @Akashi_SN</a></div>
 </body>
   <script type="text/javascript">
-    (function(d,e,j,h,f,c,b){d.GoogleAnalyticsObject=f;d[f]=d[f]||function(){(d[f].q=d[f].q||[]).push(arguments)},d[f].l=1*new Date();c=e.createElement(j),b=e.getElementsByTagName(j)[0];c.async=1;c.src=h;b.parentNode.insertBefore(c,b)})(window,document,"script","//www.google-analytics.com/analytics.js","ga");ga("create","UA-74926268-1","auto");ga("send","pageview");!function(f,a,g){var e,b=f.getElementsByTagName(a)[0],c=/^http:/.test(f.location)?"http":"https";if(!f.getElementById(g)){e=f.createElement(a);e.id=g;e.async=true;e.src=c+"://platform.twitter.com/widgets.js";b.parentNode.insertBefore(e,b)}}(document,"script","twitter-wjs");
+    (function(d,e,j,h,f,c,b){d.GoogleAnalyticsObject=f;d[f]=d[f]||function(){(d[f].q=d[f].q||[]).push(arguments)},d[f].l=1*new Date();c=e.createElement(j),b=e.getElementsByTagName(j)[0];c.async=1;c.src=h;b.parentNode.insertBefore(c,b)})(window,document,"script","https://www.google-analytics.com/analytics.js","ga");ga("create","UA-86195263-1","auto");ga("send","pageview");!function(j,h,i){var k,d=j.getElementsByTagName(h)[0],l=/^http:/.test(j.location)?"http":"https";if(!j.getElementById(i)){k=j.createElement(h);k.id=i;k.async=true;k.src=l+"://platform.twitter.com/widgets.js";d.parentNode.insertBefore(k,d)}}(document,"script","twitter-wjs");
   </script>
 </html>

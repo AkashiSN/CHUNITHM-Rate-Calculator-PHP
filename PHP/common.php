@@ -762,6 +762,10 @@ function button_show(){
     <a class="buttons" href="?user='.$_GET['user'].'&frame=Best">Best枠</a>
     <a class="buttons" href="?user='.$_GET['user'].'&frame=Recent">Recent枠</a>
     <a class="buttons" href="?user='.$_GET['user'].'&frame=Graph">グラフ</a>
+    <a class="buttons" href="?user='.$_GET['user'].'&frame=Tools">ツール</a>';
+}
+function sort_button_show(){
+    echo '
     <div id="Sorts_Button">
       <hr class="line_dot_black w420"/>
       <a class="buttons" href="?user='.$_GET['user'].'&frame=Best&sort=Sort_Rate">レート順</a>
@@ -772,66 +776,163 @@ function button_show(){
 }
 
 //--------------------------------------------------------------------
+// ツール
+//--------------------------------------------------------------------
+
+function Tools($tools){
+  if(isset($tools['rank'])){
+    if($tools['rank'] !== -1){      
+      $rank = $tools['rank'];
+      $baserate = $tools['baserate'];
+      $bestrate = $tools['bestrate'];
+      $rates = [0,1,1.5,2];
+      $recentrate = $baserate + $rates[$rank];
+      $maxrate = Truncation(($bestrate*30+$recentrate*10)/40,2);
+    }
+  }
+  else{
+    $rank = -1;
+    $baserate = 0;
+    $bestrate = 0;
+    $maxrate = 0;
+  }
+  $ranks = ['S','SS','SS+','SSS'];
+  
+  $tool = '
+  <script type="text/javascript">
+  function submitStop(e){
+    if (!e) var e = window.event;
+ 
+    if(e.keyCode == 13)
+        return false;
+  }
+  function GetQueryString(){
+    var result = {};
+    if( 1 < window.location.search.length ){
+      var query = window.location.search.substring( 1 );
+      var parameters = query.split( \'&\' );
+      for( var i = 0; i < parameters.length; i++ ){
+        var element = parameters[ i ].split( \'=\' );
+        var paramName = decodeURIComponent( element[ 0 ] );
+        var paramValue = decodeURIComponent( element[ 1 ] );
+        result[ paramName ] = paramValue;
+      }
+    }
+    return result;
+  }
+    function post(){
+      var index = document.forms[0].rank.selectedIndex;
+      var rank = document.forms[0].rank.options[index].value;
+      var baserate = document.forms[0].baserate.value;
+      var user = GetQueryString();
+      user = user["user"];
+      url = "?user="+user+"&frame=Tools&rank="+rank+"&baserate="+baserate;
+      location.href = url;
+    }
+  </script>
+  <div id="wrap">
+    <div id="disp">
+      <div style="margin-bottom:0px;padding-bottom:0px;" id="inner">
+        <div class="frame01 w460">
+          <div class="frame01_inside w450">
+            <h2 id="page_title" style="margin-top:10px">ツール</h2>
+            <hr class="line_dot_black w420">
+            <div class="box02 w420 mb_20">
+              <div class="text_c mt_15">シミュレータ</div>
+              <div class="narrow_block clearfix">
+                <form method="GET" action="chunithm.php">
+                  <span>譜面定数</span>
+                  <input name="baserate" type="text" style="width:70px" value="'.$baserate.'" onKeyPress="return submitStop(event);">
+                  <span>の曲を</span>
+                  <select name="rank" onchange="JavaScript:post();">';
+                  $tool .= '<option value="-1" selected>---</option>';
+                  foreach ($ranks as $key => $value){
+                    if($key == $rank){                      
+                      $tool .= '<option value="'.$key.'" selected>'.$value.'</option>';
+                    }
+                    else{
+                      $tool .= '<option value="'.$key.'">'.$value.'</option>';
+                    }
+                  }
+                  $tool .= '
+                  </select>
+                </form>
+                <br>
+                <span>でRECENT枠を埋めたとき</span>
+                <br>
+                <span>到達可能レート</span>
+                <input type="text" style="width:70px" value="'.$maxrate.'">
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>';
+  return $tool;
+}
+
+//--------------------------------------------------------------------
 // グラフ描画
 //--------------------------------------------------------------------
 
 function graph($UserData) {
   
   if(sizeof($UserData["Date"]["date"]) === 1){
-  	$MaxRate = '['.$UserData["Date"]["date"][0].','.$UserData["Date"]["MaxRate"][0].']';
-  	$MaxRate = '['.$UserData["Date"]["date"][0].','.$UserData["Date"]["DispRate"][0].']';
-  	$MaxRate = '['.$UserData["Date"]["date"][0].','.$UserData["Date"]["BestRate"][0].']';
-  	$MaxRate = '['.$UserData["Date"]["date"][0].','.$UserData["Date"]["RecentRate"][0].']';
+    $MaxRate = '['.$UserData["Date"]["date"][0].','.$UserData["Date"]["MaxRate"][0].']';
+    $MaxRate = '['.$UserData["Date"]["date"][0].','.$UserData["Date"]["DispRate"][0].']';
+    $MaxRate = '['.$UserData["Date"]["date"][0].','.$UserData["Date"]["BestRate"][0].']';
+    $MaxRate = '['.$UserData["Date"]["date"][0].','.$UserData["Date"]["RecentRate"][0].']';
   }
   else{
-		$tmp = [];
-	  for($i = 0; $i < sizeof($UserData["Date"]["MaxRate"]); $i++){
-	    $tmp[$i] = '['.$UserData["Date"]["date"][$i].','.$UserData["Date"]["MaxRate"][$i].']';
-	  }
-	  $MaxRate = '[';
-	  for($i = 0; $i < sizeof($tmp); $i++){
-	    if($i !== 0){
-	      $MaxRate .= $tmp[$i].',';
-	    }
-	  }
-	  $MaxRate .= ']';
+    $tmp = [];
+    for($i = 0; $i < sizeof($UserData["Date"]["MaxRate"]); $i++){
+      $tmp[$i] = '['.$UserData["Date"]["date"][$i].','.$UserData["Date"]["MaxRate"][$i].']';
+    }
+    $MaxRate = '[';
+    for($i = 0; $i < sizeof($tmp); $i++){
+      if($i !== 0){
+        $MaxRate .= $tmp[$i].',';
+      }
+    }
+    $MaxRate .= ']';
 
-	  $tmp = [];
-	  for($i = 0; $i < sizeof($UserData["Date"]["DispRate"]); $i++){
-	    $tmp[$i] = '['.$UserData["Date"]["date"][$i].','.$UserData["Date"]["DispRate"][$i].']';
-	  }
-	  $DispRate = '[';
-	  for($i = 0; $i < sizeof($tmp); $i++){
-	    if($i !== 0){
-	      $DispRate .= $tmp[$i].',';
-	    }
-	  }
-	  $DispRate .= ']';
+    $tmp = [];
+    for($i = 0; $i < sizeof($UserData["Date"]["DispRate"]); $i++){
+      $tmp[$i] = '['.$UserData["Date"]["date"][$i].','.$UserData["Date"]["DispRate"][$i].']';
+    }
+    $DispRate = '[';
+    for($i = 0; $i < sizeof($tmp); $i++){
+      if($i !== 0){
+        $DispRate .= $tmp[$i].',';
+      }
+    }
+    $DispRate .= ']';
 
-	  $tmp = [];
-	  for($i = 0; $i < sizeof($UserData["Date"]["BestRate"]); $i++){
-	    $tmp[$i] = '['.$UserData["Date"]["date"][$i].','.$UserData["Date"]["BestRate"][$i].']';
-	  }
-	  $BestRate = '[';
-	  for($i = 0; $i < sizeof($tmp); $i++){
-	    if($i !== 0){
-	      $BestRate .= $tmp[$i].',';
-	    }
-	  }
-	  $BestRate .= ']';
+    $tmp = [];
+    for($i = 0; $i < sizeof($UserData["Date"]["BestRate"]); $i++){
+      $tmp[$i] = '['.$UserData["Date"]["date"][$i].','.$UserData["Date"]["BestRate"][$i].']';
+    }
+    $BestRate = '[';
+    for($i = 0; $i < sizeof($tmp); $i++){
+      if($i !== 0){
+        $BestRate .= $tmp[$i].',';
+      }
+    }
+    $BestRate .= ']';
 
-	  $tmp = [];
-	  for($i = 0; $i < sizeof($UserData["Date"]["RecentRate"]); $i++){
-	    $tmp[$i] = '['.$UserData["Date"]["date"][$i].','.$UserData["Date"]["RecentRate"][$i].']';
-	  }
-	  $RecentRate = '[';
-	  for($i = 0; $i < sizeof($tmp); $i++){
-	    if($i !== 0){
-	      $RecentRate .= $tmp[$i].',';
-	    }
-	  }
-	  $RecentRate .= ']';
-	}
+    $tmp = [];
+    for($i = 0; $i < sizeof($UserData["Date"]["RecentRate"]); $i++){
+      $tmp[$i] = '['.$UserData["Date"]["date"][$i].','.$UserData["Date"]["RecentRate"][$i].']';
+    }
+    $RecentRate = '[';
+    for($i = 0; $i < sizeof($tmp); $i++){
+      if($i !== 0){
+        $RecentRate .= $tmp[$i].',';
+      }
+    }
+    $RecentRate .= ']';
+  }
   $graph = '
 <div id="Graph" style="margin-bottom:10px;width:650px"></div>
 <script src="/common/js/jquery-3.1.1.min.js" ></script>
