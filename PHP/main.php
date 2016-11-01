@@ -416,7 +416,7 @@
   session_destroy();
 
   //出力
-  $Location = "Location: chunithm.php?user=";
+  $Location = "Location: /chunithm.php?user=";
   $Location .= $hash;
 
   header("HTTP/1.1 301 Moved Permanently");

@@ -201,6 +201,8 @@
         320,
         321,
         322,
+        323,
+        324,
         330,
         331,
         336
@@ -1883,6 +1885,22 @@
         "Images": "img\/ec37e447b91995dd.jpg",
         "BaseRate": {
             "mas": 12.2
+        }
+    },
+    "323": {
+        "MusicID": 323,
+        "MusicName": "Dreadnought",
+        "Images": "img\/282cb1cacd4c1bb4.jpg",
+        "BaseRate": {
+            "mas": 13.5
+        }
+    },
+    "324": {
+        "MusicID": 324,
+        "MusicName": "STAGER",
+        "Images": "img\/d51d4ffba9f8d45e.jpg",
+        "BaseRate": {
+            "mas": 12.6
         }
     }
 }
