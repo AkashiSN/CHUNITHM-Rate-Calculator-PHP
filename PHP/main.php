@@ -106,8 +106,9 @@
 
   //30種類以下だった場合
   if($Musics < 30){
-  	http_response_code(204);
-    exit();
+    setcookie("errorCode",100000);
+    header("HTTP/1.1 301 Moved Permanently");
+    header("Location: error.html");
   }
 
   //レート値でMusicIDを降順にソート
@@ -147,22 +148,22 @@
         }
       }
       else{
-      	if(Score_to_rank($Score_to_Musicid[$musicid]) === 'sss'){
-	        $Temp['ScoreBest'] = 0;
-	      }
-	      else{
-	      	$BestScore = rate_to_score($BestRateMin,$Temp['BaseRate']);    
-	        if($BestScore <= 1007500){
-	        	$Temp['ScoreBest'] = $BestScore;
-	        }
-	        else{
-	        	$Temp['ScoreBest'] = 0;
-	        }
-	    	}
-	    }
-	    $MusicDetail['Best'][] = $Temp;
-	    $Temp = '';
-	    ++$i;
+        if(Score_to_rank($Score_to_Musicid[$musicid]) === 'sss'){
+          $Temp['ScoreBest'] = 0;
+        }
+        else{
+          $BestScore = rate_to_score($BestRateMin,$Temp['BaseRate']);    
+          if($BestScore <= 1007500){
+            $Temp['ScoreBest'] = $BestScore;
+          }
+          else{
+            $Temp['ScoreBest'] = 0;
+          }
+        }
+      }
+      $MusicDetail['Best'][] = $Temp;
+      $Temp = '';
+      ++$i;
     }
     //マスターの場合
     else{
@@ -189,23 +190,23 @@
         }
       }
       else{
-      	if(Score_to_rank($Score_to_Musicid[$musicid]) === 'sss'){
-	        $Temp['ScoreBest'] = 0;
-	      }
-	      else{
-	      	$BestScore = rate_to_score($BestRateMin,$Temp['BaseRate']);    
-	        if($BestScore <= 1007500){
-	        	$Temp['ScoreBest'] = $BestScore;
-	        }
-	        else{
-	        	$Temp['ScoreBest'] = 0;
-	        }
-	    	}
-	    }
-	    $MusicDetail['Best'][] = $Temp;
-	    $Temp = '';
-	    ++$i;
-	  }
+        if(Score_to_rank($Score_to_Musicid[$musicid]) === 'sss'){
+          $Temp['ScoreBest'] = 0;
+        }
+        else{
+          $BestScore = rate_to_score($BestRateMin,$Temp['BaseRate']);    
+          if($BestScore <= 1007500){
+            $Temp['ScoreBest'] = $BestScore;
+          }
+          else{
+            $Temp['ScoreBest'] = 0;
+          }
+        }
+      }
+      $MusicDetail['Best'][] = $Temp;
+      $Temp = '';
+      ++$i;
+    }
   }
 
 //-----------------------------------------------------
@@ -215,8 +216,9 @@
   //最近の楽曲の取得
   $userPlaylogList = Recent_score_get($userid);
   if($userPlaylogList === null){
-    http_response_code(204);
-    exit();
+    setcookie("errorCode",100000);
+    header("HTTP/1.1 301 Moved Permanently");
+    header("Location: error.html");
   }
 
   //宣言
@@ -343,8 +345,9 @@
   // 表示レート取得
   $dispRate = Rate_get($userid);
   if($dispRate === null){
-    http_response_code(204);
-    exit();
+    setcookie("errorCode",100000);
+    header("HTTP/1.1 301 Moved Permanently");
+    header("Location: error.html");
   }
   $DispRate = $dispRate['userInfo']['playerRating'];
 
@@ -370,8 +373,9 @@
   //フレンドコード取得
   $friend = friendCode_get($userid);
   if($friend === null){    
-    http_response_code(204);
-    exit();
+    setcookie("errorCode",100000);
+    header("HTTP/1.1 301 Moved Permanently");
+    header("Location: error.html");
   }
   $friend = $friend['friendCode'];
   $hash =  hash_hmac('sha256', $friend, false);
@@ -382,21 +386,21 @@
   $tmp = json_decode(UserData_show($hash),true);
   if(isset($tmp['Date'])){
     $date = $tmp['Date'];
-  	if($date['date'][sizeof($date['date'])-1] != $dispRate['userInfo']['playCount']){
-	    $date['RecentRate'][sizeof($date['RecentRate'])] = $UserRecentRate1;
-	    $date['DispRate'][sizeof($date['DispRate'])] = $UserDisplayRate;
-	    $date['MaxRate'][sizeof($date['MaxRate'])] = $UserMaxRate;
-	    $date['BestRate'][sizeof($date['BestRate'])] = $UserBestRate;
-	    $date['date'][sizeof($date['date'])] = $dispRate['userInfo']['playCount'];
-	    $MusicDetail['Date'] = $date;
-  	}else{
+    if($date['date'][sizeof($date['date'])-1] != $dispRate['userInfo']['playCount']){
+      $date['RecentRate'][sizeof($date['RecentRate'])] = $UserRecentRate1;
+      $date['DispRate'][sizeof($date['DispRate'])] = $UserDisplayRate;
+      $date['MaxRate'][sizeof($date['MaxRate'])] = $UserMaxRate;
+      $date['BestRate'][sizeof($date['BestRate'])] = $UserBestRate;
+      $date['date'][sizeof($date['date'])] = $dispRate['userInfo']['playCount'];
+      $MusicDetail['Date'] = $date;
+    }else{
       $date['RecentRate'][sizeof($date['RecentRate'])-1] = $UserRecentRate1;
       $date['DispRate'][sizeof($date['DispRate'])-1] = $UserDisplayRate;
       $date['MaxRate'][sizeof($date['MaxRate'])-1] = $UserMaxRate;
       $date['BestRate'][sizeof($date['BestRate'])-1] = $UserBestRate;
       $date['date'][sizeof($date['date'])-1] = $dispRate['userInfo']['playCount'];
-  		$MusicDetail['Date'] = $date;
-  	}
+      $MusicDetail['Date'] = $date;
+    }
   }else{
     $MusicDetail['Date']['RecentRate'][] = $UserRecentRate1;
     $MusicDetail['Date']['DispRate'][] = $UserDisplayRate;
@@ -418,7 +422,6 @@
   //出力
   $Location = "Location: /chunithm.php?user=";
   $Location .= $hash;
-
   header("HTTP/1.1 301 Moved Permanently");
   header($Location);
 ?>

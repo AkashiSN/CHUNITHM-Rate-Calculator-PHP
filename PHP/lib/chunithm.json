@@ -203,6 +203,7 @@
         322,
         323,
         324,
+        325,
         330,
         331,
         336
@@ -1899,6 +1900,14 @@
         "MusicID": 324,
         "MusicName": "STAGER",
         "Images": "img\/d51d4ffba9f8d45e.jpg",
+        "BaseRate": {
+            "mas": 12.6
+        }
+    },
+    "325": {
+        "MusicID": 325,
+        "MusicName": "Her Majesty",
+        "Images": "img\/97eca622afca0f15.jpg",
         "BaseRate": {
             "mas": 12.6
         }
