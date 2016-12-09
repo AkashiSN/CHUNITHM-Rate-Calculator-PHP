@@ -68,8 +68,21 @@
   $Musics = 0;
 
   $MusicBestScore_Mas = BestScore_get($userid,19903); //マスターの取得
+  //useridの期限切れ
+  if($MusicBestScore_Mas === null){
+    setcookie("errorCode",100000);
+    header("HTTP/1.1 301 Moved Permanently");
+    header("Location: error.html");
+    exit();
+  }
   $MusicBestScore_Exp = BestScore_get($userid,19902); //エキスパートの取得
-
+  //useridの期限切れ
+  if($MusicBestScore_Exp === null){
+    setcookie("errorCode",100000);
+    header("HTTP/1.1 301 Moved Permanently");
+    header("Location: error.html");
+    exit();
+  }
   //エラー判定
   if($MusicBestScore_Mas === null || $MusicBestScore_Exp === null){
     http_response_code(204);
@@ -109,6 +122,7 @@
     setcookie("errorCode",100000);
     header("HTTP/1.1 301 Moved Permanently");
     header("Location: error.html");
+    exit();
   }
 
   //レート値でMusicIDを降順にソート
@@ -133,15 +147,15 @@
       $Temp['BaseRate'] = $data[(string)-$musicid]['BaseRate']['ex'];
       $Temp['Score'] = $Score_to_Musicid[$musicid];
       $Temp['Rank'] = Score_to_rank($Score_to_Musicid[$musicid]);
-      $Temp['BestRate'] = Truncation($rate,2);
+      $Temp['BestRate'] = $rate;
 
       //上位30曲
       if($i < 30){
-        $UserBestRate += Truncation($rate,2);
+        $UserBestRate += $rate;
         $Temp['ScoreBest'] = 0;
         //上位1曲
         if($i === 0){
-          $MaxRate = Truncation($rate,2);
+          $MaxRate = $rate;
         }
         if($i === 29){
           $BestRateMin = $rate;
@@ -175,15 +189,15 @@
       $Temp['BaseRate'] = $data[(string)$musicid]['BaseRate']['mas'];
       $Temp['Score'] = $Score_to_Musicid[$musicid];
       $Temp['Rank'] = Score_to_rank($Score_to_Musicid[$musicid]);
-      $Temp['BestRate'] = Truncation($rate,2);
+      $Temp['BestRate'] = $rate;
 
       //上位30曲
       if($i < 30){
-        $UserBestRate += Truncation($rate,2);
+        $UserBestRate += $rate;
         $Temp['ScoreBest'] = 0;
         //上位1曲
         if($i === 0){
-          $MaxRate = Truncation($rate,2);
+          $MaxRate = $rate;
         }
         if($i === 29){
           $BestRateMin = $rate;
@@ -219,6 +233,7 @@
     setcookie("errorCode",100000);
     header("HTTP/1.1 301 Moved Permanently");
     header("Location: error.html");
+    exit();
   }
 
   //宣言
@@ -302,12 +317,12 @@
       $Temp['BaseRate'] = $base_rate;
       $Temp['Score'] = $score;
       $Temp['Rank'] = Score_to_rank($score);
-      $Temp['BestRate'] = Truncation($rate,2);
+      $Temp['BestRate'] = $rate;
 
       $MusicDetail['Recent'][] = $Temp;
       //上位10曲
       if($i < 10){
-        $UserRecentRate += Truncation($rate,2);
+        $UserRecentRate += $rate;
       }
       ++$i;
       $Temp = '';
@@ -325,12 +340,12 @@
       $Temp['BaseRate'] = $base_rate;
       $Temp['Score'] = $score;
       $Temp['Rank'] = Score_to_rank($score);
-      $Temp['BestRate'] = Truncation($rate,2);
+      $Temp['BestRate'] = $rate;
 
       $MusicDetail['Recent'][] = $Temp;
       //上位10曲
       if($i < 10){
-        $UserRecentRate += Truncation($rate,2);
+        $UserRecentRate += $rate;
       }
       ++$i;
       $Temp = '';
@@ -348,6 +363,7 @@
     setcookie("errorCode",100000);
     header("HTTP/1.1 301 Moved Permanently");
     header("Location: error.html");
+    exit();
   }
   $DispRate = $dispRate['userInfo']['playerRating'];
 
@@ -376,6 +392,7 @@
     setcookie("errorCode",100000);
     header("HTTP/1.1 301 Moved Permanently");
     header("Location: error.html");
+    exit();
   }
   $friend = $friend['friendCode'];
   $hash =  hash_hmac('sha256', $friend, false);
@@ -424,4 +441,5 @@
   $Location .= $hash;
   header("HTTP/1.1 301 Moved Permanently");
   header($Location);
+  exit();
 ?>

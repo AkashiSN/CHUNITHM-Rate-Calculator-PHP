@@ -269,37 +269,37 @@
 
   function score_to_rate($score,$base_rate){
     if($score >= 1007500){
-      return (double)($base_rate+2);
+      return Truncation((double)($base_rate+2),2);
     }
     else if($score >= 1005000){
-      return (double)($base_rate+1.5+($score-1005000)*10/50000);
+      return Truncation((double)($base_rate+1.5+($score-1005000)*10/50000),2);
     }
     else if($score >= 1000000){
-      return (double)($base_rate+1+($score-1000000)*5/50000);
+      return Truncation((double)($base_rate+1+($score-1000000)*5/50000),2);
     }
     else if($score >= 975000){
-      return (double)($base_rate+($score-975000)*2/50000);
+      return Truncation((double)($base_rate+($score-975000)*2/50000),2);
     }
     else if($score >= 950000){
-      return (double)($base_rate-1.5+($score-950000)*3/50000);
+      return Truncation((double)($base_rate-1.5+($score-950000)*3/50000),2);
     }
     else if($score >= 925000){
-      return (double)($base_rate-3+($score-925000)*3/50000);
+      return Truncation((double)($base_rate-3+($score-925000)*3/50000),2);
     }
     else if($score >= 900000){
-      return (double)($base_rate-5+($score-900000)*4/50000);
+      return Truncation((double)($base_rate-5+($score-900000)*4/50000),2);
     }
     else if($score >= 800000){
-      return (double)($base_rate-7.5+($score-800000)*1.25/50000);
+      return Truncation((double)($base_rate-7.5+($score-800000)*1.25/50000),2);
     }
     else if($score >= 700000){
-      return (double)($base_rate-8.5+($score-700000)*0.5/50000);
+      return Truncation((double)($base_rate-8.5+($score-700000)*0.5/50000),2);
     }
     else if($score >= 600000){
-      return (double)($base_rate-9+($score-600000)*0.25/50000);
+      return Truncation((double)($base_rate-9+($score-600000)*0.25/50000),2);
     }
     else if($score >= 500000){
-      return (double)($base_rate-13.7+($score-500000)*2.35/50000);
+      return Truncation((double)($base_rate-13.7+($score-500000)*2.35/50000),2);
     }
     else{
       return null;
@@ -459,6 +459,15 @@ function BestRateDisp($UserData){
             </div>
           </div>
         </div>
+        <p style="font-size:15px">スポンサーリンク</p>
+        <!-- Chunical.5 -->
+        <ins class="adsbygoogle"
+             style="display:inline-block;width:320px;height:100px"
+             data-ad-client="ca-pub-9431951784509175"
+             data-ad-slot="4179909243"></ins>
+        <script>
+        (adsbygoogle = window.adsbygoogle || []).push({});
+        </script>
         <div class="frame01 w460">
           <div class="frame01_inside w450">
             <h2 style="margin-top:10px;" id="page_title">BEST枠外</h2>
@@ -711,6 +720,15 @@ function RecentRateDisp($UserData){
       </div>
     </div>
   </div>
+  <p style="font-size:15px">スポンサーリンク</p>
+    <!-- Chunical.5 -->
+    <ins class="adsbygoogle"
+      style="display:inline-block;width:320px;height:100px"
+      data-ad-client="ca-pub-9431951784509175"
+      data-ad-slot="4179909243"></ins>
+    <script>
+      (adsbygoogle = window.adsbygoogle || []).push({});
+    </script>
   <div class="frame01 w460">
     <div class="frame01_inside w450">
       <h2 style="margin-top:10px;" id="page_title">RECENT枠外</h2>

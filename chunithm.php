@@ -79,6 +79,44 @@ else{
   <link rel="stylesheet" href="https://chunithm-net.com/mobile/common/css/common.css" />
   <link rel="stylesheet" href="https://chunithm-net.com/mobile/common/css/contents.css" />
   <link rel="stylesheet" href="/chunithm/lib/chunithm.css?var=3.6.3" />
+  <script async src="//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+  <script type="text/javascript">
+  //Google-Analytics
+  (function (i, s, o, g, r, a, m) {
+    i['GoogleAnalyticsObject'] = r;
+    i[r] = i[r] || function () {
+      (i[r].q = i[r].q || [])
+      .push(arguments)
+    }, i[r].l = 1 * new Date();
+    a = s.createElement(o)
+      , m = s.getElementsByTagName(o)[0];
+    a.async = 1;
+    a.src = g;
+    m.parentNode.insertBefore(a, m)
+  })(window, document, 'script', 'https://www.google-analytics.com/analytics.js', 'ga');
+  ga('create', 'UA-86861992-1', 'auto');
+  ga('send', 'pageview');
+
+  //Google-AdSense
+  (adsbygoogle = window.adsbygoogle || [])
+  .push({
+    google_ad_client: "ca-pub-9431951784509175"
+    , enable_page_level_ads: true
+  });
+
+  //twitter
+  ! function (j, h, i) {
+    var k, d = j.getElementsByTagName(h)[0]
+      , l = /^http:/.test(j.location) ? "http" : "https";
+    if (!j.getElementById(i)) {
+      k = j.createElement(h);
+      k.id = i;
+      k.async = true;
+      k.src = l + "://platform.twitter.com/widgets.js";
+      d.parentNode.insertBefore(k, d)
+    }
+  }(document, "script", "twitter-wjs");
+  </script>
   <title>CHUNITHM Rate Calculator</title>
 </head>
 
@@ -133,35 +171,17 @@ else{
     sort_button_show();
     echo $BestRateDisp;
   }
-?>
-  <div style="font-size:15px">CHUNITHM Rate Calculator by Akashi_SN <a href="https://twitter.com/Akashi_SN" class="twitter-follow-button" data-show-count="false">Follow @Akashi_SN</a></div>
-</body>
-  <script type="text/javascript">
-  //Google-Analytics
-  (function (d, e, j, h, f, c, b) {
-    d.GoogleAnalyticsObject = f;
-    d[f] = d[f] || function () {
-      (d[f].q = d[f].q || [])
-      .push(arguments)
-    }, d[f].l = 1 * new Date();
-    c = e.createElement(j), b = e.getElementsByTagName(j)[0];
-    c.async = 1;
-    c.src = h;
-    b.parentNode.insertBefore(c, b)
-  })(window, document, "script", "https://www.google-analytics.com/analytics.js", "ga");
-  ga("create", "UA-86195263-2", "auto");
-  ga("send", "pageview");
-  //twitter
-  ! function (j, h, i) {
-    var k, d = j.getElementsByTagName(h)[0]
-      , l = /^http:/.test(j.location) ? "http" : "https";
-    if (!j.getElementById(i)) {
-      k = j.createElement(h);
-      k.id = i;
-      k.async = true;
-      k.src = l + "://platform.twitter.com/widgets.js";
-      d.parentNode.insertBefore(k, d)
-    }
-  }(document, "script", "twitter-wjs");
-  </script>
+?>   
+    <p style="font-size:15px">スポンサーリンク</p>
+		<!-- Chunical -->
+		<ins class="adsbygoogle"
+		     style="display:block"
+		     data-ad-client="ca-pub-9431951784509175"
+		     data-ad-slot="7530328449"
+		     data-ad-format="auto"></ins>
+		<script>
+		(adsbygoogle = window.adsbygoogle || []).push({});
+		</script>
+		<div style="margin-top:15px;font-size:15px">CHUNITHM Rate Calculator by Akashi_SN <a href="https://twitter.com/Akashi_SN" class="twitter-follow-button" data-show-count="false">Follow @Akashi_SN</a></div>
+  </body>  
 </html>

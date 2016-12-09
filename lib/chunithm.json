@@ -74,6 +74,7 @@
         115,
         117,
         118,
+        119,
         120,
         121,
         122,
@@ -178,14 +179,17 @@
         262,
         263,
         267,
+        270,
         273,
         276,
         278,
         279,
+        281,
         286,
         287,
         288,
         292,
+        293,
         298,
         299,
         300,
@@ -231,7 +235,10 @@
         "232": true,
         "248": true,
         "250": true,
-        "305": true
+        "305": true,
+        "259": true,
+        "229": true,
+        "281": true
     },
     "3": {
         "MusicID": 3,
@@ -1845,7 +1852,8 @@
         "MusicName": "Oshama Scramble! (Cranky Remix)",
         "Images": "img\/4d66e5d1669d79a2.jpg",
         "BaseRate": {
-            "mas": 13.1
+            "mas": 13.1,
+            "ex": 11.3
         }
     },
     "262": {
@@ -1869,7 +1877,8 @@
         "MusicName": "紅華刑",
         "Images": "img\/73f86aec8d6c7c9b.jpg",
         "BaseRate": {
-            "mas": 13.4
+            "mas": 13.4,
+            "ex": 11.9
         }
     },
     "307": {
@@ -1910,6 +1919,39 @@
         "Images": "img\/97eca622afca0f15.jpg",
         "BaseRate": {
             "mas": 12.6
+        }
+    },
+    "281": {
+        "MusicID": 281,
+        "MusicName": "ラクガキスト",
+        "Images": "img\/330e57eeeb0fb2cd.jpg",
+        "BaseRate": {
+            "mas": 13.4,
+            "ex": 11.1
+        }
+    },
+    "293": {
+        "MusicID": 293,
+        "MusicName": "インビジブル",
+        "Images": "img\/c58227eb0d14938c.jpg",
+        "BaseRate": {
+            "mas": 13.2
+        }
+    },
+    "119": {
+        "MusicID": 119,
+        "MusicName": "アウターサイエンス",
+        "Images": "img\/a7dd6716fcae0cb8.jpg",
+        "BaseRate": {
+            "mas": 12.3
+        }
+    },
+    "270": {
+        "MusicID": 270,
+        "MusicName": "エンヴィキャットウォーク",
+        "Images": "img\/21dfcd3ae2c5c370.jpg",
+        "BaseRate": {
+            "mas": 12.3
         }
     }
 }
