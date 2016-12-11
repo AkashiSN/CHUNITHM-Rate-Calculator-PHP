@@ -65,6 +65,7 @@ else{
 
   <meta charset="UTF-8" />
   <meta name="format-detection" content="telephone=no">
+  <meta name="viewport" content="width=420">
   <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
   <meta http-equiv="Pragma" CONTENT="no-cache">
   <meta http-equiv="Cache-Control" CONTENT="no-cache">
@@ -79,6 +80,7 @@ else{
   <link rel="stylesheet" href="https://chunithm-net.com/mobile/common/css/common.css" />
   <link rel="stylesheet" href="https://chunithm-net.com/mobile/common/css/contents.css" />
   <link rel="stylesheet" href="/chunithm/lib/chunithm.css?var=3.6.3" />
+  <script src="/common/js/jquery-3.1.1.min.js" ></script>
   <script async src="//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
   <script type="text/javascript">
   //Google-Analytics
@@ -171,17 +173,7 @@ else{
     sort_button_show();
     echo $BestRateDisp;
   }
-?>   
-    <p style="font-size:15px">スポンサーリンク</p>
-		<!-- Chunical -->
-		<ins class="adsbygoogle"
-		     style="display:block"
-		     data-ad-client="ca-pub-9431951784509175"
-		     data-ad-slot="7530328449"
-		     data-ad-format="auto"></ins>
-		<script>
-		(adsbygoogle = window.adsbygoogle || []).push({});
-		</script>
+?>  
 		<div style="margin-top:15px;font-size:15px">CHUNITHM Rate Calculator by Akashi_SN <a href="https://twitter.com/Akashi_SN" class="twitter-follow-button" data-show-count="false">Follow @Akashi_SN</a></div>
   </body>  
 </html>

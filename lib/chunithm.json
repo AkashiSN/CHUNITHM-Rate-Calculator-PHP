@@ -178,18 +178,23 @@
         261,
         262,
         263,
+        264,
         267,
         270,
         273,
         276,
         278,
         279,
+        280,
         281,
+        282,
         286,
         287,
         288,
+        291,
         292,
         293,
+        296,
         298,
         299,
         300,
@@ -198,6 +203,9 @@
         307,
         308,
         309,
+        313,
+        314,
+        315,
         316,
         317,
         318,
@@ -208,6 +216,8 @@
         323,
         324,
         325,
+        326,
+        327,
         330,
         331,
         336
@@ -1048,7 +1058,7 @@
         "MusicName": "Gustav Battle",
         "Images": "img\/f63fab30a7b6f160.jpg",
         "BaseRate": {
-            "ex": 11.7,
+            "ex": 11.8,
             "mas": 13
         }
     },
@@ -1952,6 +1962,86 @@
         "Images": "img\/21dfcd3ae2c5c370.jpg",
         "BaseRate": {
             "mas": 12.3
+        }
+    },
+    "327": {
+        "MusicID": 327,
+        "MusicName": "JULIAN",
+        "Images": "img\/17c363c1fd2fa7d1.jpg",
+        "BaseRate": {
+            "mas": 12.7
+        }
+    },
+    "326": {
+        "MusicID": 326,
+        "MusicName": "Sakura Fubuki",
+        "Images": "img\/fd01fc38e38042e3.jpg",
+        "BaseRate": {
+            "mas": 12.5
+        }
+    },
+    "291": {
+        "MusicID": 291,
+        "MusicName": "Kronos",
+        "Images": "img\/9c5e71b3588dbc70.jpg",
+        "BaseRate": {
+            "mas": 12.4
+        }
+    },
+    "264": {
+        "MusicID": 264,
+        "MusicName": "My Dearest Song",
+        "Images": "img\/f44c6b628889f8ec.jpg",
+        "BaseRate": {
+            "mas": 12.2
+        }
+    },
+    "315": {
+        "MusicID": 315,
+        "MusicName": "オラシオン",
+        "Images": "img\/fa70cc77f963cdba.jpg",
+        "BaseRate": {
+            "mas": 11.3
+        }
+    },
+    "313": {
+        "MusicID": 313,
+        "MusicName": "ひだまりデイズ",
+        "Images": "img\/5ac018495d6f01a5.jpg",
+        "BaseRate": {
+            "mas": 11.4
+        }
+    },
+    "296": {
+        "MusicID": 296,
+        "MusicName": "かくしん的☆めたまるふぉ～ぜっ!",
+        "Images": "img\/76535cf4c728f2af.jpg",
+        "BaseRate": {
+            "mas": 12.1
+        }
+    },
+    "314": {
+        "MusicID": 314,
+        "MusicName": "This game",
+        "Images": "img\/5fb63e847a057938.jpg",
+        "BaseRate": {
+            "mas": 11.8
+        }
+    },
+    "282": {
+        "MusicID": 282,
+        "MusicName": "アカツキアライヴァル",
+        "Images": "img\/4a51a3a5dc24c579.jpg",
+        "BaseRate": {
+            "mas": 11.7
+        }
+    },
+    "280": {
+        "MusicID": 280,
+        "MusicName": "リモコン",
+        "Images": "img\/f78d1487c34efa6e.jpg",
+        "BaseRate": {
+            "mas": 11.8
         }
     }
 }

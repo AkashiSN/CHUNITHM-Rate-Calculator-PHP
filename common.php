@@ -721,14 +721,14 @@ function RecentRateDisp($UserData){
     </div>
   </div>
   <p style="font-size:15px">スポンサーリンク</p>
-    <!-- Chunical.5 -->
-    <ins class="adsbygoogle"
-      style="display:inline-block;width:320px;height:100px"
-      data-ad-client="ca-pub-9431951784509175"
-      data-ad-slot="4179909243"></ins>
-    <script>
-      (adsbygoogle = window.adsbygoogle || []).push({});
-    </script>
+  <!-- Chunical.5 -->
+  <ins class="adsbygoogle"
+       style="display:inline-block;width:320px;height:100px"
+       data-ad-client="ca-pub-9431951784509175"
+       data-ad-slot="4179909243"></ins>
+  <script>
+  (adsbygoogle = window.adsbygoogle || []).push({});
+  </script>
   <div class="frame01 w460">
     <div class="frame01_inside w450">
       <h2 style="margin-top:10px;" id="page_title">RECENT枠外</h2>
@@ -852,11 +852,11 @@ function Tools($tools){
               <div class="narrow_block clearfix">
                 <div id="simue">
                   <span>譜面定数</span>
-                  <input id="baserate" type="text" style="width:70px" value="'.$baserate.'"/>
+                  <input id="baserate" type="text" style="width:20%" value="'.$baserate.'"/>
                   <span>の曲をスコア</span>
-                  <input id="score" type="text" style="width:90px" value="'.$score.'"/>
+                  <input id="score" type="text" style="width:20%" value="'.$score.'"/>
                   <br>
-                  <p>でRECENT枠を埋めたとき<button class="buttons" style="margin-left:10px" onClick="get();">計算</button></p>
+                  <p>でRECENT枠を埋めたとき<button class="buttons" style="font-size:13px" onClick="get();">計算</button></p>
                   <span>到達可能レート</span>
                   <input id="maxrate" type="text" style="width:70px" value="'.$maxrate.'">
                 </div>                
@@ -866,7 +866,26 @@ function Tools($tools){
         </div>
       </div>
     </div>
-  </div>';
+  </div>
+  <script type="text/javascript" charset="utf-8" >
+      $(function() {
+        if (navigator.userAgent.indexOf(\'iPhone\') > 0 || navigator.userAgent.indexOf(\'iPad\') > 0 || navigator.userAgent.indexOf(\'iPod\') > 0 || navigator.userAgent.indexOf(\'Android\') > 0) {
+          $("#ad").hide()
+        }
+      });
+    </script>
+    <div id="ad">      
+      <p style="font-size:15px">スポンサーリンク</p>
+      <!-- Chunical -->
+      <ins class="adsbygoogle"
+           style="display:block"
+           data-ad-client="ca-pub-9431951784509175"
+           data-ad-slot="7530328449"
+           data-ad-format="auto"></ins>
+      <script>
+      (adsbygoogle = window.adsbygoogle || []).push({});
+      </script>
+    </div>';
   return $tool;
 }
 
@@ -924,8 +943,7 @@ function graph($UserData) {
     $RecentRate .= ']';
   }
   $graph = '
-<div id="Graph" style="margin-bottom:10px;width:650px"></div>
-<script src="/common/js/jquery-3.1.1.min.js" ></script>
+<div id="Graph" style="margin-bottom:10px;width:600px"></div>
 <script src="https://code.highcharts.com/highcharts.js"></script>
 <script src="https://code.highcharts.com/modules/exporting.js"></script>
 <script type="text/javascript">
@@ -975,6 +993,16 @@ function graph($UserData) {
         }]
     });
   });
+</script>
+<p style="font-size:15px">スポンサーリンク</p>
+<!-- Chunical -->
+<ins class="adsbygoogle"
+  style="display:block"
+  data-ad-client="ca-pub-9431951784509175"
+  data-ad-slot="7530328449"
+  data-ad-format="auto"></ins>
+<script>
+  (adsbygoogle = window.adsbygoogle || []).push({});
 </script>';
 
     return $graph;

@@ -4,6 +4,9 @@ html{height:100%;margin:0 auto;padding:0;display:table;}
 }
 @media screen and (max-width:480px){#rank img{height:14px;margin:0px 0px 0px 0;}
 }
+body {
+    -webkit-text-size-adjust: 100%;
+}
 .buttons{font-size:16px;font-family:Arial;font-weight:bold;-moz-border-radius:8px;-webkit-border-radius:8px;border-radius:8px;border:1px solid #dcdcdc;padding:10px 20px;text-decoration:none;background:-moz-linear-gradient(center top, #fffaff 23%, #dfdfdf 82%);background:-ms-linear-gradient(top, #fffaff 23%, #dfdfdf 82%);filter:progid:DXImageTransform.Microsoft.gradient(startColorstr='#fffaff', endColorstr='#dfdfdf');background:-webkit-gradient(linear, left top, left bottom, color-stop(23%, #fffaff), color-stop(82%, #dfdfdf));background-color:#fffaff;color:#736e73;display:inline-block;text-shadow:1px 1px 0px #ffffff;-webkit-box-shadow:inset 1px 1px 0px 0px #ffffff;-moz-box-shadow:inset 1px 1px 0px 0px #ffffff;box-shadow:inset 1px 1px 0px 0px #ffffff;margin-bottom:10px;}.buttons:hover{background:-moz-linear-gradient(center top, #dfdfdf 23%, #fffaff 82%);background:-ms-linear-gradient(top, #dfdfdf 23%, #fffaff 82%);filter:progid:DXImageTransform.Microsoft.gradient(startColorstr='#dfdfdf', endColorstr='#fffaff');background:-webkit-gradient(linear, left top, left bottom, color-stop(23%, #dfdfdf), color-stop(82%, #fffaff));background-color:#dfdfdf;}.buttons:active{position:relative;top:1px;}
 .more {
 	font-weight: bold;
